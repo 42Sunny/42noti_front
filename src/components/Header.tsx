@@ -11,7 +11,7 @@ const StyledHeader = styled.header`
   margin-bottom: 10px;
 `;
 
-const MainHeader = () => {
+const Header = () => {
   return (
     <>
       <StyledHeader>42 Meetup</StyledHeader>
@@ -19,4 +19,4 @@ const MainHeader = () => {
   );
 };
 
-export default MainHeader;
+export default Header;

@@ -1,4 +1,3 @@
-import Header from '../components/Header';
 import Input from '../components/Input';
 import SubHeader from '../components/SubHeader';
 import Footer from '../components/Footer';

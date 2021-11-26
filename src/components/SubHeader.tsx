@@ -21,7 +21,7 @@ const SubHeader = () => {
     <>
       <StyledHeader>
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width='12' height='52'>
-        <polygon points="0,26 20,10 20,42" fill="none" stroke-width="2" stroke="black"/>
+        <polygon points="0,26 20,10 20,42" fill="none" strokeWidth="2" stroke="black"/>
       </svg>
         <h1>42 Meetup</h1>
       </StyledHeader>

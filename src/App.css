@@ -69,6 +69,7 @@ figure,
 figcaption,
 footer,
 header,
+main,
 hgroup,
 menu,
 nav,
@@ -86,6 +87,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 article,
 aside,
@@ -116,27 +118,39 @@ q:after {
   content: none;
 }
 /* App */
-
-body {
-  background-color: #e5e5e5;
+:root {
+  --white: rgb(255, 255, 255);
+  --black: rgb(46, 47, 51);
+  --lightgreen: rgb(92, 235, 182);
+  --green: rgb(74, 226, 170);
+  --lightred: rgb(251, 138, 146);
+  --red: rgb(242, 119, 126);
+  --orange: rgb(255, 165, 92);
+  --skyblue: rgb(88, 210, 231);
+  --lightgray: rgb(187, 189, 202);
+  --gray: rgb(124, 126, 139);
+  --darkgray: rgb(95, 96, 109);
+  --snow: rgb(244, 244, 245);
+  --darksnow: rgb(232, 232, 236);
 }
 body,
 input,
 button {
   font-family: 'Helvetica Neue', Helvetica, Arial, 'Apple SD Gothic Neo',
     'Noto Sans CJK KR', 'Malgun Gothic', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
 }
-
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 auto;
-  padding: 18px;
+  color: var(--black);
+  background-color: var(--snow);
   box-sizing: border-box;
   width: 100%;
   min-width: 320px;
-  max-width: 480px;
-  height: 100vh;
-  background-color: #e5e5e5;
+  max-width: 640px;
+  min-height: 100vh;
+  height: 100%;
 }

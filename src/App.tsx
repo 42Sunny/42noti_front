@@ -1,10 +1,15 @@
 import './App.css';
-import Main from './screen/main';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
-    <div className="wrraper">
-      <Main />
+    <div className="wrapper">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

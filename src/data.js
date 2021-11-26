@@ -3,7 +3,7 @@ export const data = [
     id: '2021111801',
     date: '2021-11-25T15:00',
     title: '그로스해킹 101 BY 마켓핏랩 차경묵 테크리더',
-    keyword: ['데이터 마케팅', 'Growth hacking'],
+    keyword: ['#데이터 마케팅', '#Growth hacking'],
     location: '1층 오픈라운지',
     limit: 42,
     attendee: 12,
@@ -68,6 +68,39 @@ export const data = [
   {
     id: '2021122401',
     date: '2021-12-24T15:00',
+    title: '[멘토특강][오프라인]함께하는 멘토특강',
+    keyword: [],
+    location: '새롬관 지하1층',
+    limit: 30,
+    attendee: 30,
+    information:
+      'This session concerns only the following exams : Exam Rank 02, Exam Rank 03, Exam Rank 04, Exam Rank 05, and Exam Rank 06.',
+  },
+  {
+    id: '2021121401',
+    date: '2021-12-14T15:00',
+    title: '[멘토특강][오프라인]함께하는 멘토특강',
+    keyword: [],
+    location: '새롬관 지하1층',
+    limit: 30,
+    attendee: 30,
+    information:
+      'This session concerns only the following exams : Exam Rank 02, Exam Rank 03, Exam Rank 04, Exam Rank 05, and Exam Rank 06.',
+  },
+  {
+    id: '2021121501',
+    date: '2021-12-15T15:00',
+    title: '[전문가특강][오프라인]에꼴42 교육생과 프로젝트경험2',
+    keyword: [],
+    location: '새롬관 지하1층',
+    limit: 30,
+    attendee: 30,
+    information:
+      'This session concerns only the following exams : Exam Rank 02, Exam Rank 03, Exam Rank 04, Exam Rank 05, and Exam Rank 06.',
+  },
+  {
+    id: '2021120701',
+    date: '2021-12-07T15:00',
     title: '[멘토특강][오프라인]함께하는 멘토특강',
     keyword: [],
     location: '새롬관 지하1층',

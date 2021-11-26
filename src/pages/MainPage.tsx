@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Header } from '../component/Header';
+import { Header } from '../components/Header';
 import { data } from '../data';
 
 type Events = {
@@ -17,7 +17,7 @@ type Events = {
   information: string;
 };
 
-function Main() {
+function MainPage() {
   const [events, setEvents] = useState<Events[]>([]);
   const week = [
     '일요일',
@@ -63,7 +63,7 @@ function Main() {
 
           return (
             <>
-              <YearMonth>{yearMonth}</YearMonth>
+              <YearMonth key={yearMonth}>{yearMonth}</YearMonth>
               <Card key={event.id}>
                 <CardDate>
                   <TextDate>{event.date.split('-')[2].split('T')[0]}</TextDate>
@@ -169,4 +169,4 @@ const Icon = styled.div`
   margin-right: 5px;
 `;
 
-export default Main;
+export default MainPage;

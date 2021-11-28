@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import styled from 'styled-components';
 
 const EventDetail = () => {
-
   return (
     <>
       <SubHeader />
@@ -19,9 +18,12 @@ const EventDetail = () => {
         <StyledSection>
           <StyledArticle>
             <h2>infomation</h2>
-            <p>[이번 멘토특강은 온라인으로 진행됩니다]
-    마켓핏랩 정성영(Growth Director), 변성철(Business Analyst)님과 함께 요즘 웹/앱 서비스들을 데이터로 성장시키는 방법들을 소개합니다. 노트북이나 태블릿을 준비해 주세요!
-    링크주소: https://bit.ly/3x7RRyR</p>
+            <p>
+              [이번 멘토특강은 온라인으로 진행됩니다] 마켓핏랩 정성영(Growth
+              Director), 변성철(Business Analyst)님과 함께 요즘 웹/앱 서비스들을
+              데이터로 성장시키는 방법들을 소개합니다. 노트북이나 태블릿을
+              준비해 주세요! 링크주소: https://bit.ly/3x7RRyR
+            </p>
             <span>#데이터 마케팅</span>
             <span>#그로스 해킹</span>
           </StyledArticle>
@@ -33,7 +35,6 @@ const EventDetail = () => {
 };
 
 export default EventDetail;
-
 
 const StyledDiv = styled.div`
   // main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0
@@ -48,9 +49,9 @@ const StyledMain = styled.main`
   line-height: 1.6rem;
   font-size: 1rem;
   span {
-    color: var(--black  );
+    color: var(--black);
     font-weight: 700;
-  } 
+  }
   h1 {
     margin: 2px 0 14px;
     font-size: 1.5rem;

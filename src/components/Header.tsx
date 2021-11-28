@@ -8,7 +8,7 @@ const StyledHeader = styled.header`
   font-weight: 600;
   text-align: center;
   border-bottom: 1px solid var(--darksnow);
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
 `;
 
 const Header = () => {

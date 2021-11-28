@@ -3,10 +3,13 @@ import styled from 'styled-components';
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Header from '../components/Header';
-import { data } from '../data';
 
-type Events = {
+import { Card } from '../components/EventCard';
+import Header from '../components/Header';
+
+import { getDummy } from '../api/api';
+
+export type Events = {
   id: string;
   date: string;
   title: string;
@@ -41,19 +44,26 @@ function MainPage() {
     });
   };
   useEffect(() => {
-    setEvents(filterPastEvents(data));
+    const getData = async () => {
+      const response = await getDummy();
+      const { data } = response.data;
+      data.sort((a: Events, b: Events) => {
+        return parseInt(a.id) - parseInt(b.id);
+      });
+      setEvents(filterPastEvents(data));
+    };
+
+    getData();
   }, []);
 
   return (
     <>
       <Header />
       <Content>
-        {events.map((event) => {
-          let time = event.date.split('T')[1];
+        {events.map((event, index) => {
+          let yearMonth = null;
           let eventDate = new Date(event.date);
-          let yearMonth = '';
-          const day = week[eventDate.getDay()];
-          console.log(eventDate.getMonth());
+
           if (months[eventDate.getMonth()] === 0) {
             yearMonth = `${eventDate.getFullYear()}년${
               eventDate.getMonth() + 1
@@ -62,24 +72,20 @@ function MainPage() {
           }
 
           return (
-            <>
-              <YearMonth key={yearMonth}>{yearMonth}</YearMonth>
-              <Card key={event.id}>
-                <CardDate>
-                  <TextDate>{event.date.split('-')[2].split('T')[0]}</TextDate>
-                  <TextDay>{day}</TextDay>
-                </CardDate>
-                <CardInfo>
-                  <TextTitle>{event.title}</TextTitle>
-                  <EventInfo>
-                    <Icon />
-                    <TextTime> {time}</TextTime>
-                    <Icon />
-                    <TextLocation>{event.location}</TextLocation>
-                  </EventInfo>
-                </CardInfo>
-              </Card>
-            </>
+            <StyledEvents key={index + event.id}>
+              {yearMonth && (
+                <StyledSubTilte key={index}>{yearMonth}</StyledSubTilte>
+              )}
+              <Card
+                week={week}
+                eventDate={eventDate}
+                id={event.id}
+                date={event.date}
+                title={event.title}
+                keyword={event.keyword}
+                location={event.location}
+              />
+            </StyledEvents>
           );
         })}
       </Content>
@@ -95,78 +101,14 @@ const Content = styled.div`
   padding: 22px;
 `;
 
-const YearMonth = styled.div`
+const StyledEvents = styled.div`
+  width: 100%;
+`;
+
+const StyledSubTilte = styled.h1`
   width: 100%;
   font-size: 14px;
   margin-bottom: 10px;
-`;
-
-const Card = styled.div`
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-
-  background: #fff;
-  margin-bottom: 14px;
-  border-radius: 10px;
-  padding: 17px 10px;
-`;
-
-const CardDate = styled.div`
-  width: 20%;
-  max-width: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  margin-right: 5px;
-`;
-const TextDate = styled.div`
-  font-weight: 300;
-  font-size: 32px;
-  line-height: 1;
-`;
-
-const TextDay = styled.div`
-  font-size: 12px;
-  line-height: 1.5;
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const TextTitle = styled.div`
-  font-weight: 700;
-  margin-bottom: 12px;
-`;
-
-const TextTime = styled.div`
-  font-size: 14px;
-  line-height: 18px;
-  color: #c4c4c4;
-  margin-right: 15px;
-`;
-const TextLocation = styled.div`
-  font-size: 14px;
-  line-height: 18px;
-  color: #c4c4c4;
-`;
-
-const EventInfo = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Icon = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #c4c4c4;
-  margin-right: 5px;
 `;
 
 export default MainPage;

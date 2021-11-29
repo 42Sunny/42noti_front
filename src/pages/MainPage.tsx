@@ -1,13 +1,12 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 import { Card } from '../components/EventCard';
 import Header from '../components/Header';
 
 import { getDummy } from '../api/api';
+import { datas } from '../data';
 
 export type Events = {
   id: string;
@@ -20,7 +19,7 @@ export type Events = {
   information: string;
 };
 
-function MainPage() {
+const MainPage = () => {
   const [events, setEvents] = useState<Events[]>([]);
   const week = [
     '일요일',
@@ -43,6 +42,7 @@ function MainPage() {
       return new Date(date).getTime() >= today.getTime();
     });
   };
+
   useEffect(() => {
     const getData = async () => {
       const response = await getDummy();
@@ -53,7 +53,8 @@ function MainPage() {
       setEvents(filterPastEvents(data));
     };
 
-    getData();
+    //getData();
+    setEvents(datas);
   }, []);
 
   return (
@@ -76,22 +77,24 @@ function MainPage() {
               {yearMonth && (
                 <StyledSubTilte key={index}>{yearMonth}</StyledSubTilte>
               )}
-              <Card
-                week={week}
-                eventDate={eventDate}
-                id={event.id}
-                date={event.date}
-                title={event.title}
-                keyword={event.keyword}
-                location={event.location}
-              />
+              <Link to={`/detail/${event.id}`}>
+                <Card
+                  week={week}
+                  eventDate={eventDate}
+                  id={event.id}
+                  date={event.date}
+                  title={event.title}
+                  keyword={event.keyword}
+                  location={event.location}
+                />
+              </Link>
             </StyledEvents>
           );
         })}
       </Content>
     </>
   );
-}
+};
 
 const Content = styled.div`
   display: flex;

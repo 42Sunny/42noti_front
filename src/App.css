@@ -141,6 +141,11 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;
 }
+a {
+  text-decoration: none;
+  outline: none;
+  color: var(--black);
+}
 .wrapper {
   display: flex;
   flex-direction: column;

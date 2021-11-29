@@ -8,8 +8,8 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <Routes>
-          <Route path="/EventDetail" element={<EventDetail />} />
           <Route path="/" element={<MainPage />} />
+          <Route path="/detail/:eventId" element={<EventDetail />} />
         </Routes>
       </BrowserRouter>
     </div>

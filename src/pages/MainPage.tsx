@@ -1,10 +1,9 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useEffect } from 'react';
-import { useState } from 'react';
 import Header from '../components/Header';
-import { data } from '../data';
+import { datas } from '../data';
 
 type Events = {
   id: string;
@@ -17,7 +16,7 @@ type Events = {
   information: string;
 };
 
-function MainPage() {
+const MainPage = () => {
   const [events, setEvents] = useState<Events[]>([]);
   const week = [
     '일요일',
@@ -40,8 +39,9 @@ function MainPage() {
       return new Date(date).getTime() >= today.getTime();
     });
   };
+
   useEffect(() => {
-    setEvents(filterPastEvents(data));
+    setEvents(filterPastEvents(datas));
   }, []);
 
   return (
@@ -70,7 +70,7 @@ function MainPage() {
                   <TextDay>{day}</TextDay>
                 </CardDate>
                 <CardInfo>
-                  <TextTitle>{event.title}</TextTitle>
+                  <Link to={`/detail/${event.id}`}><TextTitle>{event.title}</TextTitle></Link>
                   <EventInfo>
                     <Icon />
                     <TextTime> {time}</TextTime>

@@ -1,0 +1,24 @@
+
+name: To Bitbucket
+
+on:
+  push:
+    branches: [develop]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: unshallow
+        run: git fetch --unshallow
+
+      - name: setup
+        run: git remote add bitbucket https://dopamingo:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42meetup/meetup_front.git
+
+      - name: push bitbucket
+        run: git push bitbucket develop

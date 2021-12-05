@@ -2,39 +2,47 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Card } from '../components/EventCard';
+import { EventCard } from '../components/EventCard';
 import Header from '../components/Header';
 
 import { getDummy } from '../api/api';
-import { datas } from '../data';
+//import { SubTitle } from '../components/SubTitle';
+import { UpdatedEventCard } from '../components/UpdatedEventCard';
+import { EventCategory } from '../components/EventCategory';
 
-export type Events = {
-  id: string;
-  date: string;
+export type Event = {
+  id: number;
   title: string;
-  keyword: Array<string>;
+  category: string;
+  description: string;
   location: string;
-  limit: number;
-  attendee: number;
-  information: string;
+  currentSubscribers: number;
+  maxSubscribers: number;
+  keywords: Array<string>;
+  tags: Array<string>;
+  endAt: string;
+  beginAt: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
-const MainPage = () => {
-  const [events, setEvents] = useState<Events[]>([]);
-  const week = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
-  const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const week = [
+  '일요일',
+  '월요일',
+  '화요일',
+  '수요일',
+  '목요일',
+  '금요일',
+  '토요일',
+];
 
-  const filterPastEvents = (events: Array<Events>): any => {
+const MainPage = () => {
+  const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
+  const filterPastEvents = (events: Array<Event>): Array<Event> => {
     return events.filter((event) => {
-      const date = event.date.split('T')[0];
+      const date = event?.beginAt.split('T')[0];
       let now = new Date();
       let today = new Date(
         Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
@@ -43,27 +51,64 @@ const MainPage = () => {
     });
   };
 
+  const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
+    //오늘 만들어진 일정들
+    //오늘 업데이트 된 일정들
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    return events.filter((event) => {
+      return (
+        new Date(event.createdAt) < midnight &&
+        new Date(event.createdAt) < new Date(event.updatedAt)
+      );
+    });
+  };
+
   useEffect(() => {
     const getData = async () => {
       const response = await getDummy();
       const { data } = response.data;
-      data.sort((a: Events, b: Events) => {
-        return parseInt(a.id) - parseInt(b.id);
+
+      data.sort((a: Event, b: Event) => {
+        return a.id - b.id;
       });
-      setEvents(filterPastEvents(data));
+
+      const filteredEvents = filterPastEvents(data);
+      setAllEvents(filteredEvents);
+      setUpdatedEvents(filterUpdatedEvents(filteredEvents));
     };
 
-    //getData();
-    setEvents(datas);
+    getData();
   }, []);
-
   return (
     <>
       <Header />
       <Content>
-        {events.map((event, index) => {
+        <StyledContentTitleDiv>
+          <ContentTitle>업데이트 된 이벤트</ContentTitle>
+          <ContentTitleCount>{updatedEvents.length}</ContentTitleCount>
+        </StyledContentTitleDiv>
+        {updatedEvents.map((event: Event) => {
+          return (
+            <StyledEvents key={event.id}>
+              <Link to={`/detail/${event.id}`}>
+                <UpdatedEventCard
+                  title={event.title}
+                  updatedAt={event.updatedAt}
+                />
+              </Link>
+            </StyledEvents>
+          );
+        })}
+      </Content>
+      <Content>
+        <StyledContentTitleDiv>
+          <ContentTitle>다가오는 이벤트</ContentTitle>
+        </StyledContentTitleDiv>
+        <EventCategory />
+        {allEvents.map((event: Event) => {
           let yearMonth = null;
-          let eventDate = new Date(event.date);
+          let eventDate = new Date(event.beginAt);
 
           if (months[eventDate.getMonth()] === 0) {
             yearMonth = `${eventDate.getFullYear()}년${
@@ -73,19 +118,17 @@ const MainPage = () => {
           }
 
           return (
-            <StyledEvents key={index + event.id}>
-              {yearMonth && (
-                <StyledSubTilte key={index}>{yearMonth}</StyledSubTilte>
-              )}
+            <StyledEvents key={event.id}>
+              {yearMonth && <h2>{yearMonth}</h2>}
               <Link to={`/detail/${event.id}`}>
-                <Card
+                <EventCard
                   week={week}
-                  eventDate={eventDate}
                   id={event.id}
-                  date={event.date}
+                  beginAt={event.beginAt}
                   title={event.title}
-                  keyword={event.keyword}
+                  tags={event.tags}
                   location={event.location}
+                  category={event.category.toLowerCase()}
                 />
               </Link>
             </StyledEvents>
@@ -101,17 +144,37 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   background: #e5e5e5;
-  padding: 22px;
+  padding: 22px 22px 0 22px;
+  text-align: left;
+`;
+
+const StyledContentTitleDiv = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 14px;
+`;
+
+const ContentTitle = styled.h1`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  color: #000000;
+  text-align: left;
+  margin-right: 5px;
+`;
+const ContentTitleCount = styled(ContentTitle)`
+  color: #3ea2ff;
 `;
 
 const StyledEvents = styled.div`
   width: 100%;
-`;
-
-const StyledSubTilte = styled.h1`
-  width: 100%;
-  font-size: 14px;
-  margin-bottom: 10px;
+  h2 {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.3px;
+    color: #000000;
+    margin-bottom: 9px;
+  }
 `;
 
 export default MainPage;

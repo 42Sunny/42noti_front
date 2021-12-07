@@ -26,7 +26,7 @@ export const UpdatedEventCard = ({ title, updatedAt }: any): any => {
     <Card>
       <h1>{title}</h1>
       <StyledInfoSpan>
-        <p>{agoTime}</p>
+        <span>{agoTime}</span>
         {agoTime && <Icon />}
       </StyledInfoSpan>
     </Card>
@@ -38,33 +38,32 @@ const Card = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  background: #fff;
+  background: var(--white);
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px;
+  box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.02);
   :hover {
     cursor: pointer;
   }
-
   h1 {
-    font-size: 18px;
+    font-size: 1.1rem;
     line-height: 22px;
     letter-spacing: -0.3px;
-    color: #000000;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 6px;
   }
 `;
 
 const StyledInfoSpan = styled.span`
   display: flex;
   align-items: center;
-  p {
-    font-size: 12px;
-    line-height: 18px;
+  span {
+    font-size: 0.8rem;
+    font-weight: 500;
     margin-right: 5px;
     letter-spacing: -0.3px;
-    color: #3ea2ff;
+    color: var(--blue);
   }
 `;
 
@@ -74,6 +73,6 @@ const Icon = styled.div`
   max-width: 10px;
   max-height: 10px;
   border-radius: 50%;
-  background: #3ea2ff;
+  background: var(--blue);
   margin-right: 5px;
 `;

@@ -123,15 +123,18 @@ q:after {
   --black: rgb(46, 47, 51);
   --lightgreen: rgb(92, 235, 182);
   --green: rgb(74, 226, 170);
-  --lightred: rgb(251, 138, 146);
-  --red: rgb(242, 119, 126);
+  --lightred: rgb(255, 145, 165);
+  --red: rgb(255, 121, 145);
   --orange: rgb(255, 165, 92);
   --skyblue: rgb(88, 210, 231);
+  --mint: rgb(66, 218, 209);
+  --blue: rgb(63, 161, 253);
+  --purple: rgb(117, 131, 253);
   --lightgray: rgb(187, 189, 202);
   --gray: rgb(124, 126, 139);
   --darkgray: rgb(95, 96, 109);
-  --snow: rgb(244, 244, 245);
-  --darksnow: rgb(232, 232, 236);
+  --snow: rgb(244, 246, 248);
+  --darksnow: rgb(232, 234, 238);
 }
 body,
 input,

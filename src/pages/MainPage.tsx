@@ -2,44 +2,30 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { EventCard } from '../components/EventCard';
 import Header from '../components/Header';
-
-import { getDummy } from '../api/api';
-//import { SubTitle } from '../components/SubTitle';
+import { EventCard } from '../components/EventCard';
 import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
-export type Event = {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  location: string;
-  currentSubscribers: number;
-  maxSubscribers: number;
-  keywords: Array<string>;
-  tags: Array<string>;
-  endAt: string;
-  beginAt: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-const week = [
-  '일요일',
-  '월요일',
-  '화요일',
-  '수요일',
-  '목요일',
-  '금요일',
-  '토요일',
-];
+import { useEventsState, Event } from '../context/EventContext';
 
 const MainPage = () => {
+  const state = useEventsState();
+  const { data: events, loading } = state.events;
+
+  const week = [
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
+  ];
   const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
+
   const filterPastEvents = (events: Array<Event>): Array<Event> => {
     return events.filter((event) => {
       const date = event?.beginAt.split('T')[0];
@@ -65,21 +51,13 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const response = await getDummy();
-      const { data } = response.data;
+    const filteredEvents = filterPastEvents(events);
+    setAllEvents(filteredEvents);
+    const updatedEvent = filterUpdatedEvents(filteredEvents);
+    setUpdatedEvents(updatedEvent);
+  }, [events]);
 
-      data.sort((a: Event, b: Event) => {
-        return a.id - b.id;
-      });
-
-      const filteredEvents = filterPastEvents(data);
-      setAllEvents(filteredEvents);
-      setUpdatedEvents(filterUpdatedEvents(filteredEvents));
-    };
-
-    getData();
-  }, []);
+  if (loading) return <h1>loading...</h1>;
   return (
     <>
       <Header />

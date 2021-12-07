@@ -1,35 +1,54 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import SubHeader from '../components/SubHeader';
 import SubmitInput from '../components/SubmitInput';
 import Footer from '../components/Footer';
-import { datas } from '../data';
+
+import { useEventsState, useEventsDispatch, getEvent } from '../context/EventContext';
 
 const EventDetail: React.FC = () => {
-  const params: any = useParams();
-  const event: any = datas.find((data: any) => data.id === params.eventId);
-  console.log(event);
 
+  const state = useEventsState();
+  const dispatch = useEventsDispatch();
+
+  const { data: events } = state.events;
+  const { loading } = state.event;
+
+  const params: any = useParams();
+  const eventId = parseInt(params.eventId);
+  const event: any = events?.find((e) => e.id === eventId);
+
+  useEffect(() => {
+    if (event) {
+      return;
+    }
+    getEvent(dispatch, eventId);
+  }, [event]);
+
+
+  if (loading) return <h1>loading...</h1>;
+  if (!event) return null;
   return (
     <>
       <SubHeader />
       <StyledDiv>
         <StyledMain>
-          <span>{event.date}</span>
+          <span>{event.beginAt}</span>
           <h1>{event.title} </h1>
           <h3>📍{event.location}</h3>
           <h3>
-            👥 {event.attendee} / {event.limit}
+            👥 {event.currentSubscribers} / {event.maxSubscribers}
           </h3>
           <SubmitInput />
         </StyledMain>
         <StyledSection>
           <StyledArticle>
-            <h2>infomation</h2>
-            <p>{event.information}</p>
-            {event.keyword &&
-              event.keyword.map((tag: string) => {
+            <h2>상세 정보</h2>
+            <p>{event.description}</p>
+            {event.tags &&
+              event.tags.map((tag: string) => {
                 return <span>#{tag}</span>;
               })}
           </StyledArticle>

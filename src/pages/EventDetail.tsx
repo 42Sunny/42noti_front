@@ -12,6 +12,7 @@ import {
   useEventsState,
   useEventsDispatch,
   getEvent,
+  Event
 } from '../context/EventContext';
 
 const EventDetail: React.FC = () => {
@@ -22,15 +23,15 @@ const EventDetail: React.FC = () => {
   const { loading } = state.event;
 
   const params: any = useParams();
-  const eventId = parseInt(params.eventId);
-  const event: any = events?.find((e) => e.id === eventId);
+  const eventId: number = parseInt(params.eventId);
+  const event: Event | undefined = events?.find((e) => e.id === eventId);
 
   useEffect(() => {
     if (event) {
       return;
     }
     getEvent(dispatch, eventId);
-  }, [dispatch, eventId]);
+  }, [dispatch, eventId, event]);
 
   if (loading) return <h1>loading...</h1>;
   if (!event) return null;
@@ -67,7 +68,7 @@ const EventDetail: React.FC = () => {
   );
 };
 
-const colors: any = {
+const colors: { [index: string]: string } = {
   event: 'var(--purple)',
   exam: 'var(--gray)',
   conference: 'var(--blue)',
@@ -96,7 +97,7 @@ const StyledMain = styled.main`
   background: var(--white);
   line-height: 1.6rem;
   h1 {
-    margin: 9px 0 14px;
+    margin: 12px 0 16px;
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.9rem;

@@ -47,7 +47,7 @@ export const EventCard = ({
   );
 };
 
-const colors: any = {
+const colors: { [index: string]: string } = {
   event: 'var(--purple)',
   exam: 'var(--gray)',
   conference: 'var(--blue)',
@@ -56,7 +56,7 @@ const colors: any = {
   meetup: 'var(--mint)',
 };
 
-const Card = styled.div`
+const Card = styled.article`
   display: flex;
   align-items: flex-start;
   width: 100%;
@@ -64,7 +64,7 @@ const Card = styled.div`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px 16px;
-  box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.02);
+  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }

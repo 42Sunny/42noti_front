@@ -33,7 +33,7 @@ export const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   );
 };
 
-const Card = styled.div`
+const Card = styled.article`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

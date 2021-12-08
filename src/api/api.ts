@@ -10,3 +10,7 @@ const instance = axios.create({
 export const getDummy = async () => {
   return await instance.get('/dummy');
 };
+
+export const getDummyDetail = async (eventId: number) => {
+  return await instance.get(`/dummy/event/${eventId}`);
+};

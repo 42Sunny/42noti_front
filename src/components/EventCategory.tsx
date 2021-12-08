@@ -13,18 +13,16 @@ export const EventCategory = () => {
 };
 
 const StyledCategoryDiv = styled.div`
-  display: flex;
-  padding: 5px 10px;
+  width: 100%;
+  margin-bottom: 10px;
 `;
 const Button = styled.button`
+  display: inline-block;
   border-style: none;
-  width: 100%;
-  height: 31px;
-  left: 19px;
-  top: 351px;
-  background: #3ea2ff;
+  height: 32px;
+  background: var(--darksnow);
   border-radius: 20px;
-  color: #fff;
-  margin-right: 9px;
-  padding: 6px 10px;
+  color: var(--black);
+  margin: 0 10px 8px 0;
+  padding: 6px 12px;
 `;

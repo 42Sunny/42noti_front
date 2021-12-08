@@ -1,15 +1,5 @@
 import styled from 'styled-components';
 
-const colors: any = {
-  event: '#6976EF',
-  exam: '#42DAD1',
-  conference: '#50BBF8',
-  rush: '#FF7991',
-  hackaton: '#7583FD',
-  meetup: ' #50BBF8',
-  kickoff: ' #50BBF8',
-};
-
 export const EventCard = ({
   id,
   beginAt,
@@ -29,13 +19,12 @@ export const EventCard = ({
     : '';
   return (
     <Card>
-      <StyledCardDateDiv>
-        <StyledCardRectangle color={colors[category]} />
+      <StyledDateDiv>
+        <StyledCategoryBar color={colors[category]} />
         <h1>{month}</h1>
         <h3>{day}</h3>
-      </StyledCardDateDiv>
-
-      <StyledCardInfoDiv>
+      </StyledDateDiv>
+      <StyledInfoDiv>
         <h1>{title}</h1>
         <span>
           {tags &&
@@ -44,97 +33,116 @@ export const EventCard = ({
             ))}
         </span>
         <StyledEventInfoDiv>
-          <StyledFlexDiv>
+          <div>
             <Icon />
-            <p> {time}</p>
-          </StyledFlexDiv>
-          <StyledFlexDiv>
+            <span> {time}</span>
+          </div>
+          <div>
             <Icon />
-            <p>{location}</p>
-          </StyledFlexDiv>
+            <span>{location}</span>
+          </div>
         </StyledEventInfoDiv>
-      </StyledCardInfoDiv>
+      </StyledInfoDiv>
     </Card>
   );
 };
 
-const Card = styled.div`
+const colors: { [index: string]: string } = {
+  event: 'var(--purple)',
+  exam: 'var(--gray)',
+  conference: 'var(--blue)',
+  rush: 'var(--orange)',
+  hackaton: 'var(--red)',
+  meetup: 'var(--mint)',
+};
+
+const Card = styled.article`
   display: flex;
   align-items: flex-start;
   width: 100%;
-  background: #fff;
+  background: var(--white);
   margin-bottom: 14px;
   border-radius: 10px;
-  padding: 17px 10px;
+  padding: 18px 16px;
+  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }
 `;
 
-const StyledCardDateDiv = styled.div`
-  position: relative;
-  width: 20%;
-  max-width: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  margin-right: 17px;
-  h1 {
-    font-weight: normal;
-    font-size: 32px;
-    line-height: 1;
-  }
-  h3 {
-    font-size: 12px;
-    line-height: 1.5;
-  }
-`;
-
-const StyledCardRectangle = styled.span`
+const StyledCategoryBar = styled.span`
   position: absolute;
   width: 4px;
-  height: 45px;
-  left: -10px;
+  height: 46px;
+  left: -16px;
   top: 0;
-  background: ${(props) => props.color || 'black'};
-
+  background: ${(props) => props.color || 'var(--lightgray)'};
   border-radius: 10px;
   transform: rotate(-180deg);
 `;
 
-const StyledCardInfoDiv = styled.div`
+const StyledDateDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 18%;
+  max-width: 36px;
+  margin-right: 16px;
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 400;
+    line-height: 0.9;
+    margin-bottom: 3px;
+  }
+  h3 {
+    font-size: 0.8rem;
+  }
+`;
+
+const StyledInfoDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   h1 {
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  p {
-    font-size: 14px;
-    line-height: 18px;
-    color: #c4c4c4;
-  }
-  p:nth-child(even) {
-    margin-right: 15px;
+    margin-bottom: 4px;
   }
   span {
-    font-size: 12px;
+    font-size: 0.85rem;
     line-height: 18px;
-    margin-right: 10px;
-    color: #000000;
+    margin-right: 8px;
+    color: var(--gray);
+    margin-bottom: 2px;
   }
 `;
 
 const StyledEventInfoDiv = styled.div`
   display: flex;
   align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+    span {
+      display: inline-block;
+      font-size: 0.85rem;
+      line-height: 18px;
+      color: var(--gray);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    span:nth-child(even) {
+      margin-right: 15px;
+    }
+  }
 `;
 
-const Icon = styled.div`
+const Icon = styled.span`
+  display: inline-block;
   min-width: 12px;
   min-height: 12px;
   max-width: 12px;
@@ -142,17 +150,4 @@ const Icon = styled.div`
   border-radius: 50%;
   background: #c4c4c4;
   margin-right: 5px;
-`;
-
-const StyledFlexDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-  }
 `;

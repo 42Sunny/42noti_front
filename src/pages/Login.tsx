@@ -8,7 +8,7 @@ const Login = () => {
   };
 
   return (
-    <Main>
+    <StyledMain>
       <img src={logo} alt="logo" />
       <h1>42 MEETUP</h1>
       <p>
@@ -17,11 +17,11 @@ const Login = () => {
         무슨 일이 일어나고 있을까요?
       </p>
       <Button onClick={handleLogin}>로그인하고 둘러보기</Button>
-    </Main>
+    </StyledMain>
   );
 };
 
-const Main = styled.main`
+const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;

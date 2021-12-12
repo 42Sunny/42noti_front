@@ -10,11 +10,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-  return (
-    <>
-      <StyledFooter>v.1 copyright 42</StyledFooter>
-    </>
-  );
+  return <StyledFooter>v.1 copyright 42</StyledFooter>;
 };
 
 export default Footer;

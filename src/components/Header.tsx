@@ -22,16 +22,14 @@ const StyledHeader = styled.header`
 
 const Header = () => {
   return (
-    <>
-      <StyledHeader>
-        <Link to="/">
-          <h1>42 MEETUP</h1>
-        </Link>
-        <Link to="/my">
-          <span>내 이벤트</span>
-        </Link>
-      </StyledHeader>
-    </>
+    <StyledHeader>
+      <Link to="/">
+        <h1>42 MEETUP</h1>
+      </Link>
+      <Link to="/my">
+        <span>내 이벤트</span>
+      </Link>
+    </StyledHeader>
   );
 };
 

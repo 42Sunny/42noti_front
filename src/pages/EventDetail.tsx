@@ -13,7 +13,7 @@ import {
   useEventsDispatch,
   getEvent,
   Event
-} from '../context/EventContext';
+} from '../contexts/EventContext';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();

@@ -7,7 +7,7 @@ import { EventCard } from '../components/EventCard';
 import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
-import { useEventsState, Event } from '../context/EventContext';
+import { useEventsState, Event } from '../contexts/EventContext';
 
 const MainPage = () => {
   const state = useEventsState();

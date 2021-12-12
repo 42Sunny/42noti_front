@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/42-logo-white.png';
 import cluster from '../assets/seoul-cluster.jpg';
 
 const Login = () => {
-
   const handleLogin = () => {
     window.location.href = 'http://test-42meetup.herokuapp.com/login/42';
   };
@@ -12,7 +10,7 @@ const Login = () => {
   return (
     <>
       <Main>
-        <img src={logo} />
+        <img src={logo} alt="logo" />
         <h1>42 MEETUP</h1>
         <p>
           지금 42 SEOUL에서
@@ -31,10 +29,13 @@ const Main = styled.main`
   justify-content: center;
   width: 100%;
   height: 100vh;
-  padding: 32px;
-  background: center / cover no-repeat
-      linear-gradient(rgba(10, 10, 10, 0.96), rgba(10, 10, 10, 0.7)),
-    url(${cluster});
+  padding: 10%;
+  background: linear-gradient(rgba(10, 10, 10, 0.96), rgba(10, 10, 10, 0.7)),
+    url(${cluster}) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   color: var(--white);
   font-size: 1rem;
   h1 {
@@ -58,9 +59,8 @@ const Main = styled.main`
 
 const Button = styled.button`
   width: 100%;
-  max-width: 320px;
+  max-width: 330px;
   height: 48px;
-  margin: 0 auto;
   border-radius: 4px;
   background-color: var(--blue);
   color: var(--white);

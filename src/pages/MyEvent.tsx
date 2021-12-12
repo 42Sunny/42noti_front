@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import styled from 'styled-components';
 import SubHeader from '../components/SubHeader';
 
 const MyEvent = () => {

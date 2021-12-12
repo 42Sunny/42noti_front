@@ -3,6 +3,7 @@ import { EventProvider } from './context/EventContext';
 import EventDetail from './pages/EventDetail';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';
+import MyEvent from './pages/MyEvent';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/my" element={<MyEvent />} />
             <Route path="/detail/:eventId" element={<EventDetail />} />
           </Routes>
         </EventProvider>

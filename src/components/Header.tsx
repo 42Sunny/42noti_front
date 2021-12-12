@@ -27,7 +27,9 @@ const Header = () => {
         <Link to="/">
           <h1>42 MEETUP</h1>
         </Link>
-        <a>내 이벤트</a>
+        <Link to="/my">
+          <a>내 이벤트</a>
+        </Link>
       </StyledHeader>
     </>
   );

@@ -4,18 +4,22 @@ import logo from '../assets/42-logo-white.png';
 import cluster from '../assets/seoul-cluster.jpg';
 
 const Login = () => {
+
+  const handleLogin = () => {
+    window.location.href = 'http://test-42meetup.herokuapp.com/login/42';
+  };
+
   return (
     <>
       <Main>
         <img src={logo} />
         <h1>42 MEETUP</h1>
         <p>
-          지금 42 SEOUL에서<br />
+          지금 42 SEOUL에서
+          <br />
           무슨 일이 일어나고 있을까요?
         </p>
-        <Link to="/">
-          <Button>로그인하고 둘러보기</Button>
-        </Link>
+        <Button onClick={handleLogin}>로그인하고 둘러보기</Button>
       </Main>
     </>
   );

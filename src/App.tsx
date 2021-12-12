@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { EventProvider } from './context/EventContext';
+import { EventProvider } from './contexts/EventContext';
 import EventDetail from './pages/EventDetail';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';

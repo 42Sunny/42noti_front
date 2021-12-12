@@ -8,18 +8,16 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Main>
-        <img src={logo} alt="logo" />
-        <h1>42 MEETUP</h1>
-        <p>
-          지금 42 SEOUL에서
-          <br />
-          무슨 일이 일어나고 있을까요?
-        </p>
-        <Button onClick={handleLogin}>로그인하고 둘러보기</Button>
-      </Main>
-    </>
+    <Main>
+      <img src={logo} alt="logo" />
+      <h1>42 MEETUP</h1>
+      <p>
+        지금 42 SEOUL에서
+        <br />
+        무슨 일이 일어나고 있을까요?
+      </p>
+      <Button onClick={handleLogin}>로그인하고 둘러보기</Button>
+    </Main>
   );
 };
 

@@ -1,21 +1,35 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
   background-color: white;
   height: 52px;
-  line-height: 52px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-align: center;
   border-bottom: 1px solid var(--darksnow);
-  //margin-bottom: 10px;
+  padding: 0 16px;
+  h1 {
+    font-size: 1.2rem;
+    line-height: 52px;
+    font-weight: 600;
+  }
+  a {
+    font-size: 1rem;
+    line-height: 52px;
+    font-weight: 600;
+  }
 `;
 
 const Header = () => {
   return (
-    <>
-      <StyledHeader>42 Meetup</StyledHeader>
-    </>
+    <StyledHeader>
+      <Link to="/">
+        <h1>42 MEETUP</h1>
+      </Link>
+      <Link to="/my">
+        <span>내 이벤트</span>
+      </Link>
+    </StyledHeader>
   );
 };
 

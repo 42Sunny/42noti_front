@@ -129,7 +129,10 @@ export const getEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_EVENTS' });
   try {
     const response = await getDummy();
-    dispatch({ type: 'GET_EVENTS', data: response.data.data });
+    const sortedData = response.data.data.sort((a: Event, b: Event) => {
+      return a.id - b.id;
+    });
+    dispatch({ type: 'GET_EVENTS', data: sortedData });
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENTS', error: e });
   }

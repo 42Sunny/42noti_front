@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
-import SubHeader from '../components/SubHeader';
+import Header from '../components/Header';
 import SubmitInput from '../components/SubmitInput';
 import Footer from '../components/Footer';
 
@@ -13,7 +13,7 @@ import {
   useEventsDispatch,
   getEvent,
   Event
-} from '../context/EventContext';
+} from '../contexts/EventContext';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();
@@ -37,7 +37,7 @@ const EventDetail: React.FC = () => {
   if (!event) return null;
   return (
     <>
-      <SubHeader />
+      <Header />
       <StyledDiv>
         <StyledMain>
           <StyledCategoryBar color={colors[event.category]} />

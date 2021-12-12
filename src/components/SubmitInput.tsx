@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import React from 'react';
 
 const SubmitInput = () => {
-  const [email, setEmail] = useState<string | number | string[] | undefined>('');
+  const [email, setEmail] = useState<string | number | string[] | undefined>(
+    '',
+  );
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -15,17 +17,15 @@ const SubmitInput = () => {
   };
 
   return (
-    <>
-      <StyledInput>
-        <input
-          type="text"
-          placeholder="이메일 주소를 입력하세요"
-          onChange={inputChange}
-          value={email}
-        />
-        <button onClick={handleClick}>알림신청</button>
-      </StyledInput>
-    </>
+    <StyledInput>
+      <input
+        type="text"
+        placeholder="이메일 주소를 입력하세요"
+        onChange={inputChange}
+        value={email}
+      />
+      <button onClick={handleClick}>알림신청</button>
+    </StyledInput>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { marked } from 'marked';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
@@ -12,7 +13,7 @@ import {
   useEventsState,
   useEventsDispatch,
   getEvent,
-  Event
+  Event,
 } from '../contexts/EventContext';
 
 const EventDetail: React.FC = () => {
@@ -53,14 +54,18 @@ const EventDetail: React.FC = () => {
           <SubmitInput />
         </StyledMain>
         <StyledSection>
-          <StyledArticle>
+          <StyledDescription>
             <h2>상세 정보</h2>
-            <p>{event.description}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(event.description),
+              }}
+            />
             {event.tags &&
               event.tags.map((tag: string, index: number) => {
                 return <span key={event.id + index}>#{tag}</span>;
               })}
-          </StyledArticle>
+          </StyledDescription>
         </StyledSection>
       </StyledDiv>
       <Footer />
@@ -114,20 +119,17 @@ const StyledSection = styled.section`
   height: 100%px;
 `;
 
-const StyledArticle = styled.article`
+const StyledDescription = styled.article`
   padding: 18px;
   width: 100%;
   height: 100%px;
   background: var(--white);
   border-radius: 12px;
+  line-height: 1.5rem;
   h2 {
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 10px;
-  }
-  p {
     margin-bottom: 12px;
-    line-height: 1.6rem;
   }
   span {
     display: inline-block;
@@ -136,6 +138,19 @@ const StyledArticle = styled.article`
     margin-right: 8px;
     padding: 8px 12px;
     background: var(--darksnow);
+  }
+  div {
+    margin-bottom: 14px;
+  }
+  a {
+    color: var(--blue);
+  }
+  strong {
+    font-weight: 600;
+  }
+  ul {
+    list-style: inside;
+    margin: 10px;
   }
 `;
 

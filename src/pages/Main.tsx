@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 import { EventCard } from '../components/EventCard';
-import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
 import { useEventsState } from '../contexts/EventContext';
 import { handleKRDiffTime } from '../utils/time';
 import { Event } from '../types/event';
+import UpdatedEventCard from '../components/UpdatedEventCard';
 
 const MainPage = () => {
   const state = useEventsState();

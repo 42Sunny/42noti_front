@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { handleKRDiffTime } from '../utils/time';
 
-export const UpdatedEventCard = ({ title, updatedAt }: any): any => {
+const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   const [agoTime, setAgoTime] = useState('');
 
   const secondsTom = (seconds: Number) => {
@@ -87,3 +87,5 @@ const Icon = styled.div`
   background: var(--blue);
   margin-right: 5px;
 `;
+
+export default UpdatedEventCard;

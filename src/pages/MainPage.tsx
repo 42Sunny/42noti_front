@@ -8,6 +8,7 @@ import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
 import { useEventsState, Event } from '../contexts/EventContext';
+import { handleKRDiffTime } from '../utils/time';
 
 const MainPage = () => {
   const state = useEventsState();
@@ -29,32 +30,42 @@ const MainPage = () => {
   const filterPastEvents = (events: Array<Event>): Array<Event> => {
     return events.filter((event) => {
       const date = event?.beginAt.split('T')[0];
-      let now = new Date();
-      let today = new Date(
-        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
-      );
+      const today = new Date();
+      today.setHours(24, 0, 0, 0);
       return new Date(date).getTime() >= today.getTime();
     });
   };
 
   const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
-    //오늘 만들어진 일정들
     //오늘 업데이트 된 일정들
-    const midnight = new Date();
-    midnight.setHours(24, 0, 0, 0);
+    const lastMidnight = new Date();
+    const now = new Date();
+    lastMidnight.setHours(0, 0, 0, 0);
+
     return events.filter((event) => {
-      return (
-        new Date(event.createdAt) < midnight &&
-        new Date(event.createdAt) < new Date(event.updatedAt)
-      );
+      //const updated = new Date(event.updatedAt);
+      //const created = new Date(event.createdAt);
+      const updated = handleKRDiffTime(event.updatedAt);
+      const created = handleKRDiffTime(event.createdAt);
+      console.log(updated, event.updatedAt);
+
+      return updated > lastMidnight && updated < now && created < updated;
     });
   };
 
+  const sortEvents = (events: Event[]): Event[] => {
+    let sortedArray = events.sort((a, b) => {
+      if (a.beginAt < b.beginAt) return -1;
+      else return 1;
+    });
+    return sortedArray;
+  };
+
   useEffect(() => {
-    const filteredEvents = filterPastEvents(events);
+    const filteredEvents = sortEvents(filterPastEvents(events));
     setAllEvents(filteredEvents);
-    const updatedEvent = filterUpdatedEvents(filteredEvents);
-    setUpdatedEvents(updatedEvent);
+    const updatedEvents = sortEvents(filterUpdatedEvents(filteredEvents));
+    setUpdatedEvents(updatedEvents);
   }, [events]);
 
   if (loading) return <h1>loading...</h1>;

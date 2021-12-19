@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../consts/color';
 
 export const EventCard = ({
   id,
@@ -45,15 +46,6 @@ export const EventCard = ({
       </StyledInfoDiv>
     </Card>
   );
-};
-
-const colors: { [index: string]: string } = {
-  event: 'var(--purple)',
-  exam: 'var(--gray)',
-  conference: 'var(--blue)',
-  rush: 'var(--orange)',
-  hackaton: 'var(--red)',
-  meetup: 'var(--mint)',
 };
 
 const Card = styled.article`

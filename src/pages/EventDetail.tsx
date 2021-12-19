@@ -12,8 +12,9 @@ import {
   useEventsState,
   useEventsDispatch,
   getEvent,
-  Event
+  Event,
 } from '../contexts/EventContext';
+import { colors } from '../consts/color';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();
@@ -66,15 +67,6 @@ const EventDetail: React.FC = () => {
       <Footer />
     </>
   );
-};
-
-const colors: { [index: string]: string } = {
-  event: 'var(--purple)',
-  exam: 'var(--gray)',
-  conference: 'var(--blue)',
-  rush: 'var(--orange)',
-  hackaton: 'var(--red)',
-  meetup: 'var(--mint)',
 };
 
 const StyledDiv = styled.div`

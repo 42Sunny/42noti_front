@@ -1,22 +1,33 @@
 import { useCallback, useEffect } from 'react';
 import { useState } from 'react';
+
 import styled from 'styled-components';
+import { handleKRDiffTime } from '../utils/time';
 
 export const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   const [agoTime, setAgoTime] = useState('');
-  const secondsTohm = (seconds: any) => {
+
+  const secondsTom = (seconds: Number) => {
     const second = Number(seconds);
-    var h = Math.floor((second / (1000 * 60 * 60)) % 24);
     var m = Math.floor(second / (1000 * 60));
-    if (m < 60) setAgoTime(`${m}분 전`);
-    else setAgoTime(`${h}시간 전`);
+    return m;
   };
 
   const handleAgoTime = useCallback((updatedAt: string) => {
     const now = new Date();
-    const updated = new Date(updatedAt);
-    const timeDiff = now.getTime() - updated.getTime();
-    timeDiff > 0 && secondsTohm(timeDiff);
+    const updated = handleKRDiffTime(updatedAt);
+    const timeDiff = now.getTime() - updated.getTime(); //second 차이 반환
+    const diffMinutes = secondsTom(timeDiff);
+    const DAY1_MINUTES = 1440; //하루는 1440분
+    if (diffMinutes < DAY1_MINUTES) {
+      const hours = Math.floor(diffMinutes / 60);
+      const minuts = Math.floor(diffMinutes % 60);
+      if (hours >= 1) {
+        setAgoTime(`${hours}시간 전`);
+      } else if (hours < 1) {
+        setAgoTime(`${minuts}분 전`);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -42,7 +53,7 @@ const Card = styled.article`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px;
-  box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.02);
+  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }

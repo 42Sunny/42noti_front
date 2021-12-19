@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { marked } from 'marked';
+import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
 import Header from '../components/Header';
 import SubmitInput from '../components/SubmitInput';
 import Footer from '../components/Footer';
+// import DetailSkeleton from '../components/DetailSkeleton';
+import DetailSkeleton from '../components/DetailSkeleton'
 
 import {
   useEventsState,
@@ -34,8 +36,13 @@ const EventDetail: React.FC = () => {
     getEvent(dispatch, eventId);
   }, [dispatch, eventId, event]);
 
-  if (loading) return <h1>loading...</h1>;
-  if (!event) return null;
+  if (loading || !event) return (
+    <>
+      <Header />
+      <DetailSkeleton />
+      <Footer />
+    </>
+  )
   return (
     <>
       <Header />
@@ -105,6 +112,7 @@ const StyledMain = styled.main`
     margin: 12px 0 16px;
     font-size: 1.5rem;
     font-weight: 700;
+    letter-spacing: -0.3px;
     line-height: 1.9rem;
   }
   h3 {
@@ -135,8 +143,8 @@ const StyledDescription = styled.article`
     display: inline-block;
     font-size: 0.9rem;
     border-radius: 50px;
-    margin-right: 8px;
-    padding: 8px 12px;
+    margin: 0 8px 8px 0;
+    padding: 6px 12px;
     background: var(--darksnow);
   }
   div {

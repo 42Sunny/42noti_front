@@ -42,7 +42,7 @@ const Card = styled.article`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px;
-  box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.02);
+  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }

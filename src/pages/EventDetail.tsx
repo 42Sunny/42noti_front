@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { marked } from 'marked';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -7,6 +8,7 @@ import 'dayjs/locale/ko';
 import Header from '../components/Header';
 import SubmitInput from '../components/SubmitInput';
 import Footer from '../components/Footer';
+import DetailSkeleton from '../components/DetailSkeleton';
 
 import {
   useEventsState,
@@ -34,36 +36,42 @@ const EventDetail: React.FC = () => {
     getEvent(dispatch, eventId);
   }, [dispatch, eventId, event]);
 
-  if (loading) return <h1>loading...</h1>;
-  if (!event) return null;
   return (
     <>
       <Header />
-      <StyledDiv>
-        <StyledMain>
-          <StyledCategoryBar color={colors[event.category]} />
-          <h1>{event.title}</h1>
-          <h3>📍 {event.location}</h3>
-          <h3>
-            🕒 {dayjs(event.beginAt).format('YYYY년 MM월 DD일 HH:mm')} -{' '}
-            {dayjs(event.endAt).format('HH:mm')}
-          </h3>
-          <h3>
-            👥 {event.currentSubscribers} / {event.maxSubscribers}
-          </h3>
-          <SubmitInput />
-        </StyledMain>
-        <StyledSection>
-          <StyledArticle>
-            <h2>상세 정보</h2>
-            <p>{event.description}</p>
-            {event.tags &&
-              event.tags.map((tag: string, index: number) => {
-                return <span key={event.id + index}>#{tag}</span>;
-              })}
-          </StyledArticle>
-        </StyledSection>
-      </StyledDiv>
+      {loading || !event ? (
+        <DetailSkeleton />
+      ) : (
+        <StyledDiv>
+          <StyledMain>
+            <StyledCategoryBar color={colors[event.category]} />
+            <h1>{event.title}</h1>
+            <h3>📍 {event.location}</h3>
+            <h3>
+              🕒 {dayjs(event.beginAt).format('YYYY년 MM월 DD일 HH:mm')} -{' '}
+              {dayjs(event.endAt).format('HH:mm')}
+            </h3>
+            <h3>
+              👥 {event.currentSubscribers} / {event.maxSubscribers}
+            </h3>
+            <SubmitInput />
+          </StyledMain>
+          <StyledSection>
+            <StyledDescription>
+              <h2>상세 정보</h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(event.description),
+                }}
+              />
+              {event.tags &&
+                event.tags.map((tag: string, index: number) => {
+                  return <span key={event.id + index}>#{tag}</span>;
+                })}
+            </StyledDescription>
+          </StyledSection>
+        </StyledDiv>
+      )}
       <Footer />
     </>
   );
@@ -92,6 +100,7 @@ const StyledMain = styled.main`
     margin: 12px 0 16px;
     font-size: 1.5rem;
     font-weight: 700;
+    letter-spacing: -0.3px;
     line-height: 1.9rem;
   }
   h3 {
@@ -106,28 +115,38 @@ const StyledSection = styled.section`
   height: 100%px;
 `;
 
-const StyledArticle = styled.article`
+const StyledDescription = styled.article`
   padding: 18px;
   width: 100%;
   height: 100%px;
   background: var(--white);
   border-radius: 12px;
+  line-height: 1.5rem;
   h2 {
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 10px;
-  }
-  p {
     margin-bottom: 12px;
-    line-height: 1.6rem;
   }
   span {
     display: inline-block;
     font-size: 0.9rem;
     border-radius: 50px;
-    margin-right: 8px;
-    padding: 8px 12px;
+    margin: 0 8px 8px 0;
+    padding: 6px 12px;
     background: var(--darksnow);
+  }
+  div {
+    margin-bottom: 14px;
+  }
+  a {
+    color: var(--blue);
+  }
+  strong {
+    font-weight: 600;
+  }
+  ul {
+    list-style: inside;
+    margin: 10px;
   }
 `;
 

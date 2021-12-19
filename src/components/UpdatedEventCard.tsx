@@ -7,25 +7,26 @@ import { handleKRDiffTime } from '../utils/time';
 const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   const [agoTime, setAgoTime] = useState('');
 
-  const secondsTom = (seconds: Number) => {
+  const secondsToMin = (seconds: Number) => {
     const second = Number(seconds);
-    var m = Math.floor(second / (1000 * 60));
-    return m;
+    var minutes = Math.floor(second / (1000 * 60));
+    return minutes;
   };
 
   const handleAgoTime = useCallback((updatedAt: string) => {
     const now = new Date();
     const updated = handleKRDiffTime(updatedAt);
-    const timeDiff = now.getTime() - updated.getTime(); //second 차이 반환
-    const diffMinutes = secondsTom(timeDiff);
+    const minutesDiff = secondsToMin(now.getTime() - updated.getTime());
     const DAY1_MINUTES = 1440; //하루는 1440분
-    if (diffMinutes < DAY1_MINUTES) {
-      const hours = Math.floor(diffMinutes / 60);
-      const minuts = Math.floor(diffMinutes % 60);
+    if (minutesDiff < DAY1_MINUTES) {
+      const hours = Math.floor(minutesDiff / 60);
+      const minutes = Math.floor(minutesDiff % 60);
       if (hours >= 1) {
         setAgoTime(`${hours}시간 전`);
+      } else if (hours < 1 && minutes <= 1) {
+        setAgoTime('방금 전');
       } else if (hours < 1) {
-        setAgoTime(`${minuts}분 전`);
+        setAgoTime(`${minutes}분 전`);
       }
     }
   }, []);

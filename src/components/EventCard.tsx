@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../consts/color';
+import { colors } from '../constants/color';
 
 export const EventCard = ({
   id,

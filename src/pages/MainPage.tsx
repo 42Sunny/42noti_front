@@ -7,8 +7,9 @@ import { EventCard } from '../components/EventCard';
 import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
-import { useEventsState, Event } from '../contexts/EventContext';
+import { useEventsState } from '../contexts/EventContext';
 import { handleKRDiffTime } from '../utils/time';
+import { Event } from '../types/event';
 
 const MainPage = () => {
   const state = useEventsState();

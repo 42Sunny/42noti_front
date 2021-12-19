@@ -1,37 +1,29 @@
-import { createContext, useContext, useEffect, useReducer, Dispatch } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  Dispatch,
+} from 'react';
 import { getDummy, getDummyDetail } from '../api/api';
+import { Event } from '../types/event';
 
 type Props = {
   children?: React.ReactNode;
 };
 
-export type Event = {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  location: string;
-  currentSubscribers: number | null;
-  maxSubscribers: number | null;
-  tags: Array<string>;
-  endAt: string;
-  beginAt: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
 // 비동기 요청을 위한 타입
 type EventsState = {
   events: {
-    loading: boolean,
-    error: any,
-    data: Event[]
-  },
+    loading: boolean;
+    error: any;
+    data: Event[];
+  };
   event: {
-    loading: boolean,
-    error: any,
-    data: null | Event 
-  }
+    loading: boolean;
+    error: any;
+    data: null | Event;
+  };
 };
 
 // 액션들을 위한 타입
@@ -51,13 +43,13 @@ const initialState = {
   events: {
     loading: false,
     error: null,
-    data: []
+    data: [],
   },
   event: {
     loading: false,
     error: null,
     data: null,
-  }
+  },
 };
 
 // reducer useReducer 의 인자
@@ -68,8 +60,8 @@ const reducer = (state: EventsState, action: Action): EventsState => {
         ...state,
         events: {
           ...state.events,
-          loading: true
-        }
+          loading: true,
+        },
       };
     case 'GET_EVENTS':
       return {
@@ -78,7 +70,7 @@ const reducer = (state: EventsState, action: Action): EventsState => {
           ...state.events,
           data: action.data,
           loading: false,
-        }
+        },
       };
     case 'FAILURE_EVENTS':
       return {
@@ -87,34 +79,34 @@ const reducer = (state: EventsState, action: Action): EventsState => {
           ...state.events,
           error: action.error,
           loading: false,
-        }
+        },
       };
-      case 'LOADING_EVENT':
-        return {
-          ...state,
-          event: {
-            ...state.event,
-            loading: true
-          }
-        };
-      case 'GET_EVENT':
-        return {
-          ...state,
-          event: {
-            ...state.event,
-            data: action.data,
-            loading: false,
-          }
-        };
-      case 'FAILURE_EVENT':
-        return {
-          ...state,
-          event: {
-            ...state.event,
-            error: action.error,
-            loading: false,
-          }
-        };
+    case 'LOADING_EVENT':
+      return {
+        ...state,
+        event: {
+          ...state.event,
+          loading: true,
+        },
+      };
+    case 'GET_EVENT':
+      return {
+        ...state,
+        event: {
+          ...state.event,
+          data: action.data,
+          loading: false,
+        },
+      };
+    case 'FAILURE_EVENT':
+      return {
+        ...state,
+        event: {
+          ...state.event,
+          error: action.error,
+          loading: false,
+        },
+      };
     default:
       throw new Error('invalid action type');
   }
@@ -138,7 +130,10 @@ export const getEvents = async (dispatch: React.Dispatch<Action>) => {
   }
 };
 
-export const getEvent = async (dispatch: React.Dispatch<Action>, eventId: number) => {
+export const getEvent = async (
+  dispatch: React.Dispatch<Action>,
+  eventId: number,
+) => {
   dispatch({ type: 'LOADING_EVENT' });
   try {
     const response = await getDummyDetail(eventId);
@@ -168,7 +163,7 @@ export const EventProvider = ({ children }: Props) => {
 // state, dispatch 를 잘 쓰기위한 커스텀 hook
 export const useEventsState = () => {
   const EventsState = useContext(EventsStateContext);
-  if (!EventsState) throw new Error('Cannot find ClusterProvider'); 
+  if (!EventsState) throw new Error('Cannot find ClusterProvider');
   return EventsState;
 };
 

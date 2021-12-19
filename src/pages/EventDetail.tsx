@@ -14,9 +14,9 @@ import {
   useEventsState,
   useEventsDispatch,
   getEvent,
-  Event,
 } from '../contexts/EventContext';
-import { colors } from '../consts/color';
+import { colors } from '../constants/color';
+import { Event } from '../types/event';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();

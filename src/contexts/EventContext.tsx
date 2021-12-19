@@ -122,7 +122,8 @@ export const getEvents = async (dispatch: React.Dispatch<Action>) => {
   try {
     const response = await getDummy();
     const sortedData = response.data.data.sort((a: Event, b: Event) => {
-      return a.id - b.id;
+      if (a.beginAt < b.beginAt) return -1;
+      else return 1;
     });
     dispatch({ type: 'GET_EVENTS', data: sortedData });
   } catch (e) {

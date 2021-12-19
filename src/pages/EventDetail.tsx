@@ -8,8 +8,7 @@ import 'dayjs/locale/ko';
 import Header from '../components/Header';
 import SubmitInput from '../components/SubmitInput';
 import Footer from '../components/Footer';
-// import DetailSkeleton from '../components/DetailSkeleton';
-import DetailSkeleton from '../components/DetailSkeleton'
+import DetailSkeleton from '../components/DetailSkeleton';
 
 import {
   useEventsState,
@@ -36,45 +35,42 @@ const EventDetail: React.FC = () => {
     getEvent(dispatch, eventId);
   }, [dispatch, eventId, event]);
 
-  if (loading || !event) return (
-    <>
-      <Header />
-      <DetailSkeleton />
-      <Footer />
-    </>
-  )
   return (
     <>
       <Header />
-      <StyledDiv>
-        <StyledMain>
-          <StyledCategoryBar color={colors[event.category]} />
-          <h1>{event.title}</h1>
-          <h3>📍 {event.location}</h3>
-          <h3>
-            🕒 {dayjs(event.beginAt).format('YYYY년 MM월 DD일 HH:mm')} -{' '}
-            {dayjs(event.endAt).format('HH:mm')}
-          </h3>
-          <h3>
-            👥 {event.currentSubscribers} / {event.maxSubscribers}
-          </h3>
-          <SubmitInput />
-        </StyledMain>
-        <StyledSection>
-          <StyledDescription>
-            <h2>상세 정보</h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(event.description),
-              }}
-            />
-            {event.tags &&
-              event.tags.map((tag: string, index: number) => {
-                return <span key={event.id + index}>#{tag}</span>;
-              })}
-          </StyledDescription>
-        </StyledSection>
-      </StyledDiv>
+      {loading || !event ? (
+        <DetailSkeleton />
+      ) : (
+        <StyledDiv>
+          <StyledMain>
+            <StyledCategoryBar color={colors[event.category]} />
+            <h1>{event.title}</h1>
+            <h3>📍 {event.location}</h3>
+            <h3>
+              🕒 {dayjs(event.beginAt).format('YYYY년 MM월 DD일 HH:mm')} -{' '}
+              {dayjs(event.endAt).format('HH:mm')}
+            </h3>
+            <h3>
+              👥 {event.currentSubscribers} / {event.maxSubscribers}
+            </h3>
+            <SubmitInput />
+          </StyledMain>
+          <StyledSection>
+            <StyledDescription>
+              <h2>상세 정보</h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(event.description),
+                }}
+              />
+              {event.tags &&
+                event.tags.map((tag: string, index: number) => {
+                  return <span key={event.id + index}>#{tag}</span>;
+                })}
+            </StyledDescription>
+          </StyledSection>
+        </StyledDiv>
+      )}
       <Footer />
     </>
   );

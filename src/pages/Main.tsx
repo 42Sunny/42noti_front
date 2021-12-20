@@ -28,39 +28,11 @@ const MainPage = () => {
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
-  const filterPastEvents = (events: Array<Event>): Array<Event> => {
-    const pastEvents = events.filter((event) => {
-      const date = event?.beginAt.split('T')[0];
-      const today = new Date();
-      today.setHours(24, 0, 0, 0);
-      return new Date(date).getTime() >= today.getTime();
-    });
-    return pastEvents;
-  };
-
-  const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
-    //오늘 업데이트 된 일정들
-    const lastMidnight = new Date();
-    const now = new Date();
-    lastMidnight.setHours(0, 0, 0, 0);
-    const updatedEvents = events.filter((event) => {
-      //const updated = new Date(event.updatedAt);
-      //const created = new Date(event.createdAt);
-      const updated = handleKRDiffTime(event.updatedAt);
-      const created = handleKRDiffTime(event.createdAt);
-
-      //자정 후에 업데이트가 되고, 생성날짜보다 업데이트 날짜가 최신일때, 지금은 더미데이터로 인해서 미래업데이트 날짜가 들어가면 (-)가 나오니까 지금보다 전에 일정만
-      return updated > lastMidnight && created < updated && updated < now;
-    });
-    return updatedEvents;
-  };
-
   useEffect(() => {
     const filteredEvents = filterPastEvents(events);
-
-    setAllEvents(filteredEvents);
     const updatedEvents = filterUpdatedEvents(filteredEvents);
 
+    setAllEvents(filteredEvents);
     setUpdatedEvents(updatedEvents);
   }, [events]);
 
@@ -119,6 +91,33 @@ const MainPage = () => {
       </StyledSection>
     </>
   );
+};
+
+const filterPastEvents = (events: Array<Event>): Array<Event> => {
+  const pastEvents = events.filter((event) => {
+    const date = event?.beginAt.split('T')[0];
+    const today = new Date();
+    today.setHours(24, 0, 0, 0);
+    return new Date(date).getTime() >= today.getTime();
+  });
+  return pastEvents;
+};
+
+const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
+  //오늘 업데이트 된 일정들
+  const lastMidnight = new Date();
+  const now = new Date();
+  lastMidnight.setHours(0, 0, 0, 0);
+  const updatedEvents = events.filter((event) => {
+    //const updated = new Date(event.updatedAt);
+    //const created = new Date(event.createdAt);
+    const updated = handleKRDiffTime(event.updatedAt);
+    const created = handleKRDiffTime(event.createdAt);
+
+    //자정 후에 업데이트가 되고, 생성날짜보다 업데이트 날짜가 최신일때, 지금은 더미데이터로 인해서 미래업데이트 날짜가 들어가면 (-)가 나오니까 지금보다 전에 일정만
+    return lastMidnight < updated && created < updated && updated < now;
+  });
+  return updatedEvents;
 };
 
 const StyledSection = styled.section`

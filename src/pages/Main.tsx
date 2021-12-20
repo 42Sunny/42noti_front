@@ -10,6 +10,7 @@ import { useEventsState } from '../contexts/EventContext';
 import { handleKRDiffTime } from '../utils/time';
 import { Event } from '../types/event';
 import UpdatedEventCard from '../components/UpdatedEventCard';
+import MainSkeleton from '../components/MainSkeleton';
 
 const MainPage = () => {
   const state = useEventsState();
@@ -36,59 +37,62 @@ const MainPage = () => {
     setUpdatedEvents(updatedEvents);
   }, [events]);
 
-  if (loading) return <h1>loading...</h1>;
   return (
     <>
       <Header />
-      <StyledSection>
-        <StyledContentTitle>
-          <h1>업데이트 된 이벤트</h1>
-          <span>{updatedEvents.length}</span>
-        </StyledContentTitle>
-        {updatedEvents.map((event: Event) => {
-          return (
-            <StyledEvents key={event.id}>
-              <Link to={`/detail/${event.id}`}>
-                <UpdatedEventCard
-                  title={event.title}
-                  updatedAt={event.updatedAt}
-                />
-              </Link>
-            </StyledEvents>
-          );
-        })}
-        <StyledContentTitle>
-          <h1>다가오는 이벤트</h1>
-        </StyledContentTitle>
-        <EventCategory />
-        {allEvents.map((event: Event) => {
-          let yearMonth = null;
-          let eventDate = new Date(event.beginAt);
+      {loading || !allEvents ? (
+        <MainSkeleton />
+      ) : (
+        <StyledSection>
+          <StyledContentTitle>
+            <h1>업데이트 된 이벤트</h1>
+            <span>{updatedEvents.length}</span>
+          </StyledContentTitle>
+          {updatedEvents.map((event: Event) => {
+            return (
+              <StyledEvents key={event.id}>
+                <Link to={`/detail/${event.id}`}>
+                  <UpdatedEventCard
+                    title={event.title}
+                    updatedAt={event.updatedAt}
+                  />
+                </Link>
+              </StyledEvents>
+            );
+          })}
+          <StyledContentTitle>
+            <h1>다가오는 이벤트</h1>
+          </StyledContentTitle>
+          <EventCategory />
+          {allEvents.map((event: Event) => {
+            let yearMonth = null;
+            let eventDate = new Date(event.beginAt);
 
-          if (months[eventDate.getMonth()] === 0) {
-            yearMonth = `${eventDate.getFullYear()}년${
-              eventDate.getMonth() + 1
-            }월`;
-            months[eventDate.getMonth()] = 1;
-          }
-          return (
-            <StyledEvents key={event.id}>
-              {yearMonth && <h2>{yearMonth}</h2>}
-              <Link to={`/detail/${event.id}`}>
-                <EventCard
-                  week={week}
-                  id={event.id}
-                  beginAt={event.beginAt}
-                  title={event.title}
-                  tags={event.tags}
-                  location={event.location}
-                  category={event.category.toLowerCase()}
-                />
-              </Link>
-            </StyledEvents>
-          );
-        })}
-      </StyledSection>
+            if (months[eventDate.getMonth()] === 0) {
+              yearMonth = `${eventDate.getFullYear()}년${
+                eventDate.getMonth() + 1
+              }월`;
+              months[eventDate.getMonth()] = 1;
+            }
+            return (
+              <StyledEvents key={event.id}>
+                {yearMonth && <h2>{yearMonth}</h2>}
+                <Link to={`/detail/${event.id}`}>
+                  <EventCard
+                    week={week}
+                    id={event.id}
+                    beginAt={event.beginAt}
+                    title={event.title}
+                    tags={event.tags}
+                    location={event.location}
+                    category={event.category.toLowerCase()}
+                  />
+                </Link>
+              </StyledEvents>
+            );
+          })}
+        </StyledSection>
+      )}
     </>
   );
 };

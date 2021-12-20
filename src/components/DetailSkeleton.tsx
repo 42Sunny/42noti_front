@@ -1,4 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import { skeletonAnimation } from '../constants/skeletonAnimation';
 
 const DetailSkeleton = () => {
   return (
@@ -29,21 +30,6 @@ const DetailSkeleton = () => {
 
 export default DetailSkeleton;
 
-const loading = keyframes`
-  0% {
-    background-color: var(--darksnow);
-  }
-  30% {
-    background-color: var(--snow);
-  }
-  70% {
-    background-color: var(--darksnow);
-  }
-  100% {
-    background-color: var(--darksnow);
-  }
-`;
-
 const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
@@ -55,7 +41,7 @@ const StyledCategoryBar = styled.span`
   height: 5px;
   background: var(--darksnow);
   border-radius: 10px;
-  animation: ${loading} 2s infinite;
+  animation: ${skeletonAnimation} 2s infinite;
 `;
 
 const StyledMain = styled.main`
@@ -70,7 +56,7 @@ const StyledMain = styled.main`
     height: 28px;
     margin: 12px 0 24px;
     background-color: var(--darksnow);
-    animation: ${loading} 2s infinite;
+    animation: ${skeletonAnimation} 2s infinite;
     overflow: hidden;
     position: relative;
   }
@@ -80,7 +66,7 @@ const StyledMain = styled.main`
     height: 18px;
     margin-bottom: 10px;
     background-color: var(--darksnow);
-    animation: ${loading} 2s infinite;
+    animation: ${skeletonAnimation} 2s infinite;
     &:nth-child(5) {
       width: 30%;
     }
@@ -106,7 +92,7 @@ const StyledDescription = styled.article`
     height: 26px;
     margin: 12px 0 24px;
     background-color: var(--darksnow);
-    animation: ${loading} 2s infinite;
+    animation: ${skeletonAnimation} 2s infinite;
   }
   p {
     display: block;
@@ -114,11 +100,10 @@ const StyledDescription = styled.article`
     height: 18px;
     margin-bottom: 10px;
     background-color: var(--darksnow);
-    animation: ${loading} 2s infinite;
+    animation: ${skeletonAnimation} 2s infinite;
     &:nth-child(3n + 1) {
       width: 70%;
       margin-bottom: 24px;
     }
   }
 `;
-

@@ -4,10 +4,12 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 import { EventCard } from '../components/EventCard';
-import { UpdatedEventCard } from '../components/UpdatedEventCard';
 import { EventCategory } from '../components/EventCategory';
 
-import { useEventsState, Event } from '../contexts/EventContext';
+import { useEventsState } from '../contexts/EventContext';
+import { handleKRDiffTime } from '../utils/time';
+import { Event } from '../types/event';
+import UpdatedEventCard from '../components/UpdatedEventCard';
 
 const MainPage = () => {
   const state = useEventsState();
@@ -26,35 +28,12 @@ const MainPage = () => {
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
-  const filterPastEvents = (events: Array<Event>): Array<Event> => {
-    return events.filter((event) => {
-      const date = event?.beginAt.split('T')[0];
-      let now = new Date();
-      let today = new Date(
-        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
-      );
-      return new Date(date).getTime() >= today.getTime();
-    });
-  };
-
-  const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
-    //오늘 만들어진 일정들
-    //오늘 업데이트 된 일정들
-    const midnight = new Date();
-    midnight.setHours(24, 0, 0, 0);
-    return events.filter((event) => {
-      return (
-        new Date(event.createdAt) < midnight &&
-        new Date(event.createdAt) < new Date(event.updatedAt)
-      );
-    });
-  };
-
   useEffect(() => {
     const filteredEvents = filterPastEvents(events);
+    const updatedEvents = filterUpdatedEvents(filteredEvents);
+
     setAllEvents(filteredEvents);
-    const updatedEvent = filterUpdatedEvents(filteredEvents);
-    setUpdatedEvents(updatedEvent);
+    setUpdatedEvents(updatedEvents);
   }, [events]);
 
   if (loading) return <h1>loading...</h1>;
@@ -112,6 +91,33 @@ const MainPage = () => {
       </StyledSection>
     </>
   );
+};
+
+const filterPastEvents = (events: Array<Event>): Array<Event> => {
+  const pastEvents = events.filter((event) => {
+    const date = event?.beginAt.split('T')[0];
+    const today = new Date();
+    today.setHours(24, 0, 0, 0);
+    return new Date(date).getTime() >= today.getTime();
+  });
+  return pastEvents;
+};
+
+const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
+  //오늘 업데이트 된 일정들
+  const lastMidnight = new Date();
+  const now = new Date();
+  lastMidnight.setHours(0, 0, 0, 0);
+  const updatedEvents = events.filter((event) => {
+    //const updated = new Date(event.updatedAt);
+    //const created = new Date(event.createdAt);
+    const updated = handleKRDiffTime(event.updatedAt);
+    const created = handleKRDiffTime(event.createdAt);
+
+    //자정 후에 업데이트가 되고, 생성날짜보다 업데이트 날짜가 최신일때, 지금은 더미데이터로 인해서 미래업데이트 날짜가 들어가면 (-)가 나오니까 지금보다 전에 일정만
+    return lastMidnight < updated && created < updated && updated < now;
+  });
+  return updatedEvents;
 };
 
 const StyledSection = styled.section`

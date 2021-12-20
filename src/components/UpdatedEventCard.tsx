@@ -1,26 +1,46 @@
 import { useCallback, useEffect } from 'react';
+import { SetStateAction } from 'react';
 import { useState } from 'react';
-import styled from 'styled-components';
 
-export const UpdatedEventCard = ({ title, updatedAt }: any): any => {
+import styled from 'styled-components';
+import { handleKRDiffTime } from '../utils/time';
+
+const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   const [agoTime, setAgoTime] = useState('');
-  const secondsTohm = (seconds: any) => {
-    const second = Number(seconds);
-    var h = Math.floor((second / (1000 * 60 * 60)) % 24);
-    var m = Math.floor(second / (1000 * 60));
-    if (m < 60) setAgoTime(`${m}분 전`);
-    else setAgoTime(`${h}시간 전`);
+
+  const secondsToMin = (seconds: number) => {
+    const second = seconds;
+    var minutes = Math.floor(second / (1000 * 60));
+    return minutes;
   };
 
-  const handleAgoTime = useCallback((updatedAt: string) => {
-    const now = new Date();
-    const updated = new Date(updatedAt);
-    const timeDiff = now.getTime() - updated.getTime();
-    timeDiff > 0 && secondsTohm(timeDiff);
-  }, []);
+  const handleAgoTime = useCallback(
+    (updatedAt: string): SetStateAction<string> => {
+      const now = new Date();
+      const updated = handleKRDiffTime(updatedAt);
+      const minutesDiff = secondsToMin(now.getTime() - updated.getTime());
+      const DAY1_MINUTES = 1440; //하루는 1440분
+      if (minutesDiff < DAY1_MINUTES) {
+        const hours = Math.floor(minutesDiff / 60);
+        const minutes = Math.floor(minutesDiff % 60);
+        if (1 <= hours) {
+          //1시간 이후부터 (1시간 전 ~ 23시간 전)
+          return `${hours}시간 전`;
+        } else if (minutes <= 1) {
+          //1분 이하일때
+          return '방금 전';
+        } else {
+          //1시간 이내일때는 (2분 전 ~ 59분 전)
+          return `${minutes}분 전`;
+        }
+      }
+      return '업데이트 됨';
+    },
+    [],
+  );
 
   useEffect(() => {
-    handleAgoTime(updatedAt);
+    setAgoTime(handleAgoTime(updatedAt));
   }, [updatedAt, handleAgoTime]);
   return (
     <Card>
@@ -76,3 +96,5 @@ const Icon = styled.div`
   background: var(--blue);
   margin-right: 5px;
 `;
+
+export default UpdatedEventCard;

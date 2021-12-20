@@ -16,7 +16,10 @@ const MainSkeleton = () => {
           <StyledButton />
         </StyledCategory>
         <span />
-        <StyledEvents />
+        <StyledEvent />
+        <StyledEvent />
+        <StyledEvent />
+        <StyledEvent />
       </StyledDiv>
     </StyledSection>
   );
@@ -63,14 +66,8 @@ const StyledDiv = styled.div`
 
 const StyledEvent = styled.div`
   width: 100%;
-  height: 70px;
-  background-color: var(--darksnow);
-  animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
-`;
-
-const StyledEvents = styled.div`
-  width: 100%;
-  height: 90%;
+  height: 80px;
+  margin-bottom: 14px;
   background-color: var(--darksnow);
   animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
 `;

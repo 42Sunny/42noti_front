@@ -1,4 +1,4 @@
-export const colors: { [index: string]: string } = {
+export const CatetoryColors: { [index: string]: string } = {
   event: 'var(--purple)',
   exam: 'var(--gray)',
   conference: 'var(--blue)',

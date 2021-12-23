@@ -184,7 +184,10 @@ export const fetchEvent = async (
   }
 };
 
-export const fetchUserEvents = async (dispatch: React.Dispatch<Action>, userId: string) => {
+export const fetchUserEvents = async (
+  dispatch: React.Dispatch<Action>,
+  userId: string,
+) => {
   dispatch({ type: 'LOADING_USER_EVENTS' });
   try {
     const response = await getUserEvents(userId);

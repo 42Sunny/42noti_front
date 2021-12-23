@@ -7,9 +7,13 @@ import EventCard from '../components/EventCard';
 import EventCategory from '../components/EventCategory';
 import UpdatedEventCard from '../components/UpdatedEventCard';
 import MainSkeleton from '../components/MainSkeleton';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 
-import { fetchEvents, useEventsDispatch, useEventsState } from '../contexts/EventContext';
+import {
+  fetchEvents,
+  useEventsDispatch,
+  useEventsState,
+} from '../contexts/EventContext';
 import { handleKRDiffTime } from '../utils/time';
 import { Event } from '../types/event';
 

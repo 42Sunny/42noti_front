@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 
 type Props = {
   title?: string;
-}
+};
 
 const SubHeader = ({ title }: Props) => {
   return (
     <StyledHeader>
-      <Link to = "/">
+      <Link to="/">
         <Icon size={18} color="var(--black)" icon="arrowLeft" />
       </Link>
       <h1>{title}</h1>
@@ -19,7 +19,7 @@ const SubHeader = ({ title }: Props) => {
 
 const StyledHeader = styled.header`
   position: fixed;
-  top:0;
+  top: 0;
   width: 100%;
   max-width: 640px;
   padding: 0 14px;
@@ -40,4 +40,3 @@ const StyledHeader = styled.header`
 `;
 
 export default SubHeader;
-

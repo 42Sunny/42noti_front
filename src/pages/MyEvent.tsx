@@ -12,16 +12,15 @@ import { useEventsState } from '../contexts/EventContext';
 import { Event } from '../types/event';
 
 const MyEvent = () => {
-
   const state = useEventsState();
   const { data: userEvents, loading } = state.userEvents;
-  
+
   const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   console.log(state);
   return (
     <>
-      <SubHeader title='내 이벤트' />
+      <SubHeader title="내 이벤트" />
       <MyEventTab />
       {loading || !userEvents ? (
         <MainSkeleton />

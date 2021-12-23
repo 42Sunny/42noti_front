@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import Icon from '../components/Icon';
-import { colors } from '../constants/color';
-import { week } from '../constants/date';
+import { CatetoryColors } from '../constants/CategoryColors';
+import { week } from '../constants/Date';
 
 const EventCard = ({ event }: any) => {
-
   let eventDate = new Date(event.beginAt);
   const month = event.beginAt?.split('-')[2].split('T')[0];
   const day = week[eventDate.getDay()];
@@ -16,7 +15,7 @@ const EventCard = ({ event }: any) => {
   return (
     <Card>
       <StyledDateDiv>
-        <StyledCategoryBar color={colors[event.category]} />
+        <StyledCategoryBar color={CatetoryColors[event.category]} />
         <h1>{month}</h1>
         <h3>{day}</h3>
       </StyledDateDiv>

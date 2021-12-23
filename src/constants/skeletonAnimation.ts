@@ -1,7 +1,7 @@
 import { keyframes } from 'styled-components';
 
 export const skeletonAnimation = keyframes`
-    0% {
+  0% {
     background-color: var(--darksnow);
   }
   30% {

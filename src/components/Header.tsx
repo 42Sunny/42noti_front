@@ -20,7 +20,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   position: fixed;
-  top:0;
+  top: 0;
   width: 100%;
   max-width: 640px;
   background-color: white;

@@ -30,7 +30,7 @@ const MainPage = () => {
     const updatedEvents = filterUpdatedEvents(filteredEvents);
     setAllEvents(filteredEvents);
     setUpdatedEvents(updatedEvents);
-  }, [events]);
+  }, [events, dispatch]);
 
   return (
     <>

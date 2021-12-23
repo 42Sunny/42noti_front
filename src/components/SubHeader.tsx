@@ -29,6 +29,7 @@ const StyledHeader = styled.header`
   line-height: 52px;
   border-bottom: 1px solid var(--darksnow);
   text-align: center;
+  z-index: 10;
   h1 {
     font-size: 1.1rem;
     font-weight: 700;

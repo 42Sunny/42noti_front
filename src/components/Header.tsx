@@ -27,6 +27,7 @@ const StyledHeader = styled.header`
   height: 52px;
   border-bottom: 1px solid var(--darksnow);
   padding: 0 16px;
+  z-index: 10;
   h1 {
     font-size: 1.2rem;
     line-height: 52px;

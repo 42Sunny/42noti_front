@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MyEventTab = () => {
@@ -18,6 +17,7 @@ const StyledTab = styled.div`
   width: 100%;
   max-width: 640px;
   background-color: white;
+  z-index: 10;
   button {
     height: 48px;
     line-height: 48px;

@@ -1,35 +1,29 @@
 import styled from 'styled-components';
 import { colors } from '../constants/color';
+import { week } from '../constants/date';
 
-export const EventCard = ({
-  id,
-  beginAt,
-  title,
-  tags,
-  location,
-  week,
-  category,
-}: any) => {
-  let eventDate = new Date(beginAt);
-  const month = beginAt?.split('-')[2].split('T')[0];
+const EventCard = ({ event }: any) => {
+
+  let eventDate = new Date(event.beginAt);
+  const month = event.beginAt?.split('-')[2].split('T')[0];
   const day = week[eventDate.getDay()];
-  const time = beginAt
-    ? `${beginAt?.split('T')[1].split('.')[0].split(':')[0]}:${
-        beginAt?.split('T')[1].split('.')[0].split(':')[1]
+  const time = event.beginAt
+    ? `${event.beginAt?.split('T')[1].split('.')[0].split(':')[0]}:${
+        event.beginAt?.split('T')[1].split('.')[0].split(':')[1]
       }`
     : '';
   return (
     <Card>
       <StyledDateDiv>
-        <StyledCategoryBar color={colors[category]} />
+        <StyledCategoryBar color={colors[event.category]} />
         <h1>{month}</h1>
         <h3>{day}</h3>
       </StyledDateDiv>
       <StyledInfoDiv>
-        <h1>{title}</h1>
+        <h1>{event.title}</h1>
         <span>
-          {tags &&
-            tags.map((keyword: string, index: number) => (
+          {event.tags &&
+            event.tags.map((keyword: string, index: number) => (
               <span key={index}>#{keyword}</span>
             ))}
         </span>
@@ -40,13 +34,15 @@ export const EventCard = ({
           </div>
           <div>
             <Icon />
-            <span>{location}</span>
+            <span>{event.location}</span>
           </div>
         </StyledEventInfoDiv>
       </StyledInfoDiv>
     </Card>
   );
 };
+
+export default EventCard;
 
 const Card = styled.article`
   display: flex;

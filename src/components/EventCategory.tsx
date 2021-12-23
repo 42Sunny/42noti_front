@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const EventCategory = () => {
+const EventCategory = () => {
   return (
     <StyledCategoryDiv>
       <Button>All</Button>
@@ -11,6 +11,8 @@ export const EventCategory = () => {
     </StyledCategoryDiv>
   );
 };
+
+export default EventCategory;
 
 const StyledCategoryDiv = styled.div`
   width: 100%;

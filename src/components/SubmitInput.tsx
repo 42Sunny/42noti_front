@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import React from 'react';
 
 const SubmitInput = () => {
   const [email, setEmail] = useState<string | number | string[] | undefined>(

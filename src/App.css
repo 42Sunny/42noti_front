@@ -160,5 +160,6 @@ a {
   min-width: 320px;
   max-width: 640px;
   min-height: 100vh;
+  /* padding-top: 52px; */
   height: 100%;
 }

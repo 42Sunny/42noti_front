@@ -13,7 +13,7 @@ import DetailSkeleton from '../components/DetailSkeleton';
 import {
   useEventsState,
   useEventsDispatch,
-  getEvent,
+  fetchEvent,
 } from '../contexts/EventContext';
 import { colors } from '../constants/color';
 import { Event } from '../types/event';
@@ -23,17 +23,20 @@ const EventDetail: React.FC = () => {
   const dispatch = useEventsDispatch();
 
   const { data: events } = state.events;
+  const { data: userEvents } = state.userEvents;
   const { loading } = state.event;
 
   const params: any = useParams();
   const eventId: number = parseInt(params.eventId);
-  const event: Event | undefined = events?.find((e) => e.id === eventId);
+  const event: Event | undefined =
+    events?.find((e) => e.id === eventId) ||
+    userEvents?.find((e) => e.id === eventId);
 
   useEffect(() => {
     if (event) {
       return;
     }
-    getEvent(dispatch, eventId);
+    fetchEvent(dispatch, eventId);
   }, [dispatch, eventId, event]);
 
   return (
@@ -73,6 +76,7 @@ const EventDetail: React.FC = () => {
         </StyledDiv>
       )}
       <Footer />
+      {console.log(state)}
     </>
   );
 };
@@ -80,6 +84,7 @@ const EventDetail: React.FC = () => {
 const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
+  padding-top: 52px;
 `;
 
 const StyledCategoryBar = styled.span`
@@ -122,6 +127,7 @@ const StyledDescription = styled.article`
   background: var(--white);
   border-radius: 12px;
   line-height: 1.5rem;
+  overflow: auto;
   h2 {
     font-size: 1.2rem;
     font-weight: 700;
@@ -140,6 +146,7 @@ const StyledDescription = styled.article`
   }
   a {
     color: var(--blue);
+    word-break: break-all;
   }
   strong {
     font-weight: 600;

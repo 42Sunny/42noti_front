@@ -7,14 +7,14 @@ const DetailSkeleton = () => {
       <StyledDiv>
         <StyledMain>
           <StyledCategoryBar />
-          <h1 />
-          <h3 />
-          <h3 />
-          <h3 />
+          <strong />
+          <p />
+          <p />
+          <p />
         </StyledMain>
         <StyledSection>
           <StyledDescription>
-            <h2 />
+            <strong />
             <p />
             <p />
             <p />
@@ -33,15 +33,7 @@ export default DetailSkeleton;
 const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
-`;
-
-const StyledCategoryBar = styled.span`
-  display: inline-block;
-  width: 80px;
-  height: 5px;
-  background: var(--darksnow);
-  border-radius: 10px;
-  animation: ${skeletonAnimation} 2s infinite;
+  padding-top: 52px;
 `;
 
 const StyledMain = styled.main`
@@ -50,7 +42,7 @@ const StyledMain = styled.main`
   height: 100%;
   background: var(--white);
   line-height: 1.6rem;
-  h1 {
+  strong {
     display: block;
     width: 70%;
     height: 28px;
@@ -60,7 +52,7 @@ const StyledMain = styled.main`
     overflow: hidden;
     position: relative;
   }
-  h3 {
+  p {
     display: block;
     width: 85%;
     height: 18px;
@@ -71,6 +63,15 @@ const StyledMain = styled.main`
       width: 30%;
     }
   }
+`;
+
+const StyledCategoryBar = styled.span`
+  display: inline-block;
+  width: 80px;
+  height: 5px;
+  background: var(--darksnow);
+  border-radius: 10px;
+  animation: ${skeletonAnimation} 2s infinite;
 `;
 
 const StyledSection = styled.section`
@@ -86,7 +87,7 @@ const StyledDescription = styled.article`
   background: var(--white);
   border-radius: 12px;
   line-height: 1.5rem;
-  h2 {
+  strong {
     display: block;
     width: 30%;
     height: 26px;

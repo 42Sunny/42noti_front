@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { handleKRDiffTime } from '../utils/time';
 
-const UpdatedEventCard = ({ title, updatedAt }: any): any => {
+const UpdatedEventCard = ({ event }: any) => {
   const [agoTime, setAgoTime] = useState('');
 
   const secondsToMin = (seconds: number) => {
@@ -17,7 +17,7 @@ const UpdatedEventCard = ({ title, updatedAt }: any): any => {
   const handleAgoTime = useCallback(
     (updatedAt: string): SetStateAction<string> => {
       const now = new Date();
-      const updated = handleKRDiffTime(updatedAt);
+      const updated = handleKRDiffTime(event.updatedAt);
       const minutesDiff = secondsToMin(now.getTime() - updated.getTime());
       const DAY1_MINUTES = 1440; //하루는 1440분
       if (minutesDiff < DAY1_MINUTES) {
@@ -36,15 +36,15 @@ const UpdatedEventCard = ({ title, updatedAt }: any): any => {
       }
       return '업데이트 됨';
     },
-    [],
+    [event.updatedAt],
   );
 
   useEffect(() => {
-    setAgoTime(handleAgoTime(updatedAt));
-  }, [updatedAt, handleAgoTime]);
+    setAgoTime(handleAgoTime(event.updatedAt));
+  }, [event.updatedAt, handleAgoTime]);
   return (
     <Card>
-      <h1>{title}</h1>
+      <h1>{event.title}</h1>
       <StyledInfoSpan>
         <span>{agoTime}</span>
         {agoTime && <Icon />}

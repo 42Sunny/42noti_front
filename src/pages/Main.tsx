@@ -3,36 +3,31 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
-import { EventCard } from '../components/EventCard';
-import { EventCategory } from '../components/EventCategory';
-
-import { useEventsState } from '../contexts/EventContext';
-import { handleKRDiffTime } from '../utils/time';
-import { Event } from '../types/event';
+import EventCard from '../components/EventCard';
+import EventCategory from '../components/EventCategory';
 import UpdatedEventCard from '../components/UpdatedEventCard';
 import MainSkeleton from '../components/MainSkeleton';
+import Footer from '../components/Footer'
+
+import { fetchEvents, useEventsDispatch, useEventsState } from '../contexts/EventContext';
+import { handleKRDiffTime } from '../utils/time';
+import { Event } from '../types/event';
 
 const MainPage = () => {
   const state = useEventsState();
+  const dispatch = useEventsDispatch();
   const { data: events, loading } = state.events;
-
-  const week = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
   const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    const filteredEvents = filterPastEvents(events);
+    if (!events) {
+      fetchEvents(dispatch);
+    }
+    const filteredEvents = filterUpcomingEvents(events);
     const updatedEvents = filterUpdatedEvents(filteredEvents);
-
     setAllEvents(filteredEvents);
     setUpdatedEvents(updatedEvents);
   }, [events]);
@@ -40,22 +35,21 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      {loading || !allEvents ? (
+      {loading || !allEvents || !updatedEvents ? (
         <MainSkeleton />
       ) : (
         <StyledSection>
-          <StyledContentTitle>
-            <h1>업데이트 된 이벤트</h1>
-            <span>{updatedEvents.length}</span>
-          </StyledContentTitle>
+          {updatedEvents.length > 0 && (
+            <StyledContentTitle>
+              <h1>업데이트 된 이벤트</h1>
+              <span>{updatedEvents.length}</span>
+            </StyledContentTitle>
+          )}
           {updatedEvents.map((event: Event) => {
             return (
               <StyledEvents key={event.id}>
                 <Link to={`/detail/${event.id}`}>
-                  <UpdatedEventCard
-                    title={event.title}
-                    updatedAt={event.updatedAt}
-                  />
+                  <UpdatedEventCard event={event} />
                 </Link>
               </StyledEvents>
             );
@@ -67,9 +61,8 @@ const MainPage = () => {
           {allEvents.map((event: Event) => {
             let yearMonth = null;
             let eventDate = new Date(event.beginAt);
-
             if (months[eventDate.getMonth()] === 0) {
-              yearMonth = `${eventDate.getFullYear()}년${
+              yearMonth = `${eventDate.getFullYear()}년 ${
                 eventDate.getMonth() + 1
               }월`;
               months[eventDate.getMonth()] = 1;
@@ -78,33 +71,26 @@ const MainPage = () => {
               <StyledEvents key={event.id}>
                 {yearMonth && <h2>{yearMonth}</h2>}
                 <Link to={`/detail/${event.id}`}>
-                  <EventCard
-                    week={week}
-                    id={event.id}
-                    beginAt={event.beginAt}
-                    title={event.title}
-                    tags={event.tags}
-                    location={event.location}
-                    category={event.category.toLowerCase()}
-                  />
+                  <EventCard event={event} />
                 </Link>
               </StyledEvents>
             );
           })}
         </StyledSection>
       )}
+      <Footer />
     </>
   );
 };
 
-const filterPastEvents = (events: Array<Event>): Array<Event> => {
-  const pastEvents = events.filter((event) => {
+export const filterUpcomingEvents = (events: Array<Event>): Array<Event> => {
+  const upcomingEvents = events.filter((event) => {
     const date = event?.beginAt.split('T')[0];
     const today = new Date();
     today.setHours(24, 0, 0, 0);
     return new Date(date).getTime() >= today.getTime();
   });
-  return pastEvents;
+  return upcomingEvents;
 };
 
 const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
@@ -124,12 +110,12 @@ const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
   return updatedEvents;
 };
 
-const StyledSection = styled.section`
+export const StyledSection = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
   background: var(--snow);
-  padding: 18px;
+  padding: 68px 18px 18px 18px;
   text-align: left;
 `;
 
@@ -149,7 +135,7 @@ const StyledContentTitle = styled.div`
   }
 `;
 
-const StyledEvents = styled.div`
+export const StyledEvents = styled.div`
   width: 100%;
   h2 {
     font-size: 0.8rem;

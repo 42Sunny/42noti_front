@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from '../components/Icon';
 import { colors } from '../constants/color';
 import { week } from '../constants/date';
 
@@ -21,19 +22,19 @@ const EventCard = ({ event }: any) => {
       </StyledDateDiv>
       <StyledInfoDiv>
         <h1>{event.title}</h1>
-        <span>
+        <strong>
           {event.tags &&
             event.tags.map((keyword: string, index: number) => (
               <span key={index}>#{keyword}</span>
             ))}
-        </span>
+        </strong>
         <StyledEventInfoDiv>
           <div>
-            <Icon />
-            <span> {time}</span>
+            <Icon size={14} color="var(--lightgray)" icon="time" />
+            <span>&nbsp;{time}</span>
           </div>
           <div>
-            <Icon />
+            <Icon size={16} color="var(--lightgray)" icon="location" />
             <span>{event.location}</span>
           </div>
         </StyledEventInfoDiv>
@@ -81,7 +82,7 @@ const StyledDateDiv = styled.div`
     font-size: 1.9rem;
     font-weight: 400;
     line-height: 0.9;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
   h3 {
     font-size: 0.8rem;
@@ -95,14 +96,14 @@ const StyledInfoDiv = styled.div`
   h1 {
     font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
-  span {
+  strong {
     font-size: 0.85rem;
     line-height: 18px;
     margin-right: 8px;
     color: var(--gray);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 `;
 
@@ -113,7 +114,6 @@ const StyledEventInfoDiv = styled.div`
     display: flex;
     align-items: center;
     span {
-      display: inline-block;
       font-size: 0.85rem;
       line-height: 18px;
       color: var(--gray);
@@ -122,20 +122,7 @@ const StyledEventInfoDiv = styled.div`
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
-    }
-    span:nth-child(even) {
-      margin-right: 15px;
+      margin-right: 10px;
     }
   }
-`;
-
-const Icon = styled.span`
-  display: inline-block;
-  min-width: 12px;
-  min-height: 12px;
-  max-width: 12px;
-  max-height: 12px;
-  border-radius: 50%;
-  background: #c4c4c4;
-  margin-right: 5px;
 `;

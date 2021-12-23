@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
+import Icon from '../components/Icon';
 
 type Props = {
   title?: string;
@@ -9,9 +10,7 @@ const SubHeader = ({ title }: Props) => {
   return (
     <StyledHeader>
       <Link to = "/">
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width='12' height='52'>
-          <polygon points="0,26 20,10 20,42" fill="none" strokeWidth="2" stroke="black"/>
-        </svg>
+        <Icon size={18} color="var(--black)" icon="arrowLeft" />
       </Link>
       <h1>{title}</h1>
     </StyledHeader>
@@ -27,7 +26,6 @@ const StyledHeader = styled.header`
   background-color: white;
   height: 52px;
   line-height: 52px;
-  border-bottom: 1px solid var(--darksnow);
   text-align: center;
   z-index: 10;
   h1 {
@@ -36,7 +34,8 @@ const StyledHeader = styled.header`
   }
   svg {
     position: absolute;
-    left: 16px;
+    top: 16px;
+    left: 10px;
   }
 `;
 

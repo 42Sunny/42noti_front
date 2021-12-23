@@ -25,7 +25,7 @@ const StyledHeader = styled.header`
   max-width: 640px;
   background-color: white;
   height: 52px;
-  border-bottom: 1px solid var(--darksnow);
+  /* border-bottom: 1px solid var(--darksnow); */
   padding: 0 16px;
   z-index: 10;
   h1 {

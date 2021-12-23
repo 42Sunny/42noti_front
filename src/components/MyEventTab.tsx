@@ -19,8 +19,8 @@ const StyledTab = styled.div`
   background-color: white;
   z-index: 10;
   button {
-    height: 48px;
-    line-height: 48px;
+    height: 42px;
+    line-height: 42px;
     font-size: 1rem;
     font-weight: 600;
     margin-left: 6px;

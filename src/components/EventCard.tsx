@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Icon from '../components/Icon';
 import { CatetoryColors } from '../constants/CategoryColors';
 import { week } from '../constants/Date';
+import { Event } from '../types/event';
 
-const EventCard = ({ event }: any) => {
+const EventCard = ({ event }: { event: Event }) => {
   let eventDate = new Date(event.beginAt);
   const month = event.beginAt?.split('-')[2].split('T')[0];
   const day = week[eventDate.getDay()];
@@ -52,7 +53,7 @@ const Card = styled.article`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px 16px;
-  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }
@@ -94,6 +95,8 @@ const StyledInfoDiv = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 1.1rem;
+    line-height: 22px;
+    letter-spacing: -0.3px;
     font-weight: 700;
     margin-bottom: 2px;
   }

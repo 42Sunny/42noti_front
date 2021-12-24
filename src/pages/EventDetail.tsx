@@ -67,9 +67,10 @@ const EventDetail: React.FC = () => {
                   __html: marked.parse(event.description),
                 }}
               />
+              <Tag>#{event.category}</Tag>
               {event.tags &&
                 event.tags.map((tag: string, index: number) => {
-                  return <span key={event.id + index}>#{tag}</span>;
+                  return <Tag key={event.id + index}>#{tag}</Tag>;
                 })}
             </StyledDescription>
           </StyledSection>
@@ -102,11 +103,11 @@ const StyledMain = styled.main`
   background: var(--white);
   line-height: 1.6rem;
   h1 {
-    margin: 12px 0 16px;
-    font-size: 1.5rem;
+    margin: 16px 0 22px;
+    font-size: calc(1.3rem + 0.6vw);
     font-weight: 700;
     letter-spacing: -0.3px;
-    line-height: 1.9rem;
+    line-height: calc(1.8rem + 0.5vw);;
   }
   h3 {
     font-size: 1rem;
@@ -133,14 +134,6 @@ const StyledDescription = styled.article`
     font-weight: 700;
     margin-bottom: 12px;
   }
-  span {
-    display: inline-block;
-    font-size: 0.9rem;
-    border-radius: 50px;
-    margin: 0 8px 8px 0;
-    padding: 6px 12px;
-    background: var(--darksnow);
-  }
   div {
     margin-bottom: 14px;
   }
@@ -155,6 +148,15 @@ const StyledDescription = styled.article`
     list-style: inside;
     margin: 10px;
   }
+`;
+
+const Tag = styled.span`
+  display: inline-block;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  margin: 0 8px 8px 0;
+  padding: 4px 12px;
+  background: var(--darksnow);
 `;
 
 export default EventDetail;

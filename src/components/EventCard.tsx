@@ -103,9 +103,11 @@ const StyledInfoDiv = styled.div`
   strong {
     font-size: 0.85rem;
     line-height: 18px;
-    margin-right: 8px;
     color: var(--gray);
     margin-bottom: 4px;
+    span {
+      margin-right: 8px;
+    }
   }
 `;
 

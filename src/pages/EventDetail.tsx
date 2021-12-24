@@ -13,9 +13,9 @@ import DetailSkeleton from '../components/DetailSkeleton';
 import {
   useEventsState,
   useEventsDispatch,
-  getEvent,
+  fetchEvent,
 } from '../contexts/EventContext';
-import { colors } from '../constants/color';
+import { CatetoryColors } from '../constants/CategoryColors';
 import { Event } from '../types/event';
 
 const EventDetail: React.FC = () => {
@@ -23,17 +23,20 @@ const EventDetail: React.FC = () => {
   const dispatch = useEventsDispatch();
 
   const { data: events } = state.events;
+  const { data: userEvents } = state.userEvents;
   const { loading } = state.event;
 
   const params: any = useParams();
   const eventId: number = parseInt(params.eventId);
-  const event: Event | undefined = events?.find((e) => e.id === eventId);
+  const event: Event | undefined =
+    events?.find((e) => e.id === eventId) ||
+    userEvents?.find((e) => e.id === eventId);
 
   useEffect(() => {
     if (event) {
       return;
     }
-    getEvent(dispatch, eventId);
+    fetchEvent(dispatch, eventId);
   }, [dispatch, eventId, event]);
 
   return (
@@ -44,7 +47,7 @@ const EventDetail: React.FC = () => {
       ) : (
         <StyledDiv>
           <StyledMain>
-            <StyledCategoryBar color={colors[event.category]} />
+            <StyledCategoryBar color={CatetoryColors[event.category]} />
             <h1>{event.title}</h1>
             <h3>📍 {event.location}</h3>
             <h3>
@@ -64,15 +67,17 @@ const EventDetail: React.FC = () => {
                   __html: marked.parse(event.description),
                 }}
               />
+              <Tag>#{event.category}</Tag>
               {event.tags &&
                 event.tags.map((tag: string, index: number) => {
-                  return <span key={event.id + index}>#{tag}</span>;
+                  return <Tag key={event.id + index}>#{tag}</Tag>;
                 })}
             </StyledDescription>
           </StyledSection>
         </StyledDiv>
       )}
       <Footer />
+      {console.log(state)}
     </>
   );
 };
@@ -80,6 +85,7 @@ const EventDetail: React.FC = () => {
 const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
+  padding-top: 52px;
 `;
 
 const StyledCategoryBar = styled.span`
@@ -97,11 +103,11 @@ const StyledMain = styled.main`
   background: var(--white);
   line-height: 1.6rem;
   h1 {
-    margin: 12px 0 16px;
-    font-size: 1.5rem;
+    margin: 16px 0 22px;
+    font-size: calc(1.3rem + 0.6vw);
     font-weight: 700;
     letter-spacing: -0.3px;
-    line-height: 1.9rem;
+    line-height: calc(1.8rem + 0.5vw);;
   }
   h3 {
     font-size: 1rem;
@@ -122,24 +128,18 @@ const StyledDescription = styled.article`
   background: var(--white);
   border-radius: 12px;
   line-height: 1.5rem;
+  overflow: auto;
   h2 {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 12px;
-  }
-  span {
-    display: inline-block;
-    font-size: 0.9rem;
-    border-radius: 50px;
-    margin: 0 8px 8px 0;
-    padding: 6px 12px;
-    background: var(--darksnow);
   }
   div {
     margin-bottom: 14px;
   }
   a {
     color: var(--blue);
+    word-break: break-all;
   }
   strong {
     font-weight: 600;
@@ -148,6 +148,15 @@ const StyledDescription = styled.article`
     list-style: inside;
     margin: 10px;
   }
+`;
+
+const Tag = styled.span`
+  display: inline-block;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  margin: 0 8px 8px 0;
+  padding: 4px 12px;
+  background: var(--darksnow);
 `;
 
 export default EventDetail;

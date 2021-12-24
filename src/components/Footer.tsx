@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Footer = () => {
+  return <StyledFooter>v.1 copyright 42</StyledFooter>;
+};
+
+export default Footer;
+
 const StyledFooter = styled.footer`
   height: 52px;
   padding: 14px;
@@ -8,9 +14,3 @@ const StyledFooter = styled.footer`
   border-top: 1px solid var(--darksnow);
   color: var(--lightgray);
 `;
-
-const Footer = () => {
-  return <StyledFooter>v.1 copyright 42</StyledFooter>;
-};
-
-export default Footer;

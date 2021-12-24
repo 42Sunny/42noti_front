@@ -5,7 +5,7 @@ import {
   useReducer,
   Dispatch,
 } from 'react';
-import { getDummy, getDummyDetail } from '../api/api';
+import { getEvents, getEvent, getUserEvents } from '../api/api';
 import { Event } from '../types/event';
 
 type Props = {
@@ -24,6 +24,11 @@ type EventsState = {
     error: any;
     data: null | Event;
   };
+  userEvents: {
+    loading: boolean;
+    error: any;
+    data: Event[];
+  };
 };
 
 // 액션들을 위한 타입
@@ -33,7 +38,10 @@ type Action =
   | { type: 'FAILURE_EVENTS'; error: any }
   | { type: 'LOADING_EVENT' }
   | { type: 'GET_EVENT'; data: Event }
-  | { type: 'FAILURE_EVENT'; error: any };
+  | { type: 'FAILURE_EVENT'; error: any }
+  | { type: 'LOADING_USER_EVENTS' }
+  | { type: 'GET_USER_EVENTS'; data: Event[] }
+  | { type: 'FAILURE_USER_EVENTS'; error: any };
 
 // 디스패치를 위한 타입 (Dispatch 를 리액트에서 불러올 수 있음), 액션들의 타입을 Dispatch 의 Generics로 설정
 type EventsDispatch = Dispatch<Action>;
@@ -49,6 +57,11 @@ const initialState = {
     loading: false,
     error: null,
     data: null,
+  },
+  userEvents: {
+    loading: false,
+    error: null,
+    data: [],
   },
 };
 
@@ -107,6 +120,32 @@ const reducer = (state: EventsState, action: Action): EventsState => {
           loading: false,
         },
       };
+    case 'LOADING_USER_EVENTS':
+      return {
+        ...state,
+        userEvents: {
+          ...state.userEvents,
+          loading: true,
+        },
+      };
+    case 'GET_USER_EVENTS':
+      return {
+        ...state,
+        userEvents: {
+          ...state.userEvents,
+          data: action.data,
+          loading: false,
+        },
+      };
+    case 'FAILURE_USER_EVENTS':
+      return {
+        ...state,
+        userEvents: {
+          ...state.userEvents,
+          error: action.error,
+          loading: false,
+        },
+      };
     default:
       throw new Error('invalid action type');
   }
@@ -117,11 +156,11 @@ const EventsStateContext = createContext<null | EventsState>(null);
 const EventsDispatchContext = createContext<null | EventsDispatch>(null);
 
 // API를 요청하는 함수
-export const getEvents = async (dispatch: React.Dispatch<Action>) => {
+export const fetchEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_EVENTS' });
   try {
-    const response = await getDummy();
-    const sortedData = response.data.data.sort((a: Event, b: Event) => {
+    const response = await getEvents();
+    const sortedData = response.data.sort((a: Event, b: Event) => {
       if (a.beginAt < b.beginAt) return -1;
       else return 1;
     });
@@ -131,16 +170,34 @@ export const getEvents = async (dispatch: React.Dispatch<Action>) => {
   }
 };
 
-export const getEvent = async (
+export const fetchEvent = async (
   dispatch: React.Dispatch<Action>,
   eventId: number,
 ) => {
   dispatch({ type: 'LOADING_EVENT' });
   try {
-    const response = await getDummyDetail(eventId);
+    const response = await getEvent(eventId);
+    console.log(response.data);
     dispatch({ type: 'GET_EVENT', data: response.data });
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENT', error: e });
+  }
+};
+
+export const fetchUserEvents = async (
+  dispatch: React.Dispatch<Action>,
+  userId: string,
+) => {
+  dispatch({ type: 'LOADING_USER_EVENTS' });
+  try {
+    const response = await getUserEvents(userId);
+    const sortedData = response.data.sort((a: Event, b: Event) => {
+      if (a.beginAt > b.beginAt) return -1;
+      else return 1;
+    });
+    dispatch({ type: 'GET_USER_EVENTS', data: sortedData });
+  } catch (e) {
+    dispatch({ type: 'FAILURE_USER_EVENTS', error: e });
   }
 };
 
@@ -149,7 +206,8 @@ export const EventProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    getEvents(dispatch);
+    fetchEvents(dispatch);
+    fetchUserEvents(dispatch, 'yunjung');
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import cluster from '../assets/seoul-cluster.jpg';
 
 const Login = () => {
   const handleLogin = () => {
-    window.location.href = 'http://test-42meetup.herokuapp.com/login/42';
+    window.location.href = 'http://api.event.42cadet.kr/login/42';
   };
 
   return (

@@ -1,52 +1,49 @@
 import styled from 'styled-components';
-import { colors } from '../constants/color';
+import Icon from '../components/Icon';
+import { CatetoryColors } from '../constants/CategoryColors';
+import { week } from '../constants/Date';
+import { Event } from '../types/event';
 
-export const EventCard = ({
-  id,
-  beginAt,
-  title,
-  tags,
-  location,
-  week,
-  category,
-}: any) => {
-  let eventDate = new Date(beginAt);
-  const month = beginAt?.split('-')[2].split('T')[0];
+const EventCard = ({ event }: { event: Event }) => {
+  let eventDate = new Date(event.beginAt);
+  const month = event.beginAt?.split('-')[2].split('T')[0];
   const day = week[eventDate.getDay()];
-  const time = beginAt
-    ? `${beginAt?.split('T')[1].split('.')[0].split(':')[0]}:${
-        beginAt?.split('T')[1].split('.')[0].split(':')[1]
+  const time = event.beginAt
+    ? `${event.beginAt?.split('T')[1].split('.')[0].split(':')[0]}:${
+        event.beginAt?.split('T')[1].split('.')[0].split(':')[1]
       }`
     : '';
   return (
     <Card>
       <StyledDateDiv>
-        <StyledCategoryBar color={colors[category]} />
+        <StyledCategoryBar color={CatetoryColors[event.category]} />
         <h1>{month}</h1>
         <h3>{day}</h3>
       </StyledDateDiv>
       <StyledInfoDiv>
-        <h1>{title}</h1>
-        <span>
-          {tags &&
-            tags.map((keyword: string, index: number) => (
+        <h1>{event.title}</h1>
+        <strong>
+          {event.tags &&
+            event.tags.map((keyword: string, index: number) => (
               <span key={index}>#{keyword}</span>
             ))}
-        </span>
+        </strong>
         <StyledEventInfoDiv>
           <div>
-            <Icon />
-            <span> {time}</span>
+            <Icon size={14} color="var(--lightgray)" icon="time" />
+            <span>&nbsp;{time}</span>
           </div>
           <div>
-            <Icon />
-            <span>{location}</span>
+            <Icon size={16} color="var(--lightgray)" icon="location" />
+            <span>{event.location}</span>
           </div>
         </StyledEventInfoDiv>
       </StyledInfoDiv>
     </Card>
   );
 };
+
+export default EventCard;
 
 const Card = styled.article`
   display: flex;
@@ -56,7 +53,7 @@ const Card = styled.article`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px 16px;
-  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }
@@ -85,7 +82,7 @@ const StyledDateDiv = styled.div`
     font-size: 1.9rem;
     font-weight: 400;
     line-height: 0.9;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
   h3 {
     font-size: 0.8rem;
@@ -98,15 +95,17 @@ const StyledInfoDiv = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 1.1rem;
+    line-height: 22px;
+    letter-spacing: -0.3px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
-  span {
+  strong {
     font-size: 0.85rem;
     line-height: 18px;
     margin-right: 8px;
     color: var(--gray);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 `;
 
@@ -117,7 +116,6 @@ const StyledEventInfoDiv = styled.div`
     display: flex;
     align-items: center;
     span {
-      display: inline-block;
       font-size: 0.85rem;
       line-height: 18px;
       color: var(--gray);
@@ -126,20 +124,7 @@ const StyledEventInfoDiv = styled.div`
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
-    }
-    span:nth-child(even) {
-      margin-right: 15px;
+      margin-right: 10px;
     }
   }
-`;
-
-const Icon = styled.span`
-  display: inline-block;
-  min-width: 12px;
-  min-height: 12px;
-  max-width: 12px;
-  max-height: 12px;
-  border-radius: 50%;
-  background: #c4c4c4;
-  margin-right: 5px;
 `;

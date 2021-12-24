@@ -1,16 +1,12 @@
-import { useCallback, useEffect } from 'react';
-import { SetStateAction } from 'react';
-import { useState } from 'react';
-
+import { useState, useCallback, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { handleKRDiffTime } from '../utils/time';
 
-const UpdatedEventCard = ({ title, updatedAt }: any): any => {
+const UpdatedEventCard = ({ event }: any) => {
   const [agoTime, setAgoTime] = useState('');
 
-  const secondsToMin = (seconds: number) => {
-    const second = seconds;
-    var minutes = Math.floor(second / (1000 * 60));
+  const secondsToMinutes = (seconds: number) => {
+    const minutes = Math.floor(seconds / (1000 * 60));
     return minutes;
   };
 
@@ -18,7 +14,7 @@ const UpdatedEventCard = ({ title, updatedAt }: any): any => {
     (updatedAt: string): SetStateAction<string> => {
       const now = new Date();
       const updated = handleKRDiffTime(updatedAt);
-      const minutesDiff = secondsToMin(now.getTime() - updated.getTime());
+      const minutesDiff = secondsToMinutes(now.getTime() - updated.getTime());
       const DAY1_MINUTES = 1440; //하루는 1440분
       if (minutesDiff < DAY1_MINUTES) {
         const hours = Math.floor(minutesDiff / 60);
@@ -36,19 +32,20 @@ const UpdatedEventCard = ({ title, updatedAt }: any): any => {
       }
       return '업데이트 됨';
     },
-    [],
+    [event.updatedAt],
   );
 
   useEffect(() => {
-    setAgoTime(handleAgoTime(updatedAt));
-  }, [updatedAt, handleAgoTime]);
+    setAgoTime(handleAgoTime(event.updatedAt));
+  }, [event.updatedAt, handleAgoTime]);
+
   return (
     <Card>
-      <h1>{title}</h1>
-      <StyledInfoSpan>
+      <h1>{event.title}</h1>
+      <StyledInfo>
         <span>{agoTime}</span>
-        {agoTime && <Icon />}
-      </StyledInfoSpan>
+        {agoTime && <UpdatedIcon />}
+      </StyledInfo>
     </Card>
   );
 };
@@ -62,7 +59,7 @@ const Card = styled.article`
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px;
-  box-shadow: 0px 3px 5px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
   }
@@ -75,7 +72,7 @@ const Card = styled.article`
   }
 `;
 
-const StyledInfoSpan = styled.span`
+const StyledInfo = styled.span`
   display: flex;
   align-items: center;
   span {
@@ -87,7 +84,7 @@ const StyledInfoSpan = styled.span`
   }
 `;
 
-const Icon = styled.div`
+const UpdatedIcon = styled.div`
   min-width: 10px;
   min-height: 10px;
   max-width: 10px;

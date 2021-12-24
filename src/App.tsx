@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { EventProvider } from './contexts/EventContext';
-import ScrollTop from './components/ScrollTop';
+import ScrollTop from './utils/ScrollTop';
 import EventDetail from './pages/EventDetail';
 import MainPage from './pages/Main';
 import Login from './pages/Login';

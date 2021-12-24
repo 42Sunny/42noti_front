@@ -3,11 +3,11 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import 'dayjs/locale/ko';
 
-dayjs.locale('ko');
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
+dayjs.locale('ko');
 
-export const timeFormat = (beginAt: any) => {
+export const timeFormat = (beginAt: string) => {
   let time;
   const beginTime = dayjs(beginAt);
   const now = dayjs();
@@ -35,7 +35,7 @@ export const timeFormat = (beginAt: any) => {
   return time;
 };
 
-export const endAtFormat = (beginAt: any, endAt: any) => {
+export const endAtFormat = (beginAt: string, endAt: string) => {
   let time;
   const beginTime = dayjs(beginAt);
   const endTime = dayjs(endAt);

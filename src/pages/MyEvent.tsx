@@ -17,7 +17,6 @@ const MyEvent = () => {
 
   const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  console.log(state);
   return (
     <>
       <SubHeader title="내 이벤트" />

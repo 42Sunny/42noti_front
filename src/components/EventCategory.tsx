@@ -1,13 +1,59 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import {
+  handleFilterEvents,
+  useEventsDispatch,
+  useEventsState,
+} from '../contexts/EventContext';
+import Button from './Button';
 
 const EventCategory = () => {
+  const [clicked, setClicked] = useState('All');
+  const dispatch = useEventsDispatch();
+  const state = useEventsState();
+
+  const handleOnclick = (e: any) => {
+    const category = e.target.innerText;
+    const allEvents = state.allEvents.data;
+    setClicked(category);
+
+    const filteredEvents = allEvents.filter((event) => {
+      if (category !== 'All') {
+        return event.category.toUpperCase() === category.toUpperCase();
+      } else {
+        return true;
+      }
+    });
+    handleFilterEvents(dispatch, filteredEvents);
+  };
+
   return (
     <StyledCategoryDiv>
-      <Button>All</Button>
-      <Button>conference</Button>
-      <Button>exam</Button>
-      <Button>hackton</Button>
-      <Button>rush</Button>
+      <Button
+        clicked={clicked === 'All'}
+        title="All"
+        onClick={(e) => handleOnclick(e)}
+      />
+      <Button
+        clicked={clicked === 'conference'}
+        title="conference"
+        onClick={(e) => handleOnclick(e)}
+      />
+      <Button
+        clicked={clicked === 'exam'}
+        title="exam"
+        onClick={(e) => handleOnclick(e)}
+      />
+      <Button
+        clicked={clicked === 'hackathon'}
+        title="hackathon"
+        onClick={(e) => handleOnclick(e)}
+      />
+      <Button
+        clicked={clicked === 'rush'}
+        title="rush"
+        onClick={(e) => handleOnclick(e)}
+      />
     </StyledCategoryDiv>
   );
 };
@@ -15,17 +61,9 @@ const EventCategory = () => {
 export default EventCategory;
 
 const StyledCategoryDiv = styled.div`
-  width: 100%;
   margin-bottom: 10px;
-`;
-const Button = styled.button`
-  display: inline-block;
-  border-style: none;
-  height: 32px;
-  background: var(--darksnow);
-  border-radius: 20px;
-  color: var(--black);
-  font-weight: 500;
-  margin: 0 10px 8px 0;
-  padding: 6px 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  min-height: 50px;
 `;

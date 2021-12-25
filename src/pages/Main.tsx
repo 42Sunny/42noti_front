@@ -71,15 +71,21 @@ const MainPage = () => {
               }월`;
               months[eventDate.getMonth()] = 1;
             }
+
             return (
-              <StyledEvents key={event.id}>
-                {yearMonth && <h2>{yearMonth}</h2>}
-                <Link to={`/detail/${event.id}`}>
-                  <EventCard event={event} />
-                </Link>
-              </StyledEvents>
+              events.length > 0 && (
+                <StyledEvents key={event.id}>
+                  {yearMonth && <h2>{yearMonth}</h2>}
+                  <Link to={`/detail/${event.id}`}>
+                    <EventCard event={event} />
+                  </Link>
+                </StyledEvents>
+              )
             );
           })}
+          {events.length === 0 && (
+            <StyledNodata>이벤트가 없습니다 ☹</StyledNodata>
+          )}
         </StyledSection>
       )}
       <Footer />
@@ -137,6 +143,12 @@ const StyledContentTitle = styled.div`
   span {
     color: var(--blue);
   }
+`;
+
+const StyledNodata = styled(StyledContentTitle)`
+  display: inline-block;
+  text-align: center;
+  color: #808080;
 `;
 
 export const StyledEvents = styled.div`

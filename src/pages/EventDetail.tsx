@@ -15,7 +15,7 @@ import {
   useEventsDispatch,
   fetchEvent,
 } from '../contexts/EventContext';
-import { CatetoryColors } from '../constants/CategoryColors';
+import { catetoryColors } from '../constants/categoryColors';
 import { Event } from '../types/event';
 
 const EventDetail: React.FC = () => {
@@ -47,7 +47,7 @@ const EventDetail: React.FC = () => {
       ) : (
         <StyledDiv>
           <StyledMain>
-            <StyledCategoryBar color={CatetoryColors[event.category]} />
+            <StyledCategoryBar color={catetoryColors[event.category]} />
             <h1>{event.title}</h1>
             <h3>📍 {event.location}</h3>
             <h3>
@@ -78,6 +78,7 @@ const EventDetail: React.FC = () => {
       )}
       <Footer />
       {console.log(state)}
+      ``{' '}
     </>
   );
 };
@@ -107,7 +108,7 @@ const StyledMain = styled.main`
     font-size: calc(1.3rem + 0.6vw);
     font-weight: 700;
     letter-spacing: -0.3px;
-    line-height: calc(1.8rem + 0.5vw);;
+    line-height: calc(1.8rem + 0.5vw);
   }
   h3 {
     font-size: 1rem;

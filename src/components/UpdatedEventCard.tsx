@@ -31,8 +31,7 @@ const UpdatedEventCard = ({ event }: any) => {
         }
       }
       return '업데이트 됨';
-    },
-    [event.updatedAt],
+    }, []
   );
 
   useEffect(() => {

@@ -156,7 +156,7 @@ export const StyledEvents = styled.div`
   h2 {
     font-size: 0.8rem;
     letter-spacing: -0.3px;
-    color: var(--black);
+    color: var(--darkgray);
     margin-bottom: 9px;
   }
 `;

@@ -51,7 +51,7 @@ const Card = styled.article`
   align-items: flex-start;
   width: 100%;
   background: var(--white);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   border-radius: 10px;
   padding: 18px 16px;
   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
@@ -95,7 +95,7 @@ const StyledInfoDiv = styled.div`
   flex-direction: column;
   align-items: flex-start;
   h1 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 22px;
     letter-spacing: -0.3px;
     font-weight: 700;
@@ -104,9 +104,11 @@ const StyledInfoDiv = styled.div`
   strong {
     font-size: 0.85rem;
     line-height: 18px;
-    margin-right: 8px;
     color: var(--gray);
     margin-bottom: 4px;
+    span {
+      margin-right: 8px;
+    }
   }
 `;
 
@@ -119,7 +121,7 @@ const StyledEventInfoDiv = styled.div`
     span {
       font-size: 0.85rem;
       line-height: 18px;
-      color: var(--gray);
+      color: var(--black);
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;

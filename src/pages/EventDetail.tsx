@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { marked } from 'marked';
 import styled from 'styled-components';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
 
 import Header from '../components/Header';
 import SubmitInput from '../components/SubmitInput';
@@ -17,6 +15,7 @@ import {
 } from '../contexts/EventContext';
 import { catetoryColors } from '../constants/categoryColors';
 import { Event } from '../types/event';
+import { timeFormat, endAtFormat } from '../utils/time';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();
@@ -51,8 +50,8 @@ const EventDetail: React.FC = () => {
             <h1>{event.title}</h1>
             <h3>📍 {event.location}</h3>
             <h3>
-              🕒 {dayjs(event.beginAt).format('YYYY년 MM월 DD일 HH:mm')} -{' '}
-              {dayjs(event.endAt).format('HH:mm')}
+              🕒 {timeFormat(event.beginAt)} -{' '}
+              {endAtFormat(event.beginAt, event.endAt)}
             </h3>
             <h3>
               👥 {event.currentSubscribers} / {event.maxSubscribers}
@@ -77,8 +76,6 @@ const EventDetail: React.FC = () => {
         </StyledDiv>
       )}
       <Footer />
-      {console.log(state)}
-      ``{' '}
     </>
   );
 };

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useCallback } from 'react';
+
 import styled from 'styled-components';
 import {
-  handleFilterEvents,
+  handleUpdaterEvents,
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
@@ -12,44 +14,51 @@ const EventCategory = () => {
   const dispatch = useEventsDispatch();
   const state = useEventsState();
 
-  const handleOnclick = (e: any) => {
-    const category = e.target.innerText;
-    const allEvents = state.allEvents.data;
-    setClicked(category);
-
-    const filteredEvents = allEvents.filter((event) => {
-      if (category !== 'All') {
-        return event.category.toUpperCase() === category.toUpperCase();
-      } else {
-        return true;
-      }
-    });
-    handleFilterEvents(dispatch, filteredEvents);
-  };
-
+  const handleOnclick = useCallback(
+    (e: any) => {
+      const category = e.target.innerText;
+      const allEvents = state.allEvents.data;
+      setClicked(category);
+      const filteredEvents = allEvents.filter((event) => {
+        if (category !== 'All') {
+          return event.category.toUpperCase() === category.toUpperCase();
+        } else {
+          return true;
+        }
+      });
+      handleUpdaterEvents(dispatch, filteredEvents);
+    },
+    [state.allEvents.data, dispatch],
+  );
+  //useEffect(() => {}, [clicked]);
   return (
     <StyledCategoryDiv>
       <Button
+        //clicked={clicked.current === 'All'}
         clicked={clicked === 'All'}
         title="All"
         onClick={(e) => handleOnclick(e)}
       />
       <Button
+        //clicked={clicked.current === 'conference'}
         clicked={clicked === 'conference'}
         title="conference"
         onClick={(e) => handleOnclick(e)}
       />
       <Button
+        //clicked={clicked.current === 'exam'}
         clicked={clicked === 'exam'}
         title="exam"
         onClick={(e) => handleOnclick(e)}
       />
       <Button
+        //clicked={clicked.current === 'hackathon'}
         clicked={clicked === 'hackathon'}
         title="hackathon"
         onClick={(e) => handleOnclick(e)}
       />
       <Button
+        //clicked={clicked.current === 'rush'}
         clicked={clicked === 'rush'}
         title="rush"
         onClick={(e) => handleOnclick(e)}
@@ -58,6 +67,7 @@ const EventCategory = () => {
   );
 };
 
+//export default React.memo(EventCategory);
 export default EventCategory;
 
 const StyledCategoryDiv = styled.div`

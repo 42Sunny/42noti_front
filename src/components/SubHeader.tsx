@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
+import {
+  handleUpdaterEvents,
+  useEventsDispatch,
+  useEventsState,
+} from '../contexts/EventContext';
 
 type Props = {
   title?: string;
 };
 
 const SubHeader = ({ title }: Props) => {
+  const dispatch = useEventsDispatch();
+  const state = useEventsState();
+
+  const updateEvents = (): void => {
+    handleUpdaterEvents(dispatch, state.allEvents.data);
+  };
   return (
     <StyledHeader>
-      <Link to="/">
+      <Link to="/" onClick={updateEvents}>
         <Icon size={18} color="var(--black)" icon="arrowLeft" />
       </Link>
       <h1>{title}</h1>

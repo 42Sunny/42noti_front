@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import { catetoryColors } from '../constants/categoryColors';
@@ -43,7 +44,7 @@ const EventCard = ({ event }: { event: Event }) => {
   );
 };
 
-export default EventCard;
+export default React.memo(EventCard);
 
 const Card = styled.article`
   display: flex;

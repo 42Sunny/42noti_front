@@ -1,3 +1,4 @@
+import React from 'react';
 import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
@@ -33,4 +34,4 @@ const CategoryButton = styled.button<{ clicked: boolean | undefined }>`
   }
 `;
 
-export default Button;
+export default React.memo(Button);

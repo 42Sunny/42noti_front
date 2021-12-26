@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useCallback } from 'react';
 
 import styled from 'styled-components';
@@ -7,12 +8,18 @@ import {
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
+import { filterUpcomingEvents } from '../pages/Main';
 import Button from './Button';
 
 const EventCategory = () => {
   const [clicked, setClicked] = useState('All');
   const dispatch = useEventsDispatch();
   const state = useEventsState();
+
+  useEffect(() => {
+    const events = state.allEvents.data;
+    handleUpdaterEvents(dispatch, filterUpcomingEvents(events));
+  }, [dispatch, state.allEvents.data]);
 
   const handleOnclick = useCallback(
     (e: any) => {
@@ -67,8 +74,8 @@ const EventCategory = () => {
   );
 };
 
-//export default React.memo(EventCategory);
-export default EventCategory;
+export default React.memo(EventCategory);
+//export default EventCategory;
 
 const StyledCategoryDiv = styled.div`
   margin-bottom: 10px;

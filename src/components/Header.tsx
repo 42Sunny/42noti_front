@@ -1,23 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  handleUpdaterEvents,
-  useEventsDispatch,
-  useEventsState,
-} from '../contexts/EventContext';
 
 const Header = () => {
-  const dispatch = useEventsDispatch();
-  const state = useEventsState();
-
-  const updateEvents = (): void => {
-    handleUpdaterEvents(dispatch, state.events.data);
-  };
-
   return (
     <StyledHeader>
-      <Link to="/" onClick={updateEvents}>
+      <Link to="/">
         <h1>42 MEETUP</h1>
       </Link>
       <Link to="/my">

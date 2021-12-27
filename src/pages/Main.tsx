@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
-import EventCard from '../components/EventCard';
-import EventCategory from '../components/EventCategory';
-import UpdatedEventCard from '../components/UpdatedEventCard';
-import MainSkeleton from '../components/MainSkeleton';
 import Footer from '../components/Footer';
+import EventCard from '../components/EventCard';
+import MainSkeleton from '../components/MainSkeleton';
+import UpdatedEventCard from '../components/UpdatedEventCard';
 
 import {
   fetchEvents,
@@ -61,7 +60,6 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
           </StyledContentTitle>
-          <EventCategory />
           {allEvents.map((event: Event) => {
             let yearMonth = null;
             let eventDate = new Date(event.beginAt);
@@ -93,7 +91,7 @@ const MainPage = () => {
   );
 };
 
-export const filterUpcomingEvents = (events: Array<Event>): Array<Event> => {
+const filterUpcomingEvents = (events: Array<Event>): Array<Event> => {
   const upcomingEvents = events.filter((event) => {
     const date = event?.beginAt.split('T')[0];
     const today = new Date();

@@ -30,11 +30,6 @@ type EventsState = {
     error: any;
     data: Event[];
   };
-  allEvents: {
-    loading: boolean;
-    error: any;
-    data: Event[];
-  };
 };
 
 // 액션들을 위한 타입
@@ -70,11 +65,6 @@ const initialState = {
     error: null,
     data: [],
   },
-  allEvents: {
-    loading: false,
-    error: null,
-    data: [],
-  },
 };
 
 // reducer useReducer 의 인자
@@ -92,11 +82,6 @@ const reducer = (state: EventsState, action: Action): EventsState => {
       return {
         ...state,
         events: {
-          ...state.events,
-          data: action.data,
-          loading: false,
-        },
-        allEvents: {
           ...state.events,
           data: action.data,
           loading: false,

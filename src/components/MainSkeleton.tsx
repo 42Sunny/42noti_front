@@ -7,14 +7,10 @@ const MainSkeleton = () => {
       <StyledDiv>
         <strong />
         <StyledEvent />
+        <StyledEvent />
         <strong />
-        <StyledCategory>
-          <StyledButton />
-          <StyledButton />
-          <StyledButton />
-          <StyledButton />
-        </StyledCategory>
         <span />
+        <StyledEvent />
         <StyledEvent />
         <StyledEvent />
         <StyledEvent />

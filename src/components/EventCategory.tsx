@@ -3,29 +3,31 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 
 import styled from 'styled-components';
+import { categoryList } from '../constants/category';
+
 import {
-  handleUpdaterEvents,
+  updateEvents,
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
 import { filterUpcomingEvents } from '../pages/Main';
-import Button from './Button';
+import RadioButton from './RadioButton';
 
 const EventCategory = () => {
-  const [clicked, setClicked] = useState('All');
+  const [checked, setChecked] = useState('All');
   const dispatch = useEventsDispatch();
   const state = useEventsState();
 
   useEffect(() => {
     const events = state.allEvents.data;
-    handleUpdaterEvents(dispatch, filterUpcomingEvents(events));
+    updateEvents(dispatch, filterUpcomingEvents(events));
   }, [dispatch, state.allEvents.data]);
 
-  const handleOnclick = useCallback(
+  const handleOnChange = useCallback(
     (e: any) => {
-      const category = e.target.innerText;
+      const category = e.target.nextSibling.data;
       const allEvents = state.allEvents.data;
-      setClicked(category);
+      setChecked(category);
       const filteredEvents = allEvents.filter((event) => {
         if (category !== 'All') {
           return event.category.toUpperCase() === category.toUpperCase();
@@ -33,43 +35,21 @@ const EventCategory = () => {
           return true;
         }
       });
-      handleUpdaterEvents(dispatch, filteredEvents);
+      updateEvents(dispatch, filteredEvents);
     },
     [state.allEvents.data, dispatch],
   );
-  //useEffect(() => {}, [clicked]);
   return (
     <StyledCategoryDiv>
-      <Button
-        //clicked={clicked.current === 'All'}
-        clicked={clicked === 'All'}
-        title="All"
-        onClick={(e) => handleOnclick(e)}
-      />
-      <Button
-        //clicked={clicked.current === 'conference'}
-        clicked={clicked === 'conference'}
-        title="conference"
-        onClick={(e) => handleOnclick(e)}
-      />
-      <Button
-        //clicked={clicked.current === 'exam'}
-        clicked={clicked === 'exam'}
-        title="exam"
-        onClick={(e) => handleOnclick(e)}
-      />
-      <Button
-        //clicked={clicked.current === 'hackathon'}
-        clicked={clicked === 'hackathon'}
-        title="hackathon"
-        onClick={(e) => handleOnclick(e)}
-      />
-      <Button
-        //clicked={clicked.current === 'rush'}
-        clicked={clicked === 'rush'}
-        title="rush"
-        onClick={(e) => handleOnclick(e)}
-      />
+      {categoryList.map((category) => {
+        return (
+          <RadioButton
+            checked={checked === category}
+            label={category}
+            onChange={(e) => handleOnChange(e)}
+          />
+        );
+      })}
     </StyledCategoryDiv>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
-import { catetoryColors } from '../constants/categoryColors';
+import { catetoryColors } from '../constants/category';
 import { week } from '../constants/date';
 import { Event } from '../types/event';
 

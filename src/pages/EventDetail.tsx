@@ -13,8 +13,8 @@ import {
   useEventsDispatch,
   fetchEvent,
 } from '../contexts/EventContext';
-import { catetoryColors } from '../constants/categoryColors';
 import { Event } from '../types/event';
+import { catetoryColors } from '../constants/category';
 import { timeFormat, endAtFormat } from '../utils/time';
 
 const EventDetail: React.FC = () => {

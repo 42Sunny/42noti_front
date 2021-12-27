@@ -209,7 +209,7 @@ export const fetchEvent = async (
   }
 };
 
-export const handleUpdaterEvents = (
+export const updateEvents = (
   dispatch: React.Dispatch<Action>,
   events: Event[],
 ) => {

@@ -1,31 +1,66 @@
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
+
 import styled from 'styled-components';
+import { categoryList } from '../constants/category';
+
+import {
+  updateEvents,
+  useEventsDispatch,
+  useEventsState,
+} from '../contexts/EventContext';
+import { filterUpcomingEvents } from '../pages/Main';
+import RadioButton from './RadioButton';
 
 const EventCategory = () => {
+  const [checked, setChecked] = useState('All');
+  const dispatch = useEventsDispatch();
+  const state = useEventsState();
+
+  useEffect(() => {
+    const events = state.allEvents.data;
+    updateEvents(dispatch, filterUpcomingEvents(events));
+  }, [dispatch, state.allEvents.data]);
+
+  const handleOnChange = useCallback(
+    (e: any) => {
+      const category = e.target.nextSibling.data;
+      const allEvents = state.allEvents.data;
+      setChecked(category);
+      const filteredEvents = allEvents.filter((event) => {
+        if (category !== 'All') {
+          return event.category.toUpperCase() === category.toUpperCase();
+        } else {
+          return true;
+        }
+      });
+      updateEvents(dispatch, filteredEvents);
+    },
+    [state.allEvents.data, dispatch],
+  );
   return (
     <StyledCategoryDiv>
-      <Button>All</Button>
-      <Button>conference</Button>
-      <Button>exam</Button>
-      <Button>hackton</Button>
-      <Button>rush</Button>
+      {categoryList.map((category) => {
+        return (
+          <RadioButton
+            checked={checked === category}
+            label={category}
+            onChange={(e) => handleOnChange(e)}
+          />
+        );
+      })}
     </StyledCategoryDiv>
   );
 };
 
-export default EventCategory;
+export default React.memo(EventCategory);
+//export default EventCategory;
 
 const StyledCategoryDiv = styled.div`
-  width: 100%;
   margin-bottom: 10px;
-`;
-const Button = styled.button`
-  display: inline-block;
-  border-style: none;
-  height: 32px;
-  background: var(--darksnow);
-  border-radius: 20px;
-  color: var(--black);
-  font-weight: 500;
-  margin: 0 10px 8px 0;
-  padding: 6px 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  min-height: 50px;
 `;

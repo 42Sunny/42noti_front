@@ -13,8 +13,8 @@ import {
   useEventsDispatch,
   fetchEvent,
 } from '../contexts/EventContext';
-import { CatetoryColors } from '../constants/CategoryColors';
 import { Event } from '../types/event';
+import { catetoryColors } from '../constants/category';
 import { timeFormat, endAtFormat } from '../utils/time';
 
 const EventDetail: React.FC = () => {
@@ -46,7 +46,7 @@ const EventDetail: React.FC = () => {
       ) : (
         <StyledDiv>
           <StyledMain>
-            <StyledCategoryBar color={CatetoryColors[event.category]} />
+            <StyledCategoryBar color={catetoryColors[event.category]} />
             <h1>{event.title}</h1>
             <h3>📍 {event.location}</h3>
             <h3>

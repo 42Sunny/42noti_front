@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   createContext,
   useContext,
@@ -29,6 +30,11 @@ type EventsState = {
     error: any;
     data: Event[];
   };
+  allEvents: {
+    loading: boolean;
+    error: any;
+    data: Event[];
+  };
 };
 
 // 액션들을 위한 타입
@@ -41,7 +47,8 @@ type Action =
   | { type: 'FAILURE_EVENT'; error: any }
   | { type: 'LOADING_USER_EVENTS' }
   | { type: 'GET_USER_EVENTS'; data: Event[] }
-  | { type: 'FAILURE_USER_EVENTS'; error: any };
+  | { type: 'FAILURE_USER_EVENTS'; error: any }
+  | { type: 'UPDATE_EVENTS'; data: Event[] };
 
 // 디스패치를 위한 타입 (Dispatch 를 리액트에서 불러올 수 있음), 액션들의 타입을 Dispatch 의 Generics로 설정
 type EventsDispatch = Dispatch<Action>;
@@ -63,6 +70,11 @@ const initialState = {
     error: null,
     data: [],
   },
+  allEvents: {
+    loading: false,
+    error: null,
+    data: [],
+  },
 };
 
 // reducer useReducer 의 인자
@@ -77,6 +89,20 @@ const reducer = (state: EventsState, action: Action): EventsState => {
         },
       };
     case 'GET_EVENTS':
+      return {
+        ...state,
+        events: {
+          ...state.events,
+          data: action.data,
+          loading: false,
+        },
+        allEvents: {
+          ...state.events,
+          data: action.data,
+          loading: false,
+        },
+      };
+    case 'UPDATE_EVENTS':
       return {
         ...state,
         events: {
@@ -177,11 +203,17 @@ export const fetchEvent = async (
   dispatch({ type: 'LOADING_EVENT' });
   try {
     const response = await getEvent(eventId);
-    console.log(response.data);
     dispatch({ type: 'GET_EVENT', data: response.data });
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENT', error: e });
   }
+};
+
+export const updateEvents = (
+  dispatch: React.Dispatch<Action>,
+  events: Event[],
+) => {
+  events && dispatch({ type: 'UPDATE_EVENTS', data: events });
 };
 
 export const fetchUserEvents = async (

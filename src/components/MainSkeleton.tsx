@@ -63,20 +63,4 @@ const StyledEvent = styled.div`
   animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
 `;
 
-const StyledCategory = styled.div`
-  display: flex;
-`;
-const StyledButton = styled.div`
-  width: 60px;
-  height: 30px;
-  display: inline-block;
-  border-style: none;
-  height: 32px;
-  background: var(--darksnow);
-  border-radius: 20px;
-  color: var(--black);
-  margin: 0 10px 8px 0;
-  animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
-`;
-
 export default MainSkeleton;

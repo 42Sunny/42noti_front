@@ -7,6 +7,11 @@ import Login from './pages/Login';
 import MyEvent from './pages/MyEvent';
 import './App.css';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+
+dayjs.locale('ko');
+
 function App() {
   return (
     <div className="wrapper">

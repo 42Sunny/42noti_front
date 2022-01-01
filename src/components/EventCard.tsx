@@ -5,15 +5,15 @@ import { catetoryColors } from '../constants/category';
 import { week } from '../constants/date';
 import { Event } from '../types/event';
 
+import dayjs from 'dayjs';
+
 const EventCard = ({ event }: { event: Event }) => {
-  let eventDate = new Date(event.beginAt);
+  let eventDate = dayjs(event.beginAt);
+
   const month = event.beginAt?.split('-')[2].split('T')[0];
-  const day = week[eventDate.getDay()];
-  const time = event.beginAt
-    ? `${event.beginAt?.split('T')[1].split('.')[0].split(':')[0]}:${
-        event.beginAt?.split('T')[1].split('.')[0].split(':')[1]
-      }`
-    : '';
+  const day = week[eventDate.get('day')];
+  const time = eventDate.format('HH:mm');
+
   return (
     <Card>
       <StyledDateDiv>

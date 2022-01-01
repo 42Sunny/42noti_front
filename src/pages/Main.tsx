@@ -13,11 +13,7 @@ import {
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
-import {
-  filterUpcomingEvents,
-  filterUpdatedEvents,
-  handleKRDiffTime,
-} from '../utils/time';
+import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {

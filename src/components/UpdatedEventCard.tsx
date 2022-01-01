@@ -1,33 +1,30 @@
 import { useState, useCallback, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { handleKRDiffTime } from '../utils/time';
+
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+
+dayjs.extend(relativeTime);
+dayjs.extend(calendar);
 
 const UpdatedEventCard = ({ event }: any) => {
   const [agoTime, setAgoTime] = useState('');
 
-  const secondsToMinutes = (seconds: number) => {
-    const minutes = Math.floor(seconds / (1000 * 60));
-    return minutes;
-  };
-
   const handleAgoTime = useCallback(
     (updatedAt: string): SetStateAction<string> => {
-      const now = new Date();
-      const updated = handleKRDiffTime(updatedAt);
-      const minutesDiff = secondsToMinutes(now.getTime() - updated.getTime());
-      const DAY1_MINUTES = 1440; //하루는 1440분
-      if (minutesDiff < DAY1_MINUTES) {
-        const hours = Math.floor(minutesDiff / 60);
-        const minutes = Math.floor(minutesDiff % 60);
-        if (1 <= hours) {
-          //1시간 이후부터 (1시간 전 ~ 23시간 전)
-          return `${hours}시간 전`;
-        } else if (minutes <= 1) {
-          //1분 이하일때
-          return '방금 전';
+      const now = dayjs();
+      const hoursAgo24 = now.subtract(1, 'day');
+      const updated = dayjs(updatedAt);
+      const timeDiff = Math.floor(now.diff(updated) / 60000); //분
+
+      if (updated.isAfter(hoursAgo24)) {
+        if (1 < timeDiff) {
+          //1분 이후부터 -> (1시간 전 ~ 23시간 전, 59분 전 ~ 2분 전)
+          return `${updated.from(now)}`;
         } else {
-          //1시간 이내일때는 (2분 전 ~ 59분 전)
-          return `${minutes}분 전`;
+          //1분 이내의 시간은 방금 전으로 표시
+          return '방금 전';
         }
       }
       return '업데이트 됨';

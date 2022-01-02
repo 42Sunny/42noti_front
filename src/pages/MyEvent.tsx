@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SubHeader from '../components/SubHeader';
 import EventCard from '../components/EventCard';
 import MainSkeleton from '../components/MainSkeleton';
-import MyEventTab from '../components/MyEventTab';
+// import MyEventTab from '../components/MyEventTab';
 import Footer from '../components/Footer';
 
 import { StyledEvents } from './Main';
@@ -20,7 +20,7 @@ const MyEvent = () => {
   return (
     <>
       <SubHeader title="내 이벤트" />
-      <MyEventTab />
+      {/* <MyEventTab /> */}
       {loading || !userEvents ? (
         <MainSkeleton />
       ) : (

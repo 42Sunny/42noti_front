@@ -17,6 +17,6 @@ export const getEvent = (eventId: number) => {
   return instance.get(`/api/event/${eventId}`);
 };
 
-export const getUserEvents = (userId: string) => {
-  return instance.get(`/api/user/${userId}/events`);
+export const getUserEvents = () => {
+  return instance.get(`/api/users/my/events`);
 };

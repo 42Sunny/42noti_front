@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   createContext,
   useContext,
@@ -201,13 +200,10 @@ export const updateEvents = (
   events && dispatch({ type: 'UPDATE_EVENTS', data: events });
 };
 
-export const fetchUserEvents = async (
-  dispatch: React.Dispatch<Action>,
-  userId: string,
-) => {
+export const fetchUserEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_USER_EVENTS' });
   try {
-    const response = await getUserEvents(userId);
+    const response = await getUserEvents();
     const sortedData = response.data.sort((a: Event, b: Event) => {
       if (a.beginAt > b.beginAt) return -1;
       else return 1;
@@ -219,12 +215,12 @@ export const fetchUserEvents = async (
 };
 
 // provider 반환
-export const EventProvider = ({ children }: Props) => {
+const EventProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetchEvents(dispatch);
-    fetchUserEvents(dispatch, 'yunjung');
+    fetchUserEvents(dispatch);
   }, []);
 
   return (
@@ -239,12 +235,14 @@ export const EventProvider = ({ children }: Props) => {
 // state, dispatch 를 잘 쓰기위한 커스텀 hook
 export const useEventsState = () => {
   const EventsState = useContext(EventsStateContext);
-  if (!EventsState) throw new Error('Cannot find ClusterProvider');
+  if (!EventsState) throw new Error('Cannot find EventProvider');
   return EventsState;
 };
 
 export const useEventsDispatch = () => {
   const EventsDispatch = useContext(EventsDispatchContext);
-  if (!EventsDispatch) throw new Error('Cannot find ClusterProvider');
+  if (!EventsDispatch) throw new Error('Cannot find EventProvider');
   return EventsDispatch;
 };
+
+export default EventProvider;

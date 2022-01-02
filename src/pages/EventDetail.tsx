@@ -106,6 +106,7 @@ const StyledMain = styled.main`
     font-weight: 700;
     letter-spacing: -0.3px;
     line-height: calc(1.8rem + 0.5vw);
+    word-break: keep-all;
   }
   h3 {
     font-size: 1rem;
@@ -127,6 +128,7 @@ const StyledDescription = styled.article`
   border-radius: 12px;
   line-height: 1.5rem;
   overflow: auto;
+  word-break: keep-all;
   h2 {
     font-size: 1.2rem;
     font-weight: 700;

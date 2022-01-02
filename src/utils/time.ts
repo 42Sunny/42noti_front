@@ -25,7 +25,7 @@ export const timeFormat = (beginAt: string) => {
     beginTime.isAfter(tomorrowMidnight) &&
     beginTime.isSameOrBefore(thisWeekend)
   ) {
-    time = beginTime.format('이번 주 DDDD h:mm');
+    time = beginTime.format('이번 주 dddd A h:mm');
   } else if (beginTime.isSame(now, 'year')) {
     time = beginTime.format('M월 D일 A h:mm');
   } else {

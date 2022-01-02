@@ -61,11 +61,12 @@ const Card = styled.article`
     cursor: pointer;
   }
   h1 {
-    font-size: 1.1rem;
-    line-height: 22px;
+    font-size: 1.15rem;
+    line-height: 1.5rem;
     letter-spacing: -0.3px;
     font-weight: 700;
     margin-bottom: 6px;
+    word-break: keep-all;
   }
 `;
 

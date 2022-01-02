@@ -6,17 +6,17 @@ const API_URL = 'http://api.event.42cadet.kr';
 
 const instance = axios.create({
   baseURL: API_URL,
-  // withCredentials: true,
+  withCredentials: true,
 });
 
 export const getEvents = () => {
-  return instance.get('/api/events');
+  return instance.get('/events');
 };
 
 export const getEvent = (eventId: number) => {
-  return instance.get(`/api/event/${eventId}`);
+  return instance.get(`/event/${eventId}`);
 };
 
 export const getUserEvents = () => {
-  return instance.get(`/api/users/my/events`);
+  return instance.get(`/users/my/events`);
 };

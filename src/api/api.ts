@@ -17,11 +17,11 @@ export const getEvent = (eventId: number) => {
   return instance.get(`/event/${eventId}`);
 };
 
-// export const getUserEvents = () => {
-//   return instance.get(`/users/my/events`);
-// };
-
 export const getUserEvents = () => {
-  return instance.get(`/users/sarchoi/events`);
+  return instance.get(`/users/my/events`);
 };
+
+// export const getUserEvents = () => {
+//   return instance.get(`/users/sarchoi/events`);
+// };
 

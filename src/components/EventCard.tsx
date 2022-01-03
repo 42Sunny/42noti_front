@@ -23,12 +23,13 @@ const EventCard = ({ event }: { event: Event }) => {
       </StyledDateDiv>
       <StyledInfoDiv>
         <h1>{event.title}</h1>
-        <strong>
-          {event.tags &&
-            event.tags.map((keyword: string, index: number) => (
+        {event.tags.length > 0 && (
+          <strong>
+            {event.tags.map((keyword: string, index: number) => (
               <span key={index}>#{keyword}</span>
             ))}
-        </strong>
+          </strong>
+        )}
         <StyledEventInfoDiv>
           <div>
             <Icon size={14} color="var(--lightgray)" icon="time" />
@@ -49,8 +50,8 @@ export default React.memo(EventCard);
 const Card = styled.article`
   display: flex;
   align-items: flex-start;
-  width: 100%;
   background: var(--white);
+  width: 100%;
   margin-bottom: 16px;
   border-radius: 10px;
   padding: 18px 16px;
@@ -76,7 +77,7 @@ const StyledDateDiv = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 18%;
+  width: 20%;
   max-width: 36px;
   margin-right: 16px;
   h1 {
@@ -87,6 +88,7 @@ const StyledDateDiv = styled.div`
   }
   h3 {
     font-size: 0.8rem;
+    letter-spacing: -0.3px;
   }
 `;
 
@@ -96,17 +98,19 @@ const StyledInfoDiv = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 1.15rem;
-    line-height: 22px;
+    line-height: 1.5rem;
     letter-spacing: -0.3px;
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
+    word-break: keep-all;
   }
   strong {
     font-size: 0.85rem;
     line-height: 18px;
     color: var(--gray);
-    margin-bottom: 4px;
+    margin-bottom: 7px;
     span {
+      display: inline-block;
       margin-right: 8px;
     }
   }
@@ -128,6 +132,10 @@ const StyledEventInfoDiv = styled.div`
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       margin-right: 10px;
+    }
+    &:nth-child(2) {
+      width: 46vw;
+      max-width: 460px;
     }
   }
 `;

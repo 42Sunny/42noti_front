@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
@@ -7,33 +7,42 @@ import Footer from '../components/Footer';
 import EventCard from '../components/EventCard';
 import MainSkeleton from '../components/MainSkeleton';
 import UpdatedEventCard from '../components/UpdatedEventCard';
-
 import {
   fetchEvents,
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
+import { useUserDispatch, useUserState } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {
-  const state = useEventsState();
-  const dispatch = useEventsDispatch();
-  const { data: events, loading } = state.events;
+  const navigate = useNavigate();
+  const eventState = useEventsState();
+  const eventDispatch = useEventsDispatch();
+  const userState = useUserState();
+  const userDispatch = useUserDispatch();
+  const { data: events, loading } = eventState.events;
   const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    if (!events) {
-      fetchEvents(dispatch);
+    if (!document.cookie) {
+      navigate('/login');
+      userDispatch({ type: 'SET_LOGOUT' });
     }
+    if (!events) {
+      fetchEvents(eventDispatch);
+    }
+    userDispatch({ type: 'SET_LOGIN' });
     const filteredEvents = filterUpcomingEvents(events);
     const updatedEvents = filterUpdatedEvents(filteredEvents);
     setAllEvents(filteredEvents);
     setUpdatedEvents(updatedEvents);
-  }, [events, dispatch]);
+    console.log(eventState, userState);
+  }, [events, navigate, userDispatch, eventState, eventDispatch]);
 
   return (
     <>

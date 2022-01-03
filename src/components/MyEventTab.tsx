@@ -25,6 +25,7 @@ const StyledTab = styled.div`
     font-weight: 600;
     margin-left: 6px;
     border: 0;
+    color: var(--black);
     background-color: white;
     border-bottom: 2px solid var(--black);
     margin: 0 12px;

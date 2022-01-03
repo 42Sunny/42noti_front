@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 
@@ -7,11 +7,12 @@ type Props = {
 };
 
 const SubHeader = ({ title }: Props) => {
+  const navigate = useNavigate();
   return (
     <StyledHeader>
-      <Link to="/">
+      <button onClick={() => navigate(-1)}>
         <Icon size={18} color="var(--black)" icon="arrowLeft" />
-      </Link>
+      </button>
       <h1>{title}</h1>
     </StyledHeader>
   );
@@ -32,10 +33,12 @@ const StyledHeader = styled.header`
     font-size: 1.1rem;
     font-weight: 700;
   }
-  svg {
+  button {
     position: absolute;
     top: 16px;
     left: 10px;
+    background: none;
+    border: none;
   }
 `;
 

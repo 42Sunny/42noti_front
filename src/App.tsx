@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { EventProvider } from './contexts/EventContext';
+import EventProvider from './contexts/EventContext';
+import UserProvider from './contexts/UserContext';
 import ScrollTop from './utils/ScrollTop';
 import EventDetail from './pages/EventDetail';
 import MainPage from './pages/Main';
@@ -17,14 +18,16 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <ScrollTop />
-        <EventProvider>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/my" element={<MyEvent />} />
-            <Route path="/detail/:eventId" element={<EventDetail />} />
-          </Routes>
-        </EventProvider>
+        <UserProvider>
+          <EventProvider>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/my" element={<MyEvent />} />
+              <Route path="/detail/:eventId" element={<EventDetail />} />
+            </Routes>
+          </EventProvider>
+        </UserProvider>
       </BrowserRouter>
     </div>
   );

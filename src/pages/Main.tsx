@@ -29,6 +29,7 @@ const MainPage = () => {
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
   useEffect(() => {
+    // 로컬에서 작업할때 아래 조건문 주석처리
     if (!document.cookie) {
       navigate('/login');
       userDispatch({ type: 'SET_LOGOUT' });
@@ -91,7 +92,12 @@ const MainPage = () => {
             );
           })}
           {events.length === 0 && (
-            <StyledNodata>이벤트가 없습니다 ☹</StyledNodata>
+            <StyledNodata>
+              <div>🧐</div>
+              이벤트가 없습니다
+              <br />
+              서브젝트를 하러 갑시다 !
+            </StyledNodata>
           )}
         </StyledSection>
       )}
@@ -102,6 +108,7 @@ const MainPage = () => {
 
 export const StyledSection = styled.section`
   display: flex;
+  flex: 1 1 0;
   align-items: center;
   flex-direction: column;
   background: var(--snow);
@@ -125,10 +132,14 @@ const StyledContentTitle = styled.div`
   }
 `;
 
-const StyledNodata = styled(StyledContentTitle)`
-  display: inline-block;
+const StyledNodata = styled.div`
   text-align: center;
-  color: #808080;
+  font-size: 1.05rem;
+  margin: 120px 0;
+  color: var(--gray);
+  div {
+    font-size: 3rem;
+  }
 `;
 
 export const StyledEvents = styled.div`

@@ -136,6 +136,12 @@ q:after {
   --snow: rgb(244, 246, 248);
   --darksnow: rgb(232, 234, 238);
 }
+html {
+  height: -webkit-fill-available;
+}
+body {
+  height: -webkit-fill-available;
+}
 body,
 input,
 button {
@@ -149,6 +155,9 @@ a {
   outline: none;
   color: var(--black);
 }
+#root {
+  height: 100%;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -159,7 +168,5 @@ a {
   width: 100%;
   min-width: 320px;
   max-width: 640px;
-  min-height: 100vh;
-  /* padding-top: 52px; */
-  height: 100%;
+  height: -webkit-fill-available;
 }

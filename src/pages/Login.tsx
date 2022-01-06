@@ -57,8 +57,8 @@ const StyledMain = styled.main`
     margin-bottom: 12px;
   }
   p {
-    font-size: 1.1rem;
-    line-height: 1.8rem;
+    font-size: 1.05rem;
+    line-height: 1.7rem;
     margin-bottom: 26px;
   }
   img {
@@ -73,11 +73,11 @@ const StyledMain = styled.main`
 const Button = styled.button`
   width: 100%;
   max-width: 330px;
-  height: 48px;
-  border-radius: 4px;
+  height:50px;
+  border-radius: 6px;
   background-color: var(--blue);
   color: var(--white);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   border: 0;
   cursor: pointer;

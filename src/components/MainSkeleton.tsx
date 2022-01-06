@@ -13,7 +13,6 @@ const MainSkeleton = () => {
         <StyledEvent />
         <StyledEvent />
         <StyledEvent />
-        <StyledEvent />
       </StyledDiv>
     </StyledSection>
   );

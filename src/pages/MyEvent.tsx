@@ -54,6 +54,7 @@ export default MyEvent;
 
 const MyEventSection = styled.section`
   display: flex;
+  flex: 1 1 0;
   align-items: center;
   flex-direction: column;
   background: var(--snow);

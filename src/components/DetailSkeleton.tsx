@@ -34,12 +34,12 @@ const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
   padding-top: 52px;
+  background: var(--snow);
 `;
 
 const StyledMain = styled.main`
   padding: 28px;
   width: 100%;
-  height: 100%;
   background: var(--white);
   line-height: 1.6rem;
   strong {

@@ -21,6 +21,7 @@ export const getUserEvents = () => {
   return instance.get(`/users/my/events`);
 };
 
+// 로컬에서 작업할때 임시로 사용
 // export const getUserEvents = () => {
 //   return instance.get(`/users/sarchoi/events`);
 // };

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import EventCard from '../components/EventCard';
+import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import UpdatedEventCard from '../components/UpdatedEventCard';
 import {
@@ -23,7 +23,6 @@ const MainPage = () => {
   const userState = useUserState();
   const userDispatch = useUserDispatch();
   const { data: events, loading } = eventState.events;
-  const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
@@ -70,35 +69,7 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
           </StyledContentTitle>
-          {allEvents.map((event: Event) => {
-            let yearMonth = null;
-            let eventDate = new Date(event.beginAt);
-            if (months[eventDate.getMonth()] === 0) {
-              yearMonth = `${eventDate.getFullYear()}년 ${
-                eventDate.getMonth() + 1
-              }월`;
-              months[eventDate.getMonth()] = 1;
-            }
-
-            return (
-              events.length > 0 && (
-                <StyledEvents key={event.id}>
-                  {yearMonth && <h2>{yearMonth}</h2>}
-                  <Link to={`/detail/${event.id}`}>
-                    <EventCard event={event} />
-                  </Link>
-                </StyledEvents>
-              )
-            );
-          })}
-          {events.length === 0 && (
-            <StyledNodata>
-              <div>🧐</div>
-              이벤트가 없습니다
-              <br />
-              서브젝트를 하러 갑시다 !
-            </StyledNodata>
-          )}
+          <EventList events={allEvents} />
         </StyledSection>
       )}
       <Footer />
@@ -132,17 +103,7 @@ const StyledContentTitle = styled.div`
   }
 `;
 
-const StyledNodata = styled.div`
-  text-align: center;
-  font-size: 1.05rem;
-  margin: 120px 0;
-  color: var(--gray);
-  div {
-    font-size: 3rem;
-  }
-`;
-
-export const StyledEvents = styled.div`
+const StyledEvents = styled.div`
   width: 100%;
   h2 {
     font-size: 0.8rem;

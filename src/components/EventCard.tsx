@@ -32,8 +32,8 @@ const EventCard = ({ event }: { event: Event }) => {
         )}
         <StyledEventInfoDiv>
           <div>
-            <Icon size={14} color="var(--lightgray)" icon="time" />
-            <span>&nbsp;{time}</span>
+            <Icon size={16} color="var(--lightgray)" icon="time" />
+            <span>{time}</span>
           </div>
           <div>
             <Icon size={16} color="var(--lightgray)" icon="location" />
@@ -80,6 +80,7 @@ const StyledDateDiv = styled.div`
   width: 20%;
   max-width: 36px;
   margin-right: 16px;
+  letter-spacing: -0.3px;
   h1 {
     font-size: 1.9rem;
     font-weight: 400;
@@ -88,7 +89,7 @@ const StyledDateDiv = styled.div`
   }
   h3 {
     font-size: 0.8rem;
-    letter-spacing: -0.3px;
+    color: var(--darkgray);
   }
 `;
 
@@ -98,7 +99,7 @@ const StyledInfoDiv = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 1.15rem;
-    line-height: 1.5rem;
+    line-height: 1.4rem;
     letter-spacing: -0.3px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -122,6 +123,9 @@ const StyledEventInfoDiv = styled.div`
   div {
     display: flex;
     align-items: center;
+    svg {
+      min-width: 16px;
+    }
     span {
       font-size: 0.85rem;
       line-height: 18px;

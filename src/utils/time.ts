@@ -58,10 +58,19 @@ export const filterUpcomingEvents = (events: Array<Event>): Array<Event> => {
   const upcomingEvents = events.filter((event) => {
     const now = dayjs();
     const eventDate = dayjs(event.beginAt);
-
     return eventDate.isAfter(now);
   });
   return upcomingEvents;
+};
+
+export const filterPastEvents = (events: Array<Event>): Array<Event> => {
+  // 지나간 일정들
+  const pastEvents = events.filter((event) => {
+    const now = dayjs();
+    const eventDate = dayjs(event.beginAt);
+    return eventDate.isBefore(now);
+  });
+  return pastEvents;
 };
 
 export const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
@@ -70,7 +79,6 @@ export const filterUpdatedEvents = (events: Array<Event>): Array<Event> => {
   const updatedEvents = events.filter((event) => {
     const updated = dayjs(event.updatedAt);
     const created = dayjs(event.createdAt);
-
     // 생성날짜보다 업데이트 날짜가 최신일때, 24시간전에 업데이트된 이벤트 일때
     return updated.isAfter(created) && updated.isAfter(horus24);
   });

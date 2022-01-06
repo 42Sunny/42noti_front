@@ -10,7 +10,7 @@ const SubHeader = ({ title }: Props) => {
   const navigate = useNavigate();
   return (
     <StyledHeader>
-      <button onClick={() => navigate(-1)}>
+      <button onClick={() => navigate('/')}>
         <Icon size={18} color="var(--black)" icon="arrowLeft" />
       </button>
       <h1>{title}</h1>
@@ -39,6 +39,7 @@ const StyledHeader = styled.header`
     left: 10px;
     background: none;
     border: none;
+    padding: 0;
   }
 `;
 

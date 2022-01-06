@@ -1,15 +1,26 @@
+import { useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+type Props = {
+  selected?: boolean;
+};
+
 const MyEventTab = () => {
+  const { pathname } = useLocation();
+
   return (
-    <StyledTab>
-      <button>알림받는 이벤트</button>
-      <button>지나간 이벤트</button>
-    </StyledTab>
+    <Tab role="tablist">
+      <Item role="tab" selected={pathname === '/my/on'}>
+        <Link to="/my/on">알림받는 이벤트</Link>
+      </Item>
+      <Item role="tab" selected={pathname === '/my/past'}>
+        <Link to="/my/past">지나간 이벤트</Link>
+      </Item>
+    </Tab>
   );
 };
 
-const StyledTab = styled.div`
+const Tab = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
@@ -18,17 +29,22 @@ const StyledTab = styled.div`
   max-width: 640px;
   background-color: white;
   z-index: 10;
-  button {
-    height: 42px;
-    line-height: 42px;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-left: 6px;
-    border: 0;
-    color: var(--black);
-    background-color: white;
-    border-bottom: 2px solid var(--black);
-    margin: 0 12px;
+`;
+
+const Item = styled.span`
+  display: inline-block;
+  height: 42px;
+  line-height: 42px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 6px;
+  color: ${(p: Props) => (p.selected ? 'var(--black)' : 'var(--darksnow)')};
+  border-bottom: ${(p: Props) =>
+    p.selected ? '2px solid var(--black);' : 'none'};
+  background-color: white;
+  margin: 0 12px;
+  a {
+    color: inherit;
   }
 `;
 

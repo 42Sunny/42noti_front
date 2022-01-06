@@ -12,7 +12,7 @@ type IconProps = {
   icon: iconName;
   size: number;
   color?: string;
-}
+};
 
 const Icon = ({ icon, size, color }: IconProps) => (
   <svg

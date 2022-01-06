@@ -73,7 +73,7 @@ const StyledMain = styled.main`
 const Button = styled.button`
   width: 100%;
   max-width: 330px;
-  height:50px;
+  height: 50px;
   border-radius: 6px;
   background-color: var(--blue);
   color: var(--white);

@@ -25,4 +25,3 @@ export const getUserEvents = () => {
 // export const getUserEvents = () => {
 //   return instance.get(`/users/sarchoi/events`);
 // };
-

@@ -42,8 +42,8 @@ const EventDetail: React.FC = () => {
   const handleAlarm = () => {
     setAlarmOn(!alarmOn);
   };
-  console.log("alarmOn", alarmOn);
-  
+  console.log('alarmOn', alarmOn);
+
   return (
     <>
       <Header />

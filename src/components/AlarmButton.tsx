@@ -2,18 +2,25 @@ import styled from 'styled-components';
 import Icon from '../components/Icon';
 
 type Props = {
-  alarmOn: boolean;
+  alarm: boolean | null;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const AlarmButton = ({ onClick, alarmOn }: Props) => {
-  if (alarmOn)
+const AlarmButton = ({ onClick, alarm }: Props) => {
+  if (alarm || null)
     return (
       <ButtonOff onClick={onClick}>
         <Icon size={22} color="var(--blue)" icon="alarm" />
         알림 받는 중
       </ButtonOff>
     );
+  // else if (alarm === null)
+  //   return (
+  //     <ButtonDisable disabled>
+  //       <Icon size={22} color="var(--gray)" icon="alarm" />
+  //       지나간 이벤트입니다
+  //     </ButtonDisable>
+  //   );
   else
     return (
       <ButtonOn onClick={onClick}>
@@ -51,4 +58,9 @@ const ButtonOn = styled(Button)`
 const ButtonOff = styled(Button)`
   background-color: var(--snow);
   color: var(--blue);
+`;
+
+const ButtonDisable = styled(Button)`
+  background-color: var(--lightgray);
+  color: var(--darkgray);
 `;

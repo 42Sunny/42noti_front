@@ -29,10 +29,10 @@ const MainPage = () => {
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
-    if (!document.cookie) {
-      navigate('/login');
-      userDispatch({ type: 'SET_LOGOUT' });
-    }
+    // if (!document.cookie) {
+    //   navigate('/login');
+    //   userDispatch({ type: 'SET_LOGOUT' });
+    // }
     if (!events) {
       fetchEvents(eventDispatch);
     }

@@ -17,8 +17,10 @@ import { Event } from '../types/event';
 import { catetoryColors } from '../constants/category';
 import { timeFormat, endAtFormat } from '../utils/time';
 
+import { alarmState, alarmOn, alarmOff } from '../api/api';
+
 const EventDetail: React.FC = () => {
-  const [alarmOn, setAlarmOn] = useState(false);
+  const [alarm, setAlarm] = useState(false);
   const state = useEventsState();
   const dispatch = useEventsDispatch();
 
@@ -32,17 +34,53 @@ const EventDetail: React.FC = () => {
     events?.find((e) => e.id === eventId) ||
     userEvents?.find((e) => e.id === eventId);
 
+  const getAlarmState = async (eventId: number) => {
+    try {
+      const response = await alarmState(eventId);
+      console.log(response);
+      setAlarm(response.data.reminder);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const postAlarm = async (eventId: number) => {
+    try {
+      const response = await alarmOn(eventId);
+      console.log(response);
+      setAlarm(response.data.reminder);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const delAlarm = async (eventId: number) => {
+    try {
+      const response = await alarmOff(eventId);
+      console.log(response);
+      setAlarm(response.data.reminder);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleAlarm = () => {
+    if (alarm) {
+      delAlarm(eventId);
+    } else {
+      postAlarm(eventId);
+    }
+  };
+
   useEffect(() => {
     if (event) {
       return;
     }
     fetchEvent(dispatch, eventId);
+    getAlarmState(eventId);
   }, [dispatch, eventId, event]);
 
-  const handleAlarm = () => {
-    setAlarmOn(!alarmOn);
-  };
-  console.log('alarmOn', alarmOn);
+  console.log('alarm state:', alarm);
 
   return (
     <>
@@ -64,7 +102,7 @@ const EventDetail: React.FC = () => {
                 👥 {event.currentSubscribers} / {event.maxSubscribers}
               </h3>
             </div>
-            <AlarmButton onClick={handleAlarm} alarmOn={alarmOn} />
+            <AlarmButton onClick={handleAlarm} alarm={alarm} />
           </StyledMain>
           <StyledSection>
             <StyledDescription>

@@ -5,14 +5,14 @@ type iconName =
   | 'location'
   | 'arrowLeft'
   | 'arrowRight'
-  | 'reminder'
-  | 'addReminder';
+  | 'alarm'
+  | 'alarmLine';
 
-interface IconProps {
+type IconProps = {
   icon: iconName;
   size: number;
   color?: string;
-}
+};
 
 const Icon = ({ icon, size, color }: IconProps) => (
   <svg
@@ -21,7 +21,9 @@ const Icon = ({ icon, size, color }: IconProps) => (
     fill={color}
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d={IconSet[icon].path} />
+    {IconSet[icon].path.map((path: string, index: number) => {
+      return <path key={icon + index} d={path} />;
+    })}
   </svg>
 );
 export default Icon;

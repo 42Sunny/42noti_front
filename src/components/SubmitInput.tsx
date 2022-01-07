@@ -1,3 +1,5 @@
+// 220106 지금은 사용하지 않는 컴포넌트
+
 import { useState } from 'react';
 import styled from 'styled-components';
 

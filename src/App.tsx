@@ -21,10 +21,12 @@ function App() {
         <UserProvider>
           <EventProvider>
             <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/my" element={<MyEvent />} />
-              <Route path="/detail/:eventId" element={<EventDetail />} />
+              <Route path="" element={<MainPage />} />
+              <Route path="login" element={<Login />} />
+              <Route path="my/*" element={<MyEvent />} />
+              <Route path="detail">
+                <Route path=":eventId" element={<EventDetail />} />
+              </Route>
             </Routes>
           </EventProvider>
         </UserProvider>

@@ -8,7 +8,7 @@ const Header = () => {
       <Link to="/">
         <h1>42 EVENT</h1>
       </Link>
-      <Link to="/my">
+      <Link to="/my/on">
         <span>내 이벤트</span>
       </Link>
     </StyledHeader>

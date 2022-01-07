@@ -1,21 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import SubHeader from '../components/SubHeader';
-import EventCard from '../components/EventCard';
-import MainSkeleton from '../components/MainSkeleton';
 import MyEventTab from '../components/MyEventTab';
 import Footer from '../components/Footer';
+import EventList from '../components/EventList';
+import MainSkeleton from '../components/MainSkeleton';
 
-import { StyledEvents } from './Main';
 import { useEventsState } from '../contexts/EventContext';
-import { Event } from '../types/event';
+import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
 
 const MyEvent = () => {
   const state = useEventsState();
   const { data: userEvents, loading } = state.userEvents;
-
-  const months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const upcomingEvents = filterUpcomingEvents(userEvents);
+  const pastEvents = filterPastEvents(userEvents);
 
   return (
     <>
@@ -25,24 +24,10 @@ const MyEvent = () => {
         <MainSkeleton />
       ) : (
         <MyEventSection>
-          {userEvents.map((event: Event) => {
-            let yearMonth = null;
-            let eventDate = new Date(event.beginAt);
-            if (months[eventDate.getMonth()] === 0) {
-              yearMonth = `${eventDate.getFullYear()}년 ${
-                eventDate.getMonth() + 1
-              }월`;
-              months[eventDate.getMonth()] = 1;
-            }
-            return (
-              <StyledEvents key={event.id}>
-                {yearMonth && <h2>{yearMonth}</h2>}
-                <Link to={`/detail/${event.id}`}>
-                  <EventCard event={event} />
-                </Link>
-              </StyledEvents>
-            );
-          })}
+          <Routes>
+            <Route path="on" element={<EventList events={upcomingEvents} />} />
+            <Route path="past" element={<EventList events={pastEvents} />} />
+          </Routes>
         </MyEventSection>
       )}
       <Footer />
@@ -58,6 +43,6 @@ const MyEventSection = styled.section`
   align-items: center;
   flex-direction: column;
   background: var(--snow);
-  padding: 120px 18px 18px 18px;
+  padding: 110px 18px 18px 18px;
   text-align: left;
 `;

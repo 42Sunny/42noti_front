@@ -12,7 +12,7 @@ import {
   useEventsDispatch,
   useEventsState,
 } from '../contexts/EventContext';
-import { useUserDispatch, useUserState } from '../contexts/UserContext';
+import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
 
@@ -20,7 +20,6 @@ const MainPage = () => {
   const navigate = useNavigate();
   const eventState = useEventsState();
   const eventDispatch = useEventsDispatch();
-  const userState = useUserState();
   const userDispatch = useUserDispatch();
   const { data: events, loading } = eventState.events;
 
@@ -41,10 +40,7 @@ const MainPage = () => {
     const updatedEvents = filterUpdatedEvents(upcomingEvents);
     setAllEvents(upcomingEvents);
     setUpdatedEvents(updatedEvents);
-    console.log(eventState, userState);
   }, [events, navigate, userDispatch, eventState, eventDispatch]);
-
-  console.log(events);
 
   return (
     <>

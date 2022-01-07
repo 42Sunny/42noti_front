@@ -73,15 +73,12 @@ const EventDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    if (event) {
-      return;
+    if (!event) {
+      fetchEvent(dispatch, eventId);
     }
-    fetchEvent(dispatch, eventId);
     getAlarmState(eventId);
   }, [dispatch, eventId, event]);
-
-  console.log('alarm state:', alarm);
-
+  
   return (
     <>
       <Header />

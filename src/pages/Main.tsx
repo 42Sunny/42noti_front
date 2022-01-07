@@ -29,25 +29,27 @@ const MainPage = () => {
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
-    // if (!document.cookie) {
-    //   navigate('/login');
-    //   userDispatch({ type: 'SET_LOGOUT' });
-    // }
+    if (!document.cookie) {
+      navigate('/login');
+      userDispatch({ type: 'SET_LOGOUT' });
+    }
     if (!events) {
       fetchEvents(eventDispatch);
     }
     userDispatch({ type: 'SET_LOGIN' });
-    const filteredEvents = filterUpcomingEvents(events);
-    const updatedEvents = filterUpdatedEvents(filteredEvents);
-    setAllEvents(filteredEvents);
+    const upcomingEvents = filterUpcomingEvents(events);
+    const updatedEvents = filterUpdatedEvents(upcomingEvents);
+    setAllEvents(upcomingEvents);
     setUpdatedEvents(updatedEvents);
     console.log(eventState, userState);
   }, [events, navigate, userDispatch, eventState, eventDispatch]);
 
+  console.log(events);
+
   return (
     <>
       <Header />
-      {loading || !allEvents || !updatedEvents ? (
+      {loading || !events ? (
         <MainSkeleton />
       ) : (
         <StyledSection>

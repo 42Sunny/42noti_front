@@ -17,14 +17,14 @@ export const getEvent = (eventId: number) => {
   return instance.get(`/event/${eventId}`);
 };
 
-// export const getUserEvents = () => {
-//   return instance.get(`/users/my/events`);
-// };
+export const getUserEvents = () => {
+  return instance.get(`/users/my/events`);
+};
 
 //로컬에서 작업할때 임시로 사용
-export const getUserEvents = () => {
-  return instance.get(`/users/sarchoi/events`);
-};
+// export const getUserEvents = () => {
+//   return instance.get(`/users/sarchoi/events`);
+// };
 
 export const alarmState = (eventId: number) => {
   return instance.get(`/events/${eventId}/reminder`);

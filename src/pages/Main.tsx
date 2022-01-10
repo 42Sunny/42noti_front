@@ -7,11 +7,7 @@ import Footer from '../components/Footer';
 import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import UpdatedEventCard from '../components/UpdatedEventCard';
-import {
-  fetchEvents,
-  useEventsDispatch,
-  useEventsState,
-} from '../contexts/EventContext';
+import { useEventsDispatch, useEventsState } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
@@ -23,7 +19,7 @@ const MainPage = () => {
   const userDispatch = useUserDispatch();
   const { data: events, loading } = eventState.events;
 
-  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [upcomingEvent, setUpcomingEvent] = useState<Event[]>([]);
   const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
 
   useEffect(() => {
@@ -32,20 +28,16 @@ const MainPage = () => {
       navigate('/login');
       userDispatch({ type: 'SET_LOGOUT' });
     }
-    if (!events) {
-      fetchEvents(eventDispatch);
-    }
     userDispatch({ type: 'SET_LOGIN' });
     const upcomingEvents = filterUpcomingEvents(events);
     const updatedEvents = filterUpdatedEvents(upcomingEvents);
-    setAllEvents(upcomingEvents);
+    setUpcomingEvent(upcomingEvents);
     setUpdatedEvents(updatedEvents);
   }, [events, navigate, userDispatch, eventState, eventDispatch]);
-
   return (
     <>
       <Header />
-      {loading || !events ? (
+      {loading ? (
         <MainSkeleton />
       ) : (
         <StyledSection>
@@ -67,7 +59,7 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
           </StyledContentTitle>
-          <EventList events={allEvents} />
+          <EventList events={upcomingEvent} />
         </StyledSection>
       )}
       <Footer />

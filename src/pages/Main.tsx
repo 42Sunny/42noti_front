@@ -37,7 +37,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      {loading || events.length === 0 ? (
+      {loading ? (
         <MainSkeleton />
       ) : (
         <StyledSection>
@@ -47,24 +47,19 @@ const MainPage = () => {
               <span>{updatedEvents.length}</span>
             </StyledContentTitle>
           )}
-          {updatedEvents.length > 0 &&
-            updatedEvents.map((event: Event) => {
-              return (
-                <StyledEvents key={event.id}>
-                  <Link to={`/detail/${event.id}`}>
-                    <UpdatedEventCard event={event} />
-                  </Link>
-                </StyledEvents>
-              );
-            })}
-          {upcomingEvent.length !== 0 && (
-            <>
-              <StyledContentTitle>
-                <h1>다가오는 이벤트</h1>
-              </StyledContentTitle>
-              <EventList events={upcomingEvent} />
-            </>
-          )}
+          {updatedEvents.map((event: Event) => {
+            return (
+              <StyledEvents key={event.id}>
+                <Link to={`/detail/${event.id}`}>
+                  <UpdatedEventCard event={event} />
+                </Link>
+              </StyledEvents>
+            );
+          })}
+          <StyledContentTitle>
+            <h1>다가오는 이벤트</h1>
+          </StyledContentTitle>
+          <EventList events={upcomingEvent} />
         </StyledSection>
       )}
       <Footer />

@@ -55,9 +55,9 @@ export const endAtFormat = (beginAt: string, endAt: string) => {
 
 export const filterUpcomingEvents = (
   events: Array<Event> | null,
-): Array<Event> | null => {
+): Array<Event> => {
   //다가오는 일정들, 지나간 일정을 필터링
-  if (events === null) return events;
+  if (events === null) return [];
   const upcomingEvents = events.filter((event) => {
     const now = dayjs();
     const eventDate = dayjs(event.beginAt);
@@ -66,8 +66,9 @@ export const filterUpcomingEvents = (
   return upcomingEvents;
 };
 
-export const filterPastEvents = (events: Array<Event>): Array<Event> => {
+export const filterPastEvents = (events: Array<Event> | null): Array<Event> => {
   // 지나간 일정들
+  if (events === null) return [];
   const pastEvents = events.filter((event) => {
     const now = dayjs();
     const eventDate = dayjs(event.beginAt);
@@ -78,10 +79,10 @@ export const filterPastEvents = (events: Array<Event>): Array<Event> => {
 
 export const filterUpdatedEvents = (
   events: Array<Event> | null,
-): Array<Event> | null => {
+): Array<Event> => {
   //오늘 업데이트 된 일정들
   const horus24 = dayjs().subtract(1, 'day');
-  if (events === null) return events;
+  if (events === null) return [];
   const updatedEvents = events.filter((event) => {
     const updated = dayjs(event.updatedAt);
     const created = dayjs(event.createdAt);

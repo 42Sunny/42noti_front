@@ -7,7 +7,12 @@ import Footer from '../components/Footer';
 import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import UpdatedEventCard from '../components/UpdatedEventCard';
-import { useEventsDispatch, useEventsState } from '../contexts/EventContext';
+import {
+  // fetchEvents,
+  // fetchUserEvents,
+  useEventsDispatch,
+  useEventsState,
+} from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
@@ -18,9 +23,8 @@ const MainPage = () => {
   const eventDispatch = useEventsDispatch();
   const userDispatch = useUserDispatch();
   const { data: events, loading } = eventState.events;
-
-  const [upcomingEvent, setUpcomingEvent] = useState<Event[]>([]);
-  const [updatedEvents, setUpdatedEvents] = useState<Event[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
+  const [updatedEvents, setUpdatedEvents] = useState<Event[] | null>(null);
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
@@ -31,13 +35,14 @@ const MainPage = () => {
     userDispatch({ type: 'SET_LOGIN' });
     const upcomingEvents = filterUpcomingEvents(events);
     const updatedEvents = filterUpdatedEvents(upcomingEvents);
-    setUpcomingEvent(upcomingEvents);
+    setUpcomingEvents(upcomingEvents);
     setUpdatedEvents(updatedEvents);
   }, [events, navigate, userDispatch, eventState, eventDispatch]);
+
   return (
     <>
       <Header />
-      {loading ? (
+      {loading || updatedEvents === null || upcomingEvents === null ? (
         <MainSkeleton />
       ) : (
         <StyledSection>
@@ -59,7 +64,7 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
           </StyledContentTitle>
-          <EventList events={upcomingEvent} />
+          <EventList events={upcomingEvents} />
         </StyledSection>
       )}
       <Footer />

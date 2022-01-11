@@ -35,10 +35,12 @@ const EventCard = ({ event }: { event: Event }) => {
             <Icon size={16} color="var(--lightgray)" icon="time" />
             <span>{time}</span>
           </div>
-          <div>
-            <Icon size={16} color="var(--lightgray)" icon="location" />
-            <span>{event.location}</span>
-          </div>
+          {event.location && (
+            <div>
+              <Icon size={16} color="var(--lightgray)" icon="location" />
+              <span>{event.location}</span>
+            </div>
+          )}
         </StyledEventInfoDiv>
       </StyledInfoDiv>
     </Card>

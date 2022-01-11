@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,14 +8,23 @@ import Footer from '../components/Footer';
 import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 
-import { useEventsState } from '../contexts/EventContext';
+import {
+  useEventsState,
+  useEventsDispatch,
+  fetchUserEvents,
+} from '../contexts/EventContext';
 import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
 
 const MyEvent = () => {
   const state = useEventsState();
+  const dispatch = useEventsDispatch();
   const { data: userEvents, loading } = state.userEvents;
   const upcomingEvents = filterUpcomingEvents(userEvents);
   const pastEvents = filterPastEvents(userEvents);
+
+  useEffect(() => {
+    fetchUserEvents(dispatch);
+  }, [dispatch]);
 
   return (
     <>

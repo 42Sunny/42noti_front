@@ -14,6 +14,7 @@ const EventCard = ({ event }: { event: Event }) => {
   const day = week[eventDate.get('day')];
   const time = eventDate.format('HH:mm');
 
+  console.log(event.location);
   return (
     <Card>
       <StyledDateDiv>
@@ -35,10 +36,12 @@ const EventCard = ({ event }: { event: Event }) => {
             <Icon size={16} color="var(--lightgray)" icon="time" />
             <span>{time}</span>
           </div>
-          <div>
-            <Icon size={16} color="var(--lightgray)" icon="location" />
-            <span>{event.location}</span>
-          </div>
+          {event.location && (
+            <div>
+              <Icon size={16} color="var(--lightgray)" icon="location" />
+              <span>{event.location}</span>
+            </div>
+          )}
         </StyledEventInfoDiv>
       </StyledInfoDiv>
     </Card>

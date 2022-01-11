@@ -78,7 +78,7 @@ const EventDetail: React.FC = () => {
     }
     getAlarmState(eventId);
   }, [dispatch, eventId, event]);
-  
+
   return (
     <>
       <Header />
@@ -90,14 +90,16 @@ const EventDetail: React.FC = () => {
             <StyledCategoryBar color={catetoryColors[event.category]} />
             <h1>{event.title}</h1>
             <div>
-              <h3>📍 {event.location}</h3>
+              {event.location && <h3>📍 {event.location}</h3>}
               <h3>
                 🕒 {timeFormat(event.beginAt)} -{' '}
                 {endAtFormat(event.beginAt, event.endAt)}
               </h3>
-              <h3>
-                👥 {event.currentSubscribers} / {event.maxSubscribers}
-              </h3>
+              {event.maxSubscribers && (
+                <h3>
+                  👥 {event.currentSubscribers} / {event.maxSubscribers}
+                </h3>
+              )}
             </div>
             <AlarmButton onClick={handleAlarm} alarm={alarm} />
           </StyledMain>

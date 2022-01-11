@@ -14,7 +14,6 @@ const EventCard = ({ event }: { event: Event }) => {
   const day = week[eventDate.get('day')];
   const time = eventDate.format('HH:mm');
 
-  console.log(event.location);
   return (
     <Card>
       <StyledDateDiv>

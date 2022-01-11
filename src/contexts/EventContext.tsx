@@ -17,7 +17,7 @@ type EventsState = {
   events: {
     loading: boolean;
     error: any;
-    data: Event[];
+    data: Event[] | null;
   };
   event: {
     loading: boolean;
@@ -52,7 +52,7 @@ const initialState = {
   events: {
     loading: false,
     error: null,
-    data: [],
+    data: null,
   },
   event: {
     loading: false,
@@ -220,7 +220,7 @@ const EventProvider = ({ children }: Props) => {
 
   useEffect(() => {
     fetchEvents(dispatch);
-    fetchUserEvents(dispatch);
+    // fetchUserEvents(dispatch);
   }, []);
 
   return (

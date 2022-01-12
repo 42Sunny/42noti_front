@@ -20,11 +20,11 @@ const EventCard = ({ event }: { event: Event }) => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   const handleIsUpdate = useCallback(
-    (updatedAt: string, createdAt: string) => {
+    (updatedAt: string, createdAt: string, beginAt: string) => {
       const now = dayjs();
-      const updated = dayjs(event.updatedAt);
-      const created = dayjs(event.createdAt);
-      const begin = dayjs(event.beginAt);
+      const updated = dayjs(updatedAt);
+      const created = dayjs(createdAt);
+      const begin = dayjs(beginAt);
 
       if (updated > created && now < begin) setIsUpdate(true);
     },
@@ -32,8 +32,8 @@ const EventCard = ({ event }: { event: Event }) => {
   );
 
   useEffect(() => {
-    handleIsUpdate(event.updatedAt, event.createdAt);
-  });
+    handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt);
+  }, [event.beginAt, event.createdAt, event.updatedAt, handleIsUpdate]);
   return (
     <Card>
       <StyledDateDiv>

@@ -21,7 +21,7 @@ import { getAlarmState, postAlarm, delAlarm } from '../api/api';
 
 const EventDetail: React.FC = () => {
   const [event, setEvent] = useState<Event | null | undefined>(null);
-  const [alarm, setAlarm] = useState(false);
+  const [alarm, setAlarm] = useState(null);
 
   const state = useEventsState();
   const dispatch = useEventsDispatch();
@@ -161,6 +161,7 @@ const StyledMain = styled.main`
   h3 {
     font-size: 1rem;
     font-weight: 500;
+    letter-spacing: -0.3px;
   }
 `;
 

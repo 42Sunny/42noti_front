@@ -40,6 +40,11 @@ const MainPage = () => {
   }, [events]);
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
 
+  const syncEvents = () => {
+    // 이벤트 강제 연동
+    console.log("syncEvents");
+  }
+
   return (
     <>
       <Header />
@@ -56,7 +61,9 @@ const MainPage = () => {
         <StyledSection>
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
-            <Icon size={15} color="var(--lightgray)" icon="sync" />
+            <SyncButton onClick={syncEvents}>
+              <Icon size={15} color="var(--lightgray)" icon="sync" />
+            </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
           <StyledContentTitle>
@@ -90,8 +97,18 @@ const StyledContentTitle = styled.div`
     letter-spacing: -0.3px;
     color: var(--black);
   }
+`;
+
+const SyncButton = styled.button`
+  margin-left: 3px;
+  background: none;
+  border: none;
+  transition: transform 0.3s;
+  padding: 4px;
+  &:active
   svg {
-    margin: 4px 0 0 2px;
+    transform: rotate(-180deg);
+    transition: transform 0.4s;
   }
 `;
 

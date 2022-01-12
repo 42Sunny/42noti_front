@@ -188,6 +188,7 @@ export const fetchEvent = async (
   try {
     const response = await getEvent(eventId);
     dispatch({ type: 'GET_EVENT', data: response.data });
+    console.log(response);
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENT', error: e });
   }

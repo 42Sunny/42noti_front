@@ -22,11 +22,11 @@ const MainPage = () => {
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
-    if (!document.cookie) {
-      navigate('/login');
-      userDispatch({ type: 'SET_LOGOUT' });
-      return;
-    }
+    // if (!document.cookie) {
+    //   navigate('/login');
+    //   userDispatch({ type: 'SET_LOGOUT' });
+    //   return;
+    // }
     userDispatch({ type: 'SET_LOGIN' });
     const upcomingEvents =
       events !== null ? filterUpcomingEvents(events) : null;

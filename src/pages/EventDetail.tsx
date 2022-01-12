@@ -17,47 +17,46 @@ import { Event } from '../types/event';
 import { catetoryColors } from '../constants/category';
 import { timeFormat, endAtFormat } from '../utils/time';
 
-import { alarmState, alarmOn, alarmOff } from '../api/api';
+import { getAlarmState, postAlarm, delAlarm } from '../api/api';
 
 const EventDetail: React.FC = () => {
+  const [event, setEvent] = useState<Event | null | undefined>(null);
   const [alarm, setAlarm] = useState(false);
+
   const state = useEventsState();
   const dispatch = useEventsDispatch();
 
   const { data: events } = state.events;
   const { data: userEvents } = state.userEvents;
-  const { loading } = state.event;
+  const { data: fetchedEvent, loading } = state.event;
 
   const params: any = useParams();
   const eventId: number = parseInt(params.eventId);
-  const event: Event | undefined =
+  const listedEvent: Event | undefined =
     events?.find((e) => e.id === eventId) ||
     userEvents?.find((e) => e.id === eventId);
 
-  const getAlarmState = async (eventId: number) => {
+  const alarmState = async (eventId: number) => {
     try {
-      const response = await alarmState(eventId);
-      console.log(response);
+      const response = await getAlarmState(eventId);
       setAlarm(response.data.reminder);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const postAlarm = async (eventId: number) => {
+  const alramOn = async (eventId: number) => {
     try {
-      const response = await alarmOn(eventId);
-      console.log(response);
+      const response = await postAlarm(eventId);
       setAlarm(response.data.reminder);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const delAlarm = async (eventId: number) => {
+  const alarmOff = async (eventId: number) => {
     try {
-      const response = await alarmOff(eventId);
-      console.log(response);
+      const response = await delAlarm(eventId);
       setAlarm(response.data.reminder);
     } catch (e) {
       console.log(e);
@@ -66,18 +65,21 @@ const EventDetail: React.FC = () => {
 
   const handleAlarm = () => {
     if (alarm) {
-      delAlarm(eventId);
+      alarmOff(eventId);
     } else {
-      postAlarm(eventId);
+      alramOn(eventId);
     }
   };
 
   useEffect(() => {
-    if (!event) {
+    if (listedEvent) {
+      setEvent(listedEvent);
+    } else {
       fetchEvent(dispatch, eventId);
+      setEvent(fetchedEvent);
     }
-    getAlarmState(eventId);
-  }, [dispatch, eventId, event]);
+    alarmState(eventId);
+  }, [dispatch, eventId, listedEvent, fetchedEvent]);
 
   return (
     <>

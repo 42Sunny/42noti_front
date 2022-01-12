@@ -6,18 +6,37 @@ import { week } from '../constants/date';
 import { Event } from '../types/event';
 
 import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
 
 const EventCard = ({ event }: { event: Event }) => {
-  let eventDate = dayjs(event.beginAt);
+  let eventBeginDate = dayjs(event.beginAt);
 
   const month = event.beginAt?.split('-')[2].split('T')[0];
-  const day = week[eventDate.get('day')];
-  const time = eventDate.format('HH:mm');
+  const day = week[eventBeginDate.get('day')];
+  const time = eventBeginDate.format('HH:mm');
+
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const handleIsUpdate = useCallback((event: Event) => {
+    const now = dayjs();
+    const updated = dayjs(event.updatedAt);
+    const created = dayjs(event.createdAt);
+    const begin = dayjs(event.beginAt);
+    if (updated > created) setIsUpdate(true);
+    if (now > begin) setIsUpdate(false);
+  }, []);
+
+  useEffect(() => {
+    handleIsUpdate(event);
+  });
 
   return (
     <Card>
       <StyledDateDiv>
         <StyledCategoryBar color={catetoryColors[event.category]} />
+        {isUpdate && <UpdatedIcon />}
         <h1>{month}</h1>
         <h3>{day}</h3>
       </StyledDateDiv>
@@ -56,7 +75,7 @@ const Card = styled.article`
   width: 100%;
   margin-bottom: 16px;
   border-radius: 10px;
-  padding: 18px 16px;
+  padding: 18px 13px;
   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
@@ -67,7 +86,7 @@ const StyledCategoryBar = styled.span`
   position: absolute;
   width: 4px;
   height: 46px;
-  left: -16px;
+  left: -13px;
   top: 0;
   background: ${(props) => props.color || 'var(--lightgray)'};
   border-radius: 10px;
@@ -144,4 +163,16 @@ const StyledEventInfoDiv = styled.div`
       max-width: 460px;
     }
   }
+`;
+
+const UpdatedIcon = styled.div`
+  min-width: 5px;
+  min-height: 5px;
+  max-width: 5px;
+  max-height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  position: absolute;
+  right: -13%;
+  top: 0;
 `;

@@ -22,12 +22,12 @@ type EventsState = {
   event: {
     loading: boolean;
     error: any;
-    data: null | Event;
+    data: Event | null;
   };
   userEvents: {
     loading: boolean;
     error: any;
-    data: Event[];
+    data: Event[] | null;
   };
 };
 
@@ -62,7 +62,7 @@ const initialState = {
   userEvents: {
     loading: false,
     error: null,
-    data: [],
+    data: null,
   },
 };
 
@@ -205,7 +205,7 @@ export const fetchUserEvents = async (dispatch: React.Dispatch<Action>) => {
   try {
     const response = await getUserEvents();
     const sortedData = response.data.sort((a: Event, b: Event) => {
-      if (a.beginAt > b.beginAt) return -1;
+      if (a.beginAt < b.beginAt) return -1;
       else return 1;
     });
     dispatch({ type: 'GET_USER_EVENTS', data: sortedData });

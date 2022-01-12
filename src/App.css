@@ -170,3 +170,7 @@ a {
   max-width: 640px;
   height: -webkit-fill-available;
 }
+
+button:hover {
+  cursor: pointer;
+}

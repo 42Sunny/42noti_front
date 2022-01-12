@@ -1,10 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Footer = () => {
   return <StyledFooter>v.1 copyright 42</StyledFooter>;
 };
 
-export default Footer;
+export default React.memo(Footer);
 
 const StyledFooter = styled.footer`
   height: 52px;

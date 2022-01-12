@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import EventCard from './EventCard';
 import { Event } from '../types/event';
+import React from 'react';
 
 type Props = {
   events: Event[] | null;

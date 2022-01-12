@@ -18,19 +18,18 @@ import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
 const MyEvent = () => {
   const state = useEventsState();
   const dispatch = useEventsDispatch();
-  const { data: userEvents, loading } = state.userEvents;
+  const { data: userEvents, loading, error } = state.userEvents;
   const upcomingEvents = filterUpcomingEvents(userEvents);
   const pastEvents = filterPastEvents(userEvents);
 
   useEffect(() => {
     fetchUserEvents(dispatch);
   }, [dispatch]);
-
   return (
     <>
       <SubHeader title="내 이벤트" />
       <MyEventTab />
-      {loading || !userEvents ? (
+      {loading || (!error && userEvents === null) ? (
         <MainSkeleton />
       ) : (
         <MyEventSection>

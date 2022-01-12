@@ -80,7 +80,7 @@ const StyledInfo = styled.span`
   }
 `;
 
-const UpdatedIcon = styled.div`
+export const UpdatedIcon = styled.div`
   min-width: 10px;
   min-height: 10px;
   max-width: 10px;

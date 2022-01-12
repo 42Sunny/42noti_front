@@ -19,11 +19,17 @@ const EventCard = ({ event }: { event: Event }) => {
 
   const [isUpdate, setIsUpdate] = useState(false);
 
-  const handleIsUpdate = useCallback((updatedAt: string, createdAt: string) => {
-    const updated = dayjs(updatedAt);
-    const created = dayjs(createdAt);
-    if (updated > created) setIsUpdate(true);
-  }, []);
+  const handleIsUpdate = useCallback(
+    (updatedAt: string, createdAt: string) => {
+      const now = dayjs();
+      const updated = dayjs(event.updatedAt);
+      const created = dayjs(event.createdAt);
+      const begin = dayjs(event.beginAt);
+
+      if (updated > created && now < begin) setIsUpdate(true);
+    },
+    [event.beginAt, event.createdAt, event.updatedAt],
+  );
 
   useEffect(() => {
     handleIsUpdate(event.updatedAt, event.createdAt);
@@ -162,10 +168,8 @@ const StyledEventInfoDiv = styled.div`
 `;
 
 const UpdatedIcon = styled.div`
-  min-width: 5px;
-  min-height: 5px;
-  max-width: 5px;
-  max-height: 5px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--blue);
   position: absolute;

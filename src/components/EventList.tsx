@@ -60,7 +60,7 @@ const StyledEvents = styled.div`
   }
 `;
 
-const StyledNodata = styled.div`
+export const StyledNodata = styled.div`
   text-align: center;
   font-size: 1.05rem;
   margin: 120px 0;

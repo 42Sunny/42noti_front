@@ -28,7 +28,7 @@ const EventCard = ({ event }: { event: Event }) => {
 
       if (updated > created && now < begin) setIsUpdate(true);
     },
-    [event.beginAt, event.createdAt, event.updatedAt],
+    [],
   );
 
   useEffect(() => {

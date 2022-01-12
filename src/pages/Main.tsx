@@ -7,12 +7,8 @@ import Footer from '../components/Footer';
 import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import UpdatedEventCard from '../components/UpdatedEventCard';
-import {
-  // fetchEvents,
-  // fetchUserEvents,
-  useEventsDispatch,
-  useEventsState,
-} from '../contexts/EventContext';
+import Icon from '../components/Icon';
+import { useEventsDispatch, useEventsState } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterUpdatedEvents } from '../utils/time';
 import { Event } from '../types/event';
@@ -28,10 +24,10 @@ const MainPage = () => {
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
-    if (!document.cookie) {
-      navigate('/login');
-      userDispatch({ type: 'SET_LOGOUT' });
-    }
+    // if (!document.cookie) {
+    //   navigate('/login');
+    //   userDispatch({ type: 'SET_LOGOUT' });
+    // }
     userDispatch({ type: 'SET_LOGIN' });
     const upcomingEvents = filterUpcomingEvents(events);
     const updatedEvents = filterUpdatedEvents(upcomingEvents);
@@ -63,6 +59,7 @@ const MainPage = () => {
           })}
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
+            <Icon size={15} color="var(--lightgray)" icon="sync" />
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
         </StyledSection>
@@ -95,6 +92,9 @@ const StyledContentTitle = styled.div`
   }
   span {
     color: var(--blue);
+  }
+  svg {
+    margin: 4px 0 0 2px;
   }
 `;
 

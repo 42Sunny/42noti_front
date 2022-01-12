@@ -146,7 +146,7 @@ const StyledMain = styled.main`
   background: var(--white);
   line-height: 1.6rem;
   div {
-    margin-bottom: 12px;
+    margin-bottom: 22px;
   }
   h1 {
     margin: 16px 0 22px;

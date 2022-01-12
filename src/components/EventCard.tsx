@@ -19,19 +19,21 @@ const EventCard = ({ event }: { event: Event }) => {
 
   const [isUpdate, setIsUpdate] = useState(false);
 
-  const handleIsUpdate = useCallback((event: Event) => {
-    const now = dayjs();
-    const updated = dayjs(event.updatedAt);
-    const created = dayjs(event.createdAt);
-    const begin = dayjs(event.beginAt);
-    if (updated > created) setIsUpdate(true);
-    if (now > begin) setIsUpdate(false);
-  }, []);
+  const handleIsUpdate = useCallback(
+    (updatedAt: string, createdAt: string, beginAt: string) => {
+      const now = dayjs();
+      const updated = dayjs(updatedAt);
+      const created = dayjs(createdAt);
+      const begin = dayjs(beginAt);
+
+      if (updated > created && now < begin) setIsUpdate(true);
+    },
+    [],
+  );
 
   useEffect(() => {
-    handleIsUpdate(event);
-  });
-
+    handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt);
+  }, [event.beginAt, event.createdAt, event.updatedAt, handleIsUpdate]);
   return (
     <Card>
       <StyledDateDiv>
@@ -166,10 +168,8 @@ const StyledEventInfoDiv = styled.div`
 `;
 
 const UpdatedIcon = styled.div`
-  min-width: 5px;
-  min-height: 5px;
-  max-width: 5px;
-  max-height: 5px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--blue);
   position: absolute;

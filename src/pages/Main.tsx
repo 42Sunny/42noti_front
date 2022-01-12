@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import EventList from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import Icon from '../components/Icon';
-import { useEventsDispatch, useEventsState } from '../contexts/EventContext';
+import { useEventsState } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents } from '../utils/time';
 import { Event } from '../types/event';
@@ -15,7 +15,6 @@ import { Event } from '../types/event';
 const MainPage = () => {
   const navigate = useNavigate();
   const eventState = useEventsState();
-  const eventDispatch = useEventsDispatch();
   const userDispatch = useUserDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
@@ -28,11 +27,15 @@ const MainPage = () => {
     //   return;
     // }
     userDispatch({ type: 'SET_LOGIN' });
-    const upcomingEvents =
-      events !== null ? filterUpcomingEvents(events) : null;
-    events && setUpcomingEvents(upcomingEvents);
-  }, [events, navigate, userDispatch, eventState, eventDispatch]);
-  /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤 */
+  }, [navigate, userDispatch]);
+
+  useEffect(() => {
+    if (events === null) return;
+    const upcomingEvents = filterUpcomingEvents(events);
+    setUpcomingEvents(upcomingEvents);
+  }, [events]);
+
+  /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
   return (
     <>
       <Header />

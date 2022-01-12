@@ -34,6 +34,7 @@ const EventCard = ({ event }: { event: Event }) => {
   useEffect(() => {
     handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt);
   }, [event.beginAt, event.createdAt, event.updatedAt, handleIsUpdate]);
+  
   return (
     <Card>
       <StyledDateDiv>
@@ -77,7 +78,7 @@ const Card = styled.article`
   width: 100%;
   margin-bottom: 16px;
   border-radius: 10px;
-  padding: 18px 13px;
+  padding: 18px 14px;
   box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.02);
   :hover {
     cursor: pointer;
@@ -87,8 +88,8 @@ const Card = styled.article`
 const StyledCategoryBar = styled.span`
   position: absolute;
   width: 4px;
-  height: 46px;
-  left: -13px;
+  height: 44px;
+  left: -14px;
   top: 0;
   background: ${(props) => props.color || 'var(--lightgray)'};
   border-radius: 10px;
@@ -103,16 +104,17 @@ const StyledDateDiv = styled.div`
   width: 20%;
   max-width: 36px;
   margin-right: 16px;
-  letter-spacing: -0.3px;
   h1 {
-    font-size: 1.9rem;
+    font-size: 2rem;
     font-weight: 400;
-    line-height: 0.9;
+    line-height: 1.8rem;
     margin-bottom: 2px;
+    letter-spacing: -1.3px;
   }
   h3 {
     font-size: 0.8rem;
     color: var(--darkgray);
+    letter-spacing: -0.3px;
   }
 `;
 
@@ -122,9 +124,9 @@ const StyledInfoDiv = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 1.15rem;
-    line-height: 1.4rem;
-    letter-spacing: -0.3px;
-    font-weight: 700;
+    line-height: 1.45rem;
+    letter-spacing: -0.4px;
+    font-weight: 800;
     margin-bottom: 6px;
     word-break: keep-all;
   }
@@ -173,6 +175,6 @@ const UpdatedIcon = styled.div`
   border-radius: 50%;
   background: var(--blue);
   position: absolute;
-  right: -13%;
+  right: -6px;
   top: 0;
 `;

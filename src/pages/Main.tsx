@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import EventList from '../components/EventList';
+import EventList, { StyledNodata } from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import Icon from '../components/Icon';
+
 import { useEventsState } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents } from '../utils/time';
@@ -34,13 +35,20 @@ const MainPage = () => {
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
   }, [events]);
-
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
+
   return (
     <>
       <Header />
-      {loading || (!error && events === null) ? (
+      {loading ? (
         <MainSkeleton />
+      ) : error ? (
+        <StyledNodata>
+          <div>🧐</div>
+          Error! 데이터를 불러오지 못했습니다.
+          <br />
+          잠시 후 다시 이용해 주세요 !
+        </StyledNodata>
       ) : (
         <StyledSection>
           <StyledContentTitle>

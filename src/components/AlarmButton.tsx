@@ -10,14 +10,14 @@ const AlarmButton = ({ onClick, alarm }: Props) => {
   if (alarm || null)
     return (
       <ButtonOff onClick={onClick}>
-        <Icon size={22} color="var(--blue)" icon="alarm" />
+        <Icon size={21} color="var(--blue)" icon="alarm" />
         알림 받는 중
       </ButtonOff>
     );
   else if (alarm === null)
     return (
       <ButtonDisable disabled>
-        <Icon size={22} color="var(--gray)" icon="alarm" />
+        <Icon size={21} color="var(--lightgray)" icon="alarmLine" />
         준비중입니다
       </ButtonDisable>
     );
@@ -25,7 +25,7 @@ const AlarmButton = ({ onClick, alarm }: Props) => {
     return (
       <ButtonOn onClick={onClick}>
         <span>
-          <Icon size={22} color="var(--white)" icon="alarmLine" />이 이벤트
+          <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
           알림받기
         </span>
       </ButtonOn>
@@ -61,6 +61,6 @@ const ButtonOff = styled(Button)`
 `;
 
 const ButtonDisable = styled(Button)`
-  background-color: var(--darksnow);
-  color: var(--gray);
+  background-color: var(--snow);
+  color: var(--lightgray);
 `;

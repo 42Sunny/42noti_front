@@ -6,9 +6,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import EventList, { StyledNodata } from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
+import Icon from '../components/Icon';
+
 import { useEventsState } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
-import { filterUpcomingEvents } from '../utils/time';
+import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {
@@ -17,6 +19,7 @@ const MainPage = () => {
   const userDispatch = useUserDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
+  const [pastEvents, setPastEvents] = useState<Event[] | null>(null);
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
@@ -32,8 +35,15 @@ const MainPage = () => {
     if (events === null) return;
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
+    const pastEvents = filterPastEvents(events);
+    setPastEvents(pastEvents);
   }, [events]);
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
+
+  const syncEvents = () => {
+    // 이벤트 강제 연동
+    console.log('syncEvents');
+  };
 
   return (
     <>
@@ -41,22 +51,27 @@ const MainPage = () => {
       {loading ? (
         <MainSkeleton />
       ) : error ? (
-        <StyledNodata>
-          <div>🧐</div>
-          Error! 데이터를 불러오지 못했습니다.
-          <br />
-          잠시 후 다시 이용해 주세요 !
-        </StyledNodata>
+        <StyledSection>
+          <StyledNodata>
+            <div>🧐</div>
+            Error! 데이터를 불러오지 못했습니다.
+            <br />
+            잠시 후 다시 이용해 주세요 !
+          </StyledNodata>
+        </StyledSection>
       ) : (
         <StyledSection>
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
+            <SyncButton onClick={syncEvents}>
+              <Icon size={15} color="var(--lightgray)" icon="sync" />
+            </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
           <StyledContentTitle>
             <h1>지나간 이벤트</h1>
           </StyledContentTitle>
-          <EventList events={events} />
+          <EventList events={pastEvents} />
         </StyledSection>
       )}
       <Footer />
@@ -77,16 +92,24 @@ export const StyledSection = styled.section`
 const StyledContentTitle = styled.div`
   width: 100%;
   display: flex;
-  margin: 4px 0 12px;
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: -0.3px;
+  margin: 6px 0 10px;
   h1 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
     color: var(--black);
-    margin-right: 5px;
   }
-  span {
-    color: var(--blue);
+`;
+
+const SyncButton = styled.button`
+  margin-left: 3px;
+  background: none;
+  border: none;
+  transition: transform 0.3s;
+  padding: 4px;
+  &:active svg {
+    transform: rotate(-180deg);
+    transition: transform 0.4s;
   }
 `;
 

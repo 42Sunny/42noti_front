@@ -6,7 +6,8 @@ type iconName =
   | 'arrowLeft'
   | 'arrowRight'
   | 'alarm'
-  | 'alarmLine';
+  | 'alarmLine'
+  | 'sync';
 
 type IconProps = {
   icon: iconName;

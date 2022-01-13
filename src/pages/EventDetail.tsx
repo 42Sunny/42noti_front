@@ -20,9 +20,6 @@ import { timeFormat, endAtFormat } from '../utils/time';
 import { getAlarmState, postAlarm, delAlarm } from '../api/api';
 
 const EventDetail: React.FC = () => {
-  const [event, setEvent] = useState<Event | null | undefined>(null);
-  const [alarm, setAlarm] = useState(null);
-
   const state = useEventsState();
   const dispatch = useEventsDispatch();
 
@@ -35,6 +32,9 @@ const EventDetail: React.FC = () => {
   const listedEvent: Event | undefined =
     events?.find((e) => e.id === eventId) ||
     userEvents?.find((e) => e.id === eventId);
+
+  const [event, setEvent] = useState<Event | null | undefined>(listedEvent);
+  const [alarm, setAlarm] = useState(null);
 
   const alarmState = async (eventId: number) => {
     try {
@@ -72,14 +72,12 @@ const EventDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    if (listedEvent) {
-      setEvent(listedEvent);
-    } else {
+    if (!event) {
       fetchEvent(dispatch, eventId);
       setEvent(fetchedEvent);
     }
     alarmState(eventId);
-  }, [dispatch, eventId, listedEvent, fetchedEvent]);
+  }, [dispatch, eventId, fetchedEvent, event]);
 
   return (
     <>

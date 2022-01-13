@@ -42,8 +42,8 @@ const MainPage = () => {
 
   const syncEvents = () => {
     // 이벤트 강제 연동
-    console.log("syncEvents");
-  }
+    console.log('syncEvents');
+  };
 
   return (
     <>
@@ -51,12 +51,14 @@ const MainPage = () => {
       {loading ? (
         <MainSkeleton />
       ) : error ? (
-        <StyledNodata>
-          <div>🧐</div>
-          Error! 데이터를 불러오지 못했습니다.
-          <br />
-          잠시 후 다시 이용해 주세요 !
-        </StyledNodata>
+        <StyledSection>
+          <StyledNodata>
+            <div>🧐</div>
+            Error! 데이터를 불러오지 못했습니다.
+            <br />
+            잠시 후 다시 이용해 주세요 !
+          </StyledNodata>
+        </StyledSection>
       ) : (
         <StyledSection>
           <StyledContentTitle>
@@ -105,8 +107,7 @@ const SyncButton = styled.button`
   border: none;
   transition: transform 0.3s;
   padding: 4px;
-  &:active
-  svg {
+  &:active svg {
     transform: rotate(-180deg);
     transition: transform 0.4s;
   }

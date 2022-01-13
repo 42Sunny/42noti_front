@@ -34,7 +34,7 @@ const EventCard = ({ event }: { event: Event }) => {
   useEffect(() => {
     handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt);
   }, [event.beginAt, event.createdAt, event.updatedAt, handleIsUpdate]);
-  
+
   return (
     <Card>
       <StyledDateDiv>
@@ -108,12 +108,12 @@ const StyledDateDiv = styled.div`
     font-size: 2rem;
     font-weight: 400;
     line-height: 1.8rem;
-    margin-bottom: 2px;
-    letter-spacing: -1.3px;
+    letter-spacing: -1.5px;
   }
   h3 {
     font-size: 0.8rem;
     color: var(--darkgray);
+    line-height: 1.1rem;
     letter-spacing: -0.3px;
   }
 `;
@@ -123,18 +123,18 @@ const StyledInfoDiv = styled.div`
   flex-direction: column;
   align-items: flex-start;
   h1 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     line-height: 1.45rem;
     letter-spacing: -0.4px;
     font-weight: 800;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     word-break: keep-all;
   }
   strong {
     font-size: 0.85rem;
     line-height: 18px;
     color: var(--gray);
-    margin-bottom: 7px;
+    margin-bottom: 6px;
     span {
       display: inline-block;
       margin-right: 8px;
@@ -175,6 +175,6 @@ const UpdatedIcon = styled.div`
   border-radius: 50%;
   background: var(--blue);
   position: absolute;
-  right: -6px;
+  right: -5px;
   top: 0;
 `;

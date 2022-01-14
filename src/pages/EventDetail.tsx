@@ -85,7 +85,7 @@ const EventDetail: React.FC = () => {
       {loading || !event ? (
         <DetailSkeleton />
       ) : (
-        <StyledDiv>
+        <StyledWrap>
           <StyledMain>
             <StyledCategoryBar color={catetoryColors[event.category]} />
             <h1>{event.title}</h1>
@@ -114,14 +114,14 @@ const EventDetail: React.FC = () => {
                 })}
             </StyledDescription>
           </StyledSection>
-        </StyledDiv>
+        </StyledWrap>
       )}
       <Footer />
     </>
   );
 };
 
-const StyledDiv = styled.div`
+const StyledWrap = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
   padding-top: 52px;
@@ -178,20 +178,6 @@ const StyledDescription = styled.article`
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 12px;
-  }
-  div {
-    margin-bottom: 14px;
-  }
-  a {
-    color: var(--blue);
-    word-break: break-all;
-  }
-  strong {
-    font-weight: 600;
-  }
-  ul {
-    list-style: inside;
-    margin: 10px;
   }
 `;
 

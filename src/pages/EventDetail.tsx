@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { marked } from 'marked';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DetailSkeleton from '../components/DetailSkeleton';
 import AlarmButton from '../components/AlarmButton';
+import Markdown from '../components/Markdown';
 
 import {
   useEventsState,
@@ -106,11 +106,7 @@ const EventDetail: React.FC = () => {
           <StyledSection>
             <StyledDescription>
               <h2>상세 정보</h2>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: marked.parse(event.description),
-                }}
-              />
+              <Markdown>{event.description}</Markdown>
               <Tag>#{event.category}</Tag>
               {event.tags &&
                 event.tags.map((tag: string, index: number) => {

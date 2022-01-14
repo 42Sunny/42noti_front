@@ -91,3 +91,9 @@ export const filterUpdatedEvents = (
   });
   return updatedEvents;
 };
+
+export const isPassed = (beginTime: string) => {
+  const now = dayjs();
+  const eventDate = dayjs(beginTime);
+  return eventDate.isBefore(now);
+};

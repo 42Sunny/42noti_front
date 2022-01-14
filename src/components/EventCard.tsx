@@ -88,7 +88,7 @@ const Card = styled.article`
 const StyledCategoryBar = styled.span`
   position: absolute;
   width: 4px;
-  height: 44px;
+  height: 45px;
   left: -14px;
   top: 0;
   background: ${(props) => props.color || 'var(--lightgray)'};
@@ -101,11 +101,11 @@ const StyledDateDiv = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 20%;
+  width: 22%;
   max-width: 36px;
   margin-right: 16px;
   h1 {
-    font-size: 2rem;
+    font-size: 1.85rem;
     font-weight: 400;
     line-height: 1.8rem;
     letter-spacing: -1.5px;

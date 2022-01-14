@@ -3,27 +3,21 @@ import Icon from '../components/Icon';
 
 type Props = {
   alarm: boolean | null;
+  disabled: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-const AlarmButton = ({ onClick, alarm }: Props) => {
-  if (alarm || null)
+const AlarmButton = ({ alarm, disabled, onClick }: Props) => {
+  if (alarm)
     return (
-      <ButtonOff onClick={onClick}>
+      <ButtonOff onClick={onClick} disabled={disabled}>
         <Icon size={21} color="var(--blue)" icon="alarm" />
         알림 받는 중
       </ButtonOff>
     );
-  else if (alarm === null)
-    return (
-      <ButtonDisable disabled>
-        <Icon size={21} color="var(--lightgray)" icon="alarmLine" />
-        준비중입니다
-      </ButtonDisable>
-    );
   else
     return (
-      <ButtonOn onClick={onClick}>
+      <ButtonOn onClick={onClick} disabled={disabled}>
         <span>
           <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
           알림받기
@@ -46,7 +40,14 @@ const Button = styled.button`
   padding: 10px 0 12px;
   cursor: pointer;
   svg {
-    margin: 0 3px -5px 0;
+    margin: 0 2px -5px 0;
+  }
+  &:disabled {
+    background-color: var(--snow);
+    color: var(--lightgray);
+  }
+  &:disabled svg {
+    fill: var(--lightgray);
   }
 `;
 
@@ -58,9 +59,4 @@ const ButtonOn = styled(Button)`
 const ButtonOff = styled(Button)`
   background-color: var(--snow);
   color: var(--blue);
-`;
-
-const ButtonDisable = styled(Button)`
-  background-color: var(--snow);
-  color: var(--lightgray);
 `;

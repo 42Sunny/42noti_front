@@ -15,7 +15,7 @@ import {
 } from '../contexts/EventContext';
 import { Event } from '../types/event';
 import { catetoryColors } from '../constants/category';
-import { timeFormat, endAtFormat } from '../utils/time';
+import { timeFormat, endAtFormat, isPassed } from '../utils/time';
 
 import { getAlarmState, postAlarm, delAlarm } from '../api/api';
 
@@ -71,6 +71,7 @@ const EventDetail: React.FC = () => {
     }
   };
 
+  console.log(event, Date());
   useEffect(() => {
     if (!event) {
       fetchEvent(dispatch, eventId);
@@ -101,7 +102,11 @@ const EventDetail: React.FC = () => {
                 </h3>
               )}
             </div>
-            <AlarmButton onClick={handleAlarm} alarm={alarm} />
+            <AlarmButton
+              onClick={handleAlarm}
+              alarm={alarm}
+              disabled={isPassed(event.beginAt)}
+            />
           </StyledMain>
           <StyledSection>
             <StyledDescription>

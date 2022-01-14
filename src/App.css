@@ -170,7 +170,9 @@ a {
   max-width: 640px;
   height: -webkit-fill-available;
 }
-
-button:hover {
+button {
   cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
 }

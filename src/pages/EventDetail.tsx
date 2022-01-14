@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { marked } from 'marked';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DetailSkeleton from '../components/DetailSkeleton';
 import AlarmButton from '../components/AlarmButton';
+import Markdown from '../components/Markdown';
 
 import {
   useEventsState,
@@ -15,14 +15,11 @@ import {
 } from '../contexts/EventContext';
 import { Event } from '../types/event';
 import { catetoryColors } from '../constants/category';
-import { timeFormat, endAtFormat } from '../utils/time';
+import { timeFormat, endAtFormat, isPassed } from '../utils/time';
 
 import { getAlarmState, postAlarm, delAlarm } from '../api/api';
 
 const EventDetail: React.FC = () => {
-  const [event, setEvent] = useState<Event | null | undefined>(null);
-  const [alarm, setAlarm] = useState(null);
-
   const state = useEventsState();
   const dispatch = useEventsDispatch();
 
@@ -35,6 +32,9 @@ const EventDetail: React.FC = () => {
   const listedEvent: Event | undefined =
     events?.find((e) => e.id === eventId) ||
     userEvents?.find((e) => e.id === eventId);
+
+  const [event, setEvent] = useState<Event | null | undefined>(listedEvent);
+  const [alarm, setAlarm] = useState(null);
 
   const alarmState = async (eventId: number) => {
     try {
@@ -71,15 +71,14 @@ const EventDetail: React.FC = () => {
     }
   };
 
+  console.log(event, Date());
   useEffect(() => {
-    if (listedEvent) {
-      setEvent(listedEvent);
-    } else {
+    if (!event) {
       fetchEvent(dispatch, eventId);
       setEvent(fetchedEvent);
     }
     alarmState(eventId);
-  }, [dispatch, eventId, listedEvent, fetchedEvent]);
+  }, [dispatch, eventId, fetchedEvent, event]);
 
   return (
     <>
@@ -87,7 +86,7 @@ const EventDetail: React.FC = () => {
       {loading || !event ? (
         <DetailSkeleton />
       ) : (
-        <StyledDiv>
+        <StyledWrap>
           <StyledMain>
             <StyledCategoryBar color={catetoryColors[event.category]} />
             <h1>{event.title}</h1>
@@ -103,16 +102,16 @@ const EventDetail: React.FC = () => {
                 </h3>
               )}
             </div>
-            <AlarmButton onClick={handleAlarm} alarm={alarm} />
+            <AlarmButton
+              onClick={handleAlarm}
+              alarm={alarm}
+              disabled={isPassed(event.beginAt)}
+            />
           </StyledMain>
           <StyledSection>
             <StyledDescription>
               <h2>상세 정보</h2>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: marked.parse(event.description),
-                }}
-              />
+              <Markdown>{event.description}</Markdown>
               <Tag>#{event.category}</Tag>
               {event.tags &&
                 event.tags.map((tag: string, index: number) => {
@@ -120,14 +119,14 @@ const EventDetail: React.FC = () => {
                 })}
             </StyledDescription>
           </StyledSection>
-        </StyledDiv>
+        </StyledWrap>
       )}
       <Footer />
     </>
   );
 };
 
-const StyledDiv = styled.div`
+const StyledWrap = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
   padding-top: 52px;
@@ -184,20 +183,6 @@ const StyledDescription = styled.article`
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 12px;
-  }
-  div {
-    margin-bottom: 14px;
-  }
-  a {
-    color: var(--blue);
-    word-break: break-all;
-  }
-  strong {
-    font-weight: 600;
-  }
-  ul {
-    list-style: inside;
-    margin: 10px;
   }
 `;
 

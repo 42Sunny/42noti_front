@@ -16,7 +16,7 @@ export const getEvents = () => {
 };
 
 export const getEvent = (eventId: number) => {
-  return instance.get(`/event/${eventId}`);
+  return instance.get(`/events/${eventId}`);
 };
 
 export const getUserEvents = () => {
@@ -28,14 +28,14 @@ export const getUserEvents = () => {
 //   return instance.get(`/users/sarchoi/events`);
 // };
 
-export const alarmState = (eventId: number) => {
+export const getAlarmState = (eventId: number) => {
   return instance.get(`/events/${eventId}/reminder`);
 };
 
-export const alarmOn = (eventId: number) => {
+export const postAlarm = (eventId: number) => {
   return instance.post(`/events/${eventId}/reminder`);
 };
 
-export const alarmOff = (eventId: number) => {
+export const delAlarm = (eventId: number) => {
   return instance.delete(`/events/${eventId}/reminder`);
 };

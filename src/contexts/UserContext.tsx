@@ -47,7 +47,7 @@ const UserDispatchContext = createContext<null | UserDispatch>(null);
 
 const UserProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  console.log(state);
   return (
     <UserStateContext.Provider value={state}>
       <UserDispatchContext.Provider value={dispatch}>

@@ -25,15 +25,15 @@ const MainPage = () => {
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
 
-  useEffect(() => {
+  // useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
     // if (!document.cookie) {
     //   navigate('/login');
     //   userDispatch({ type: 'SET_LOGOUT' });
     //   return;
     // }
-    userDispatch({ type: 'SET_LOGIN' });
-  }, [navigate, userDispatch]);
+  //   userDispatch({ type: 'SET_LOGIN' });
+  // }, [navigate, userDispatch]);
 
   useEffect(() => {
     if (events === null) return;

@@ -14,7 +14,7 @@ import {
   fetchEventsForce,
 } from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
-import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
+import { filterUpcomingEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {
@@ -24,15 +24,14 @@ const MainPage = () => {
   const userDispatch = useUserDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
-  const [pastEvents, setPastEvents] = useState<Event[] | null>(null);
 
   useEffect(() => {
     // 로컬에서 작업할때 아래 조건문 주석처리
-    if (!document.cookie) {
-      navigate('/login');
-      userDispatch({ type: 'SET_LOGOUT' });
-      return;
-    }
+    // if (!document.cookie) {
+    //   navigate('/login');
+    //   userDispatch({ type: 'SET_LOGOUT' });
+    //   return;
+    // }
     userDispatch({ type: 'SET_LOGIN' });
   }, [navigate, userDispatch]);
 
@@ -40,8 +39,6 @@ const MainPage = () => {
     if (events === null) return;
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
-    const pastEvents = filterPastEvents(events);
-    setPastEvents(pastEvents);
   }, [events]);
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
 
@@ -68,10 +65,6 @@ const MainPage = () => {
             </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
-          <StyledContentTitle>
-            <h1>지나간 이벤트</h1>
-          </StyledContentTitle>
-          <EventList events={pastEvents} />
         </StyledSection>
       )}
       <Footer />

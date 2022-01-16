@@ -13,6 +13,10 @@ export const getEvents = () => {
   return instance.get('/events');
 };
 
+export const getEventsForce = () => {
+  return instance.get('/events?update=force');
+};
+
 export const getEvent = (eventId: number) => {
   return instance.get(`/events/${eventId}`);
 };

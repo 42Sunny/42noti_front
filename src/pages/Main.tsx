@@ -8,7 +8,11 @@ import EventList, { StyledNodata } from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import Icon from '../components/Icon';
 
-import { useEventsState } from '../contexts/EventContext';
+import {
+  useEventsState,
+  useEventsDispatch,
+  fetchEventsForce,
+} from '../contexts/EventContext';
 import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
 import { Event } from '../types/event';
@@ -16,6 +20,7 @@ import { Event } from '../types/event';
 const MainPage = () => {
   const navigate = useNavigate();
   const eventState = useEventsState();
+  const eventDispatch = useEventsDispatch();
   const userDispatch = useUserDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
@@ -40,11 +45,6 @@ const MainPage = () => {
   }, [events]);
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
 
-  const syncEvents = () => {
-    // 이벤트 강제 연동
-    console.log('syncEvents');
-  };
-
   return (
     <>
       <Header />
@@ -63,7 +63,7 @@ const MainPage = () => {
         <StyledSection>
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
-            <SyncButton onClick={syncEvents}>
+            <SyncButton onClick={() => fetchEventsForce(eventDispatch)}>
               <Icon size={15} color="var(--lightgray)" icon="sync" />
             </SyncButton>
           </StyledContentTitle>

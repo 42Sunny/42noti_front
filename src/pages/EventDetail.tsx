@@ -71,7 +71,6 @@ const EventDetail: React.FC = () => {
     }
   };
 
-  console.log(event, Date());
   useEffect(() => {
     if (!event) {
       fetchEvent(dispatch, eventId);

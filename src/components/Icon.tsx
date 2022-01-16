@@ -9,13 +9,13 @@ type iconName =
   | 'alarmLine'
   | 'sync';
 
-type IconProps = {
+type Props = {
   icon: iconName;
   size: number;
   color?: string;
 };
 
-const Icon = ({ icon, size, color }: IconProps) => (
+const Icon = ({ icon, size, color }: Props) => (
   <svg
     height={size}
     viewBox={IconSet[icon].viewBox}

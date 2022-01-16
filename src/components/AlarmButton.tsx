@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 
@@ -18,15 +19,13 @@ const AlarmButton = ({ alarm, disabled, onClick }: Props) => {
   else
     return (
       <ButtonOn onClick={onClick} disabled={disabled}>
-        <span>
-          <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
-          알림받기
-        </span>
+        <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
+        알림받기
       </ButtonOn>
     );
 };
 
-export default AlarmButton;
+export default React.memo(AlarmButton);
 
 const Button = styled.button`
   display: block;

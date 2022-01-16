@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import { catetoryColors } from '../constants/category';
@@ -6,9 +6,6 @@ import { week } from '../constants/date';
 import { Event } from '../types/event';
 
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 
 const EventCard = ({ event }: { event: Event }) => {
   let eventBeginDate = dayjs(event.beginAt);

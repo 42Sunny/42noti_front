@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const AccessDenied = () => {
+const NotFound = () => {
   return (
     <>
       <Header />
@@ -14,7 +14,7 @@ const AccessDenied = () => {
   );
 };
 
-export default AccessDenied;
+export default NotFound;
 
 export const StyledSection = styled.section`
   display: flex;

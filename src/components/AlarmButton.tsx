@@ -9,20 +9,16 @@ type Props = {
 };
 
 const AlarmButton = ({ alarm, disabled, onClick }: Props) => {
-  if (alarm)
-    return (
-      <ButtonOff onClick={onClick} disabled={disabled}>
-        <Icon size={21} color="var(--blue)" icon="alarm" />
-        알림 받는 중
-      </ButtonOff>
-    );
-  else
-    return (
-      <ButtonOn onClick={onClick} disabled={disabled}>
-        <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
-        알림받기
-      </ButtonOn>
-    );
+  return alarm ? (
+    <ButtonOff onClick={onClick} disabled={disabled}>
+      <Icon size={21} color="var(--blue)" icon="alarm" />
+      알림 받는 중
+    </ButtonOff>
+  ) : (
+    <ButtonOn onClick={onClick} disabled={disabled}>
+      <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트 알림받기
+    </ButtonOn>
+  );
 };
 
 export default React.memo(AlarmButton);

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
@@ -13,27 +12,14 @@ import {
   useEventsDispatch,
   fetchEventsForce,
 } from '../contexts/EventContext';
-import { useUserDispatch } from '../contexts/UserContext';
 import { filterUpcomingEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {
-  const navigate = useNavigate();
   const eventState = useEventsState();
   const eventDispatch = useEventsDispatch();
-  const userDispatch = useUserDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
-
-  // useEffect(() => {
-    // 로컬에서 작업할때 아래 조건문 주석처리
-    // if (!document.cookie) {
-    //   navigate('/login');
-    //   userDispatch({ type: 'SET_LOGOUT' });
-    //   return;
-    // }
-  //   userDispatch({ type: 'SET_LOGIN' });
-  // }, [navigate, userDispatch]);
 
   useEffect(() => {
     if (events === null) return;

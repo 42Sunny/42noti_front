@@ -18,7 +18,7 @@ type UserDispatch = Dispatch<Action>;
 
 const initialState = {
   userId: '-',
-  isLogin: false,
+  isLogin: document.cookie === '' ? false : true,
 };
 
 const reducer = (state: UserState, action: Action): UserState => {

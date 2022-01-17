@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserDispatch } from '../contexts/UserContext';
+import { useUserState } from '../contexts/UserContext';
 import styled from 'styled-components';
 import logo from '../assets/42-logo-white.png';
 import cluster from '../assets/seoul-cluster.jpg';
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useUserDispatch();
+  const state = useUserState();
 
   useEffect(() => {
-    if (document.cookie) {
+    if (state.isLogin) {
       navigate('/');
-      dispatch({ type: 'SET_LOGIN' });
     }
-  }, [navigate, dispatch]);
+  }, [navigate, state]);
 
   const handleLogin = () => {
     window.location.href = 'http://api.event.42cadet.kr/login/42';

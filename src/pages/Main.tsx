@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
@@ -8,42 +7,26 @@ import EventList, { StyledNodata } from '../components/EventList';
 import MainSkeleton from '../components/MainSkeleton';
 import Icon from '../components/Icon';
 
-import { useEventsState } from '../contexts/EventContext';
-import { useUserDispatch } from '../contexts/UserContext';
-import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
+import {
+  useEventsState,
+  useEventsDispatch,
+  fetchEventsForce,
+} from '../contexts/EventContext';
+import { filterUpcomingEvents } from '../utils/time';
 import { Event } from '../types/event';
 
 const MainPage = () => {
-  const navigate = useNavigate();
   const eventState = useEventsState();
-  const userDispatch = useUserDispatch();
+  const eventDispatch = useEventsDispatch();
   const { data: events, loading, error } = eventState.events;
   const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
-  const [pastEvents, setPastEvents] = useState<Event[] | null>(null);
-
-  useEffect(() => {
-    // 로컬에서 작업할때 아래 조건문 주석처리
-    if (!document.cookie) {
-      navigate('/login');
-      userDispatch({ type: 'SET_LOGOUT' });
-      return;
-    }
-    userDispatch({ type: 'SET_LOGIN' });
-  }, [navigate, userDispatch]);
 
   useEffect(() => {
     if (events === null) return;
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
-    const pastEvents = filterPastEvents(events);
-    setPastEvents(pastEvents);
   }, [events]);
   /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
-
-  const syncEvents = () => {
-    // 이벤트 강제 연동
-    console.log('syncEvents');
-  };
 
   return (
     <>
@@ -63,15 +46,11 @@ const MainPage = () => {
         <StyledSection>
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
-            <SyncButton onClick={syncEvents}>
+            <SyncButton onClick={() => fetchEventsForce(eventDispatch)}>
               <Icon size={15} color="var(--lightgray)" icon="sync" />
             </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
-          <StyledContentTitle>
-            <h1>지나간 이벤트</h1>
-          </StyledContentTitle>
-          <EventList events={pastEvents} />
         </StyledSection>
       )}
       <Footer />

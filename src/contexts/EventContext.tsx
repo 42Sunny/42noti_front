@@ -5,7 +5,7 @@ import {
   useReducer,
   Dispatch,
 } from 'react';
-import { getEvents, getEvent, getUserEvents } from '../api/api';
+import { getEvents, getEventsForce, getEvent, getUserEvents } from '../api/api';
 import { Event } from '../types/event';
 
 type Props = {
@@ -170,6 +170,20 @@ export const fetchEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_EVENTS' });
   try {
     const response = await getEvents();
+    const sortedData = response.data.sort((a: Event, b: Event) => {
+      if (a.beginAt < b.beginAt) return -1;
+      else return 1;
+    });
+    dispatch({ type: 'GET_EVENTS', data: sortedData });
+  } catch (e) {
+    dispatch({ type: 'FAILURE_EVENTS', error: e });
+  }
+};
+
+export const fetchEventsForce = async (dispatch: React.Dispatch<Action>) => {
+  dispatch({ type: 'LOADING_EVENTS' });
+  try {
+    const response = await getEventsForce();
     const sortedData = response.data.sort((a: Event, b: Event) => {
       if (a.beginAt < b.beginAt) return -1;
       else return 1;

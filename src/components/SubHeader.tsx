@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
@@ -43,4 +44,4 @@ const StyledHeader = styled.header`
   }
 `;
 
-export default SubHeader;
+export default React.memo(SubHeader);

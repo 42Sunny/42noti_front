@@ -1,3 +1,4 @@
+// 사용하지 않는 컴포넌트
 import { useState, useCallback, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 
@@ -8,25 +9,19 @@ type Props = {
 };
 
 const AlarmButton = ({ alarm, disabled, onClick }: Props) => {
-  if (alarm)
-    return (
-      <ButtonOff onClick={onClick} disabled={disabled}>
-        <Icon size={21} color="var(--blue)" icon="alarm" />
-        알림 받는 중
-      </ButtonOff>
-    );
-  else
-    return (
-      <ButtonOn onClick={onClick} disabled={disabled}>
-        <span>
-          <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트
-          알림받기
-        </span>
-      </ButtonOn>
-    );
+  return alarm ? (
+    <ButtonOff onClick={onClick} disabled={disabled}>
+      <Icon size={21} color="var(--blue)" icon="alarm" />
+      알림 받는 중
+    </ButtonOff>
+  ) : (
+    <ButtonOn onClick={onClick} disabled={disabled}>
+      <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트 알림받기
+    </ButtonOn>
+  );
 };
 
-export default AlarmButton;
+export default React.memo(AlarmButton);
 
 const Button = styled.button`
   display: block;

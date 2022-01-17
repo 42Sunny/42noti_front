@@ -11,4 +11,5 @@ export type Event = {
   beginAt: string;
   createdAt: string;
   updatedAt: string;
+  intraId: number;
 };

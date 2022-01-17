@@ -18,6 +18,7 @@ import { catetoryColors } from '../constants/category';
 import { timeFormat, endAtFormat, isPassed } from '../utils/time';
 
 import { getAlarmState, postAlarm, delAlarm } from '../api/api';
+import Icon from '../components/Icon';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();
@@ -111,11 +112,25 @@ const EventDetail: React.FC = () => {
             <StyledDescription>
               <h2>상세 정보</h2>
               <Markdown>{event.description}</Markdown>
-              <Tag>#{event.category}</Tag>
-              {event.tags &&
-                event.tags.map((tag: string, index: number) => {
-                  return <Tag key={event.id + index}>#{tag}</Tag>;
-                })}
+              <TagWrap>
+                <Tag>#{event.category}</Tag>
+                {event.tags &&
+                  event.tags.map((tag: string, index: number) => {
+                    return <Tag key={event.id + index}>#{tag}</Tag>;
+                  })}
+              </TagWrap>
+              {event.intraId && (
+                <a
+                  href={`https://profile.intra.42.fr/events/${event.intraId}`}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <StyledSubscription>
+                    <h3>아젠다 구독하러 가기</h3>
+                    <Icon size={12} color="var(--black)" icon="arrowRight" />
+                  </StyledSubscription>
+                </a>
+              )}
             </StyledDescription>
           </StyledSection>
         </StyledWrap>
@@ -185,11 +200,27 @@ const StyledDescription = styled.article`
   }
 `;
 
+const StyledSubscription = styled.div`
+  h3 {
+    font-weight: 400;
+    display: inline-block;
+  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 20px 0 2px 0;
+  border-top: 1px solid #e5e5e5;
+`;
+
+const TagWrap = styled.div`
+  padding: 20px 0;
+`;
+
 const Tag = styled.span`
   display: inline-block;
   font-size: 0.85rem;
   border-radius: 50px;
-  margin: 0 8px 8px 0;
+  margin-right: 8px;
   padding: 4px 12px;
   background: var(--darksnow);
 `;

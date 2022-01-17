@@ -32,6 +32,7 @@ export default Markdown;
 
 const StyledMarkdown = styled.div`
   margin-bottom: 14px;
+
   a {
     color: var(--blue);
     word-break: break-all;

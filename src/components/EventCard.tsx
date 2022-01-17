@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import dayjs from 'dayjs';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Icon from '../components/Icon';
 import { catetoryColors } from '../constants/category';
 import { week } from '../constants/date';
 import { Event } from '../types/event';
 
-import dayjs from 'dayjs';
+import { handleIsUpdate } from '../utils/time';
 
 const EventCard = ({ event }: { event: Event }) => {
   let eventBeginDate = dayjs(event.beginAt);
@@ -16,21 +17,11 @@ const EventCard = ({ event }: { event: Event }) => {
 
   const [isUpdate, setIsUpdate] = useState(false);
 
-  const handleIsUpdate = useCallback(
-    (updatedAt: string, createdAt: string, beginAt: string) => {
-      const now = dayjs();
-      const updated = dayjs(updatedAt);
-      const created = dayjs(createdAt);
-      const begin = dayjs(beginAt);
-
-      if (updated > created && now < begin) setIsUpdate(true);
-    },
-    [],
-  );
-
   useEffect(() => {
-    handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt);
-  }, [event.beginAt, event.createdAt, event.updatedAt, handleIsUpdate]);
+    setIsUpdate(
+      handleIsUpdate(event.updatedAt, event.createdAt, event.beginAt),
+    );
+  }, [event.beginAt, event.createdAt, event.updatedAt]);
 
   return (
     <Card>

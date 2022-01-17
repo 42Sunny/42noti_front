@@ -97,3 +97,17 @@ export const isPassed = (beginTime: string) => {
   const eventDate = dayjs(beginTime);
   return eventDate.isBefore(now);
 };
+
+export const handleIsUpdate = (
+  updatedAt: string,
+  createdAt: string,
+  beginAt: string,
+) => {
+  const now = dayjs();
+  const updated = dayjs(updatedAt);
+  const created = dayjs(createdAt);
+  const begin = dayjs(beginAt);
+
+  if (updated > created && now < begin) return true;
+  return false;
+};

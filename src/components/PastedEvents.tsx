@@ -183,7 +183,7 @@ const PastedEvents = () => {
   const [page, setPage] = useState(1);
   //const dispatch = usePageDispatch();
 
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ trackVisibility: true, delay: 100 });
   const [loading, setLoading] = useState(false);
   const [pastedEvents, setPastedEvents] = useState<
     ReturnType<typeof getDummies>

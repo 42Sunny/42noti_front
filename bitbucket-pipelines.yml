@@ -25,7 +25,6 @@ pipelines:
       - step:
           name: Deploy to S3 & Invalidate Cloudfront Cache
           deployment: Production
-          trigger: manual
           clone:
             enabled: false
           script:

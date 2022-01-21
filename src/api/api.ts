@@ -8,12 +8,15 @@ const instance = axios.create({
 
 export const getEvents = () => {
   //return instance.get('/events');
-  //데모용 이벤트 가져오기 API
+  //42API + 수동으로 추가한 이벤트 가져오기 API
   return instance.get('/events?source=42api,admin,cadet,mock');
 };
 
 export const getEventsForce = () => {
-  return instance.get('/events?update=force');
+  //return instance.get('/events?update=force');
+
+  //  //42API + 수동으로 추가한 이벤트 가져오기 API
+  return instance.get('/events?update=force?source=42api,admin,cadet,mock');
 };
 
 export const getEvent = (eventId: number) => {

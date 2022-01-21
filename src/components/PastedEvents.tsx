@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getEventsPagination } from '../api/api';
-import { usePageDispatch, usePageState } from '../contexts/PageContext';
+//import { usePageDispatch, usePageState } from '../contexts/PageContext';
 import EventCard from './EventCard';
 
 const getDummies = () => [

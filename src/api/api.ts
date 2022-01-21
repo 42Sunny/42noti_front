@@ -16,7 +16,7 @@ export const getEventsForce = () => {
   //return instance.get('/events?update=force');
 
   //  //42API + 수동으로 추가한 이벤트 가져오기 API
-  return instance.get('/events?update=force?source=42api,admin,cadet,mock');
+  return instance.get('/events?update=force&source=42api,admin,cadet,mock');
 };
 
 export const getEvent = (eventId: number) => {

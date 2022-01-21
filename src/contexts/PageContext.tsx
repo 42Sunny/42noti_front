@@ -20,7 +20,7 @@ const reducer = (state: PageState, action: Action): PageState => {
 };
 
 const initialState = {
-  page: 0,
+  page: 1,
 };
 const PageProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);

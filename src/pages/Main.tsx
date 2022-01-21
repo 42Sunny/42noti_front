@@ -52,6 +52,9 @@ const MainPage = () => {
             </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
+          <StyledContentTitle>
+            <h1>지나간 이벤트</h1>
+          </StyledContentTitle>
           <PastedEvents />
         </StyledSection>
       )}

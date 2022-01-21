@@ -8,9 +8,9 @@ const instance = axios.create({
 
 const DEFAULT_LIMIT = 10;
 
-export const getEventsPagination = (page: number) => {
+export const getEventsPagination = (range: string, page: number) => {
   return instance.get(
-    `/events?range=past&source=42api,admin,cadet,mock&page=${page}&limit=${DEFAULT_LIMIT}`,
+    `/events?range=${range}&source=42api,admin,cadet,mock&page=${page}&limit=${DEFAULT_LIMIT}`,
   );
 };
 export const getEvents = () => {

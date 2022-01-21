@@ -14,6 +14,7 @@ import {
 } from '../contexts/EventContext';
 import { filterUpcomingEvents } from '../utils/time';
 import { Event } from '../types/event';
+import PastedEvents from '../components/PastedEvents';
 
 const MainPage = () => {
   const eventState = useEventsState();
@@ -51,6 +52,7 @@ const MainPage = () => {
             </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
+          <PastedEvents />
         </StyledSection>
       )}
       <Footer />

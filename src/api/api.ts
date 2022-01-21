@@ -6,6 +6,13 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+const DEFAULT_LIMIT = 10;
+
+export const getEventsPagination = (page: number) => {
+  return instance.get(
+    `/events?range=past&source=42api,admin,cadet,mock&page=${page}&limit=${DEFAULT_LIMIT}`,
+  );
+};
 export const getEvents = () => {
   //return instance.get('/events');
   //42API + 수동으로 추가한 이벤트 가져오기 API
@@ -27,7 +34,7 @@ export const getUserEvents = () => {
   return instance.get(`/users/my/events`);
 };
 
-// 로컬에서 작업할때 임시로 사용
+// //로컬에서 작업할때 임시로 사용
 // export const getUserEvents = () => {
 //   return instance.get(`/users/sarchoi/events`);
 // };

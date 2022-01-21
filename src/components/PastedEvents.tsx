@@ -179,22 +179,18 @@ const getDummies = () => [
 ];
 
 const PastedEvents = () => {
-  const { page } = usePageState();
-  const dispatch = usePageDispatch();
+  //const { page } = usePageState();
+  const [page, setPage] = useState(1);
+  //const dispatch = usePageDispatch();
 
   const { ref, inView } = useInView();
   const [loading, setLoading] = useState(false);
   const [pastedEvents, setPastedEvents] = useState<
     ReturnType<typeof getDummies>
   >([]);
-  // const load = async () => {
-  //   await new Promise((resolve) => setTimeout(resolve, 1000));
-  //   setPastedEvents((data) => [...data, ...getDummies()]);
-  // };
 
   const getEvents = useCallback(async () => {
     setLoading(true);
-    //load();
     const response = await getEventsPagination('past', page);
     setPastedEvents(response.data);
     setLoading(false);
@@ -202,9 +198,11 @@ const PastedEvents = () => {
 
   useEffect(() => {
     if (inView && !loading) {
-      dispatch({ type: 'ADD_PAGE' });
+      //dispatch({ type: 'ADD_PAGE' });
+      setPage((prevState) => prevState + 1);
     }
-  }, [dispatch, inView, loading]);
+  }, [inView, loading]);
+
   useEffect(() => {
     getEvents();
   }, [getEvents]);

@@ -1,6 +1,5 @@
 import React from 'react';
 import EventProvider from '../contexts/EventContext';
-import PageProvider from '../contexts/PageContext';
 import UserProvider from '../contexts/UserContext';
 
 type Props = {
@@ -9,9 +8,7 @@ type Props = {
 const Provider = ({ children }: Props) => {
   return (
     <UserProvider>
-      <EventProvider>
-        <PageProvider>{children}</PageProvider>
-      </EventProvider>
+      <EventProvider>{children}</EventProvider>
     </UserProvider>
   );
 };

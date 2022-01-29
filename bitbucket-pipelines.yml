@@ -18,7 +18,7 @@ pipelines:
                 - node
               script:
                 - yarn install
-          -step:
+          - step:
             name: Build
             script:
                 - yarn run build

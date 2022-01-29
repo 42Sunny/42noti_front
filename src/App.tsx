@@ -8,10 +8,8 @@ import MyEvent from './pages/MyEvent';
 import NotFound from './pages/NotFound';
 import './App.css';
 import Provider from './utils/Provider';
-import useInit from './hooks/useInit';
 
 function App() {
-  useInit();
   return (
     <div className="wrapper">
       <BrowserRouter>

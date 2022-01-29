@@ -18,9 +18,9 @@ pipelines:
                 - node
               script:
                 - yarn install
-          - step:
-              name: Build
-              script:
+          -step:
+            name: Build
+            script:
                 - yarn run build
                 - REACT_APP_ENV:$ENV
                 - REACT_APP_SENTRY_DSN:$ENV_SENTRY_DSN

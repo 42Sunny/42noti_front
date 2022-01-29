@@ -27,11 +27,7 @@ const MainPage = () => {
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
   }, [events]);
-  console.log(
-    'env',
-    process.env.REACT_APP_ENV,
-    process.env.REACT_APP_42EVENT_API_URL,
-  );
+  console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_42EVENT_API_URL);
   return (
     <>
       <Header />

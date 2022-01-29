@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://api.event.42cadet.kr';
+const API_URL = process.env.REACT_APP_42EVENT_API_URL;
 const instance = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -22,7 +22,7 @@ export const getEvents = () => {
 export const getEventsForce = () => {
   //return instance.get('/events?update=force');
 
-  //  //42API + 수동으로 추가한 이벤트 가져오기 API
+  //42API + 수동으로 추가한 이벤트 가져오기 API
   return instance.get('/events?update=force&source=42api,admin,cadet,mock');
 };
 

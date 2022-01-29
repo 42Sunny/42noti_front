@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { getEvents, getEventsForce, getEvent, getUserEvents } from '../api/api';
 import { Event } from '../types/event';
+import * as Sentry from '@sentry/react';
 
 type Props = {
   children?: React.ReactNode;
@@ -176,6 +177,7 @@ export const fetchEvents = async (dispatch: React.Dispatch<Action>) => {
     });
     dispatch({ type: 'GET_EVENTS', data: sortedData });
   } catch (e) {
+    Sentry.captureException(`fetchEvents Catched Error : ${e}`);
     dispatch({ type: 'FAILURE_EVENTS', error: e });
   }
 };
@@ -190,6 +192,7 @@ export const fetchEventsForce = async (dispatch: React.Dispatch<Action>) => {
     });
     dispatch({ type: 'GET_EVENTS', data: sortedData });
   } catch (e) {
+    Sentry.captureException(`fetchEventsForce Catched Error : ${e}`);
     dispatch({ type: 'FAILURE_EVENTS', error: e });
   }
 };
@@ -203,6 +206,7 @@ export const fetchEvent = async (
     const response = await getEvent(eventId);
     dispatch({ type: 'GET_EVENT', data: response.data });
   } catch (e) {
+    Sentry.captureException(`fetchEvent Catched Error : ${e}`);
     dispatch({ type: 'FAILURE_EVENT', error: e });
   }
 };
@@ -224,6 +228,7 @@ export const fetchUserEvents = async (dispatch: React.Dispatch<Action>) => {
     });
     dispatch({ type: 'GET_USER_EVENTS', data: sortedData });
   } catch (e) {
+    Sentry.captureException(`fetchUserEvents Catched Error : ${e}`);
     dispatch({ type: 'FAILURE_USER_EVENTS', error: e });
   }
 };

@@ -10,7 +10,7 @@ const PastedEvents = () => {
   const { ref, inView } = useInView();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [buttinIsvisible, setButtonIsvisible] = useState(true);
+  const [buttonIsVisible, setButtonIsvisible] = useState(true);
   const [pastedEvents, setPastedEvents] = useState<Event[] | []>([]);
   const isSuccess = useRef<boolean | undefined>(undefined);
 
@@ -44,7 +44,7 @@ const PastedEvents = () => {
   return (
     <>
       {isSuccess.current === true && <EventList events={pastedEvents} />}
-      {buttinIsvisible && isSuccess.current === true ? (
+      {buttonIsVisible && isSuccess.current === true ? (
         <Button onClick={toggleButtonIsVisible}>더보기</Button>
       ) : (
         <div ref={ref} />

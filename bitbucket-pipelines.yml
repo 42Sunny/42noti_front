@@ -13,20 +13,15 @@ pipelines:
     develop:
       - parallel:
           - step:
-              name: Install
+              name: Install & Build
               caches:
                 - node
               script:
                 - yarn install
-          -step:
-            name: Build
-            script:
                 - yarn run build
-                - REACT_APP_ENV:$ENV
-                - REACT_APP_SENTRY_DSN:$ENV_SENTRY_DSN
-                - REACT_APP_42EVENT_API_URL:$ENV_42EVENT_API_URL
               artifacts:
                 - build/**
+
       - step:
           name: Deploy to S3 & Invalidate Cloudfront Cache
           deployment: Production

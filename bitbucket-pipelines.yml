@@ -11,20 +11,16 @@ image: node:16
 pipelines:
   branches:
     develop:
-      - step:
-          name: Install
-          caches:
-            - node
-          script:
-            - yarn install
-      - step:
-          name: Build
-          caches:
-            - node
-          script:
-            - yarn run build
-          artifacts:
-            - build/**
+      - parallel:
+          - step:
+              name: Install & Build
+              caches:
+                - node
+              script:
+                - yarn install
+                - yarn run build
+              artifacts:
+                - build/**
 
       - step:
           name: Deploy to S3 & Invalidate Cloudfront Cache

@@ -27,8 +27,7 @@ const MainPage = () => {
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
   }, [events]);
-  /*TODO: 지나간 이벤트 관련 API 연동, 무한 스크롤, error 일때 어떻게 표현할지  */
-
+  console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_42EVENT_API_URL);
   return (
     <>
       <Header />

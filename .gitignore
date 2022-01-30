@@ -58,4 +58,3 @@ build/
 # Certificate file
 *.pem
 
-hooks/

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUserState } from '../contexts/UserContext';
 import styled from 'styled-components';
-import logo from '../assets/42-logo-white.png';
-import cluster from '../assets/seoul-cluster.jpg';
+import { useNavigate } from 'react-router-dom';
+
+import logo from 'assets/42-logo-white.png';
+import cluster from 'assets/seoul-cluster.jpg';
+import { useUserState } from 'contexts/UserContext';
 
 const Login = () => {
   const navigate = useNavigate();

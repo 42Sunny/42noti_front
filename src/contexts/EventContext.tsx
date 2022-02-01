@@ -5,8 +5,8 @@ import {
   useReducer,
   Dispatch,
 } from 'react';
-import { getEvents, getEventsForce, getEvent, getUserEvents } from '../api/api';
-import { Event } from '../types/event';
+import { getEvents, getEventsForce, getEvent, getUserEvents } from 'api/api';
+import { Event } from 'types/event';
 
 type Props = {
   children?: React.ReactNode;

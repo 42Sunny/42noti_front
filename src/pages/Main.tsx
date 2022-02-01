@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import EventList, { StyledNodata } from '../components/EventList';
-import MainSkeleton from '../components/MainSkeleton';
-import Icon from '../components/Icon';
+import Icon from 'components/Icon';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import PastedEvents from 'components/PastedEvents';
+import MainSkeleton from 'components/MainSkeleton';
+import EventList, { StyledNodata } from 'components/EventList';
 
 import {
   useEventsState,
   useEventsDispatch,
   fetchEventsForce,
-} from '../contexts/EventContext';
-import { filterUpcomingEvents } from '../utils/time';
-import { Event } from '../types/event';
-import PastedEvents from '../components/PastedEvents';
+} from 'contexts/EventContext';
+import { filterUpcomingEvents } from 'utils/time';
+import { Event } from 'types/event';
 
 const MainPage = () => {
   const eventState = useEventsState();
@@ -27,7 +27,6 @@ const MainPage = () => {
     const upcomingEvents = filterUpcomingEvents(events);
     setUpcomingEvents(upcomingEvents);
   }, [events]);
-  //console.log(process.env.REACT_APP_ENV, process.env.REACT_APP_42EVENT_API_URL);
   return (
     <>
       <Header />

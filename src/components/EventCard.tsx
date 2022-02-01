@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Icon from '../components/Icon';
-import { catetoryColors } from '../constants/category';
-import { week } from '../constants/date';
-import { Event } from '../types/event';
+import Icon from 'components/Icon';
+import { catetoryColors } from 'constants/category';
+import { week } from 'constants/date';
+import { Event } from 'types/event';
 
-import { handleIsUpdate } from '../utils/time';
+import { handleIsUpdate } from 'utils/time';
 
 const EventCard = ({ event }: { event: Event }) => {
   let eventBeginDate = dayjs(event.beginAt);

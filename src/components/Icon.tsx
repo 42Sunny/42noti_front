@@ -1,4 +1,4 @@
-import { IconSet } from '../constants/IconSet';
+import { IconSet } from 'constants/IconSet';
 
 type iconName =
   | 'time'

@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
-import SubHeader from '../components/SubHeader';
-import MyEventTab from '../components/MyEventTab';
-import Footer from '../components/Footer';
-import EventList from '../components/EventList';
-import MainSkeleton from '../components/MainSkeleton';
+import Footer from 'components/Footer';
+import SubHeader from 'components/SubHeader';
+import EventList from 'components/EventList';
+import MyEventTab from 'components/MyEventTab';
+import MainSkeleton from 'components/MainSkeleton';
 
 import {
   useEventsState,
   useEventsDispatch,
   fetchUserEvents,
-} from '../contexts/EventContext';
-import { filterUpcomingEvents, filterPastEvents } from '../utils/time';
+} from 'contexts/EventContext';
+import { filterUpcomingEvents, filterPastEvents } from 'utils/time';
 
 const MyEvent = () => {
   const state = useEventsState();

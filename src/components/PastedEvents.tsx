@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import { getEventsPagination } from '../api/api';
-import { StyledSection } from '../pages/NotFound';
-import { Event } from '../types/event';
-import EventList from './EventList';
+import { getEventsPagination } from 'api/api';
+import { StyledSection } from 'pages/NotFound';
+import { Event } from 'types/event';
+import EventList from 'components/EventList';
 
 const PastedEvents = () => {
   const { ref, inView } = useInView();

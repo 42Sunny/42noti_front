@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './utils/PrivateRoute';
-import ScrollTop from './utils/ScrollTop';
-import EventDetail from './pages/EventDetail';
-import MainPage from './pages/Main';
-import Login from './pages/Login';
-import MyEvent from './pages/MyEvent';
-import NotFound from './pages/NotFound';
-import './App.css';
-import Provider from './utils/Provider';
-import useInit from './hooks/useInit';
+import Provider from 'utils/Provider';
+import ScrollTop from 'utils/ScrollTop';
+import PrivateRoute from 'utils/PrivateRoute';
+
+import Login from 'pages/Login';
+import MainPage from 'pages/Main';
+import MyEvent from 'pages/MyEvent';
+import NotFound from 'pages/NotFound';
+import EventDetail from 'pages/EventDetail';
+
+import useInit from 'hooks/useInit';
+
+import 'App.css';
 
 function App() {
   useInit();

@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import DetailSkeleton from '../components/DetailSkeleton';
-import AlarmButton from '../components/AlarmButton';
-import Markdown from '../components/Markdown';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import Markdown from 'components/Markdown';
+import AlarmButton from 'components/AlarmButton';
+import DetailSkeleton from 'components/DetailSkeleton';
 
 import {
   useEventsState,
   useEventsDispatch,
   fetchEvent,
-} from '../contexts/EventContext';
-import { Event } from '../types/event';
-import { catetoryColors } from '../constants/category';
-import { timeFormat, endAtFormat, isPassed } from '../utils/time';
+} from 'contexts/EventContext';
+import { Event } from 'types/event';
+import { catetoryColors } from 'constants/category';
+import { timeFormat, endAtFormat, isPassed } from 'utils/time';
 
-import { getAlarmState, postAlarm, delAlarm } from '../api/api';
-import Icon from '../components/Icon';
+import { getAlarmState, postAlarm, delAlarm } from 'api/api';
+import Icon from 'components/Icon';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();

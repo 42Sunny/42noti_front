@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { skeletonAnimation } from '../constants/skeletonAnimation';
+import { skeletonAnimation } from 'constants/skeletonAnimation';
 
 const MainSkeleton = () => {
   return (

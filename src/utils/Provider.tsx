@@ -1,6 +1,6 @@
 import React from 'react';
-import EventProvider from '../contexts/EventContext';
-import UserProvider from '../contexts/UserContext';
+import EventProvider from 'contexts/EventContext';
+import UserProvider from 'contexts/UserContext';
 
 type Props = {
   children: React.ReactNode;

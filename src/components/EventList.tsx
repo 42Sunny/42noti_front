@@ -1,8 +1,8 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import EventCard from './EventCard';
-import { Event } from '../types/event';
-import React from 'react';
+import { Event } from 'types/event';
+import EventCard from 'components/EventCard';
 
 type Props = {
   events: Event[] | null;

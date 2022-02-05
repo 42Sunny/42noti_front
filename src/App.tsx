@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Provider from 'utils/Provider';
+import Provider from 'utils/Providers';
 import ScrollTop from 'utils/ScrollTop';
 import PrivateRoute from 'utils/PrivateRoute';
 
@@ -10,8 +10,6 @@ import NotFound from 'pages/NotFound';
 import EventDetail from 'pages/EventDetail';
 
 import useInit from 'hooks/useInit';
-
-import 'App.css';
 
 function App() {
   useInit();

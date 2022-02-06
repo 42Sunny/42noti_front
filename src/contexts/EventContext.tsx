@@ -170,11 +170,7 @@ export const fetchEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_EVENTS' });
   try {
     const response = await getEvents();
-    const sortedData = response.data.sort((a: Event, b: Event) => {
-      if (a.beginAt < b.beginAt) return -1;
-      else return 1;
-    });
-    dispatch({ type: 'GET_EVENTS', data: sortedData });
+    dispatch({ type: 'GET_EVENTS', data: response.data });
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENTS', error: e });
   }
@@ -184,11 +180,7 @@ export const fetchEventsForce = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_EVENTS' });
   try {
     const response = await getEventsForce();
-    const sortedData = response.data.sort((a: Event, b: Event) => {
-      if (a.beginAt < b.beginAt) return -1;
-      else return 1;
-    });
-    dispatch({ type: 'GET_EVENTS', data: sortedData });
+    dispatch({ type: 'GET_EVENTS', data: response.data });
   } catch (e) {
     dispatch({ type: 'FAILURE_EVENTS', error: e });
   }
@@ -218,11 +210,7 @@ export const fetchUserEvents = async (dispatch: React.Dispatch<Action>) => {
   dispatch({ type: 'LOADING_USER_EVENTS' });
   try {
     const response = await getUserEvents();
-    const sortedData = response.data.sort((a: Event, b: Event) => {
-      if (a.beginAt < b.beginAt) return -1;
-      else return 1;
-    });
-    dispatch({ type: 'GET_USER_EVENTS', data: sortedData });
+    dispatch({ type: 'GET_USER_EVENTS', data: response.data });
   } catch (e) {
     dispatch({ type: 'FAILURE_USER_EVENTS', error: e });
   }

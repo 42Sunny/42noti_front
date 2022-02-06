@@ -17,7 +17,7 @@ const Login = () => {
   }, [navigate, state]);
 
   const handleLogin = () => {
-    window.location.href = 'http://api.event.42cadet.kr/login/42';
+    window.location.href = `${process.env.REACT_APP_API_URL}/login/42`;
   };
 
   return (

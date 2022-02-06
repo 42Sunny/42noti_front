@@ -49,8 +49,7 @@ Thumbs.db
 *.wmv
 
 # dotenv environment variables file
-.env
-.env*
+# .env
 
 # Build directory
 build/

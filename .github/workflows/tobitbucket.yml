@@ -18,7 +18,7 @@ jobs:
         run: git fetch --unshallow
 
       - name: setup
-        run: git remote add bitbucket https://dopamingo:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42meetup/meetup_front.git
+        run: git remote add bitbucket https://jungyunjung:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42meetup/meetup_front.git
 
       - name: push bitbucket
         run: git push bitbucket develop

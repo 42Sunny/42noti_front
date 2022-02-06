@@ -50,7 +50,6 @@ Thumbs.db
 
 # dotenv environment variables file
 .env
-.env*
 
 # Build directory
 build/

@@ -39,6 +39,7 @@ const Item = styled.span`
   font-size: 1rem;
   font-weight: 600;
   margin-left: 6px;
+  //TODO: theme Props 확장해서 props로 받아오기
   color: ${(p: Props) => (p.selected ? colors.black : colors.darksnow)};
   border-bottom: ${(p: Props) =>
     p.selected ? `2px solid ${colors.black}` : 'none'};

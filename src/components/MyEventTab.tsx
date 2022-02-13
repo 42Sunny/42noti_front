@@ -1,5 +1,6 @@
 import { useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { colors } from 'styles/theme';
 
 type Props = {
   selected?: boolean;
@@ -38,9 +39,9 @@ const Item = styled.span`
   font-size: 1rem;
   font-weight: 600;
   margin-left: 6px;
-  color: ${(p: Props) => (p.selected ? 'var(--black)' : 'var(--darksnow)')};
+  color: ${(p: Props) => (p.selected ? colors.black : colors.darksnow)};
   border-bottom: ${(p: Props) =>
-    p.selected ? '2px solid var(--black);' : 'none'};
+    p.selected ? `2px solid ${colors.black}` : 'none'};
   background-color: white;
   margin: 0 12px;
   a {

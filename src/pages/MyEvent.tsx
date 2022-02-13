@@ -51,7 +51,7 @@ const MyEventSection = styled.section`
   flex: 1 1 0;
   align-items: center;
   flex-direction: column;
-  background: var(--snow);
+  background: ${({ theme }) => theme.colors.snow};
   padding: 110px 18px 18px 18px;
   text-align: left;
 `;

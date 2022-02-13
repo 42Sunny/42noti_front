@@ -24,7 +24,7 @@ const StyledSection = styled.section`
   flex-direction: column;
   padding: 62px 18px 18px;
   text-align: left;
-  background: var(--snow);
+  background: ${({ theme }) => theme.colors.snow};
 `;
 
 const StyledDiv = styled.div`
@@ -40,7 +40,7 @@ const StyledDiv = styled.div`
     max-width: 150px;
     height: 26px;
     margin: 12px 0;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     margin-right: 5px;
     animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
   }
@@ -48,7 +48,7 @@ const StyledDiv = styled.div`
     width: 15%;
     height: 15px;
     margin: 12px 0px;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     margin-right: 5px;
     animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
   }
@@ -58,7 +58,7 @@ const StyledEvent = styled.div`
   width: 100%;
   height: 78px;
   margin-bottom: 14px;
-  background-color: var(--darksnow);
+  background-color: ${({ theme }) => theme.colors.darksnow};
   animation: ${skeletonAnimation} 1.5s infinite ease-in-out;
 `;
 

@@ -65,8 +65,8 @@ const Button = styled.button`
   width: 80px;
   height: 40px;
   text-align: center;
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.white};
   font-weight: bold;
   border-radius: 20px;
   cursor: pointer;

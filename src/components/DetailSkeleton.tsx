@@ -34,20 +34,20 @@ const StyledDiv = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
   padding-top: 52px;
-  background: var(--snow);
+  background: ${({ theme }) => theme.colors.snow};
 `;
 
 const StyledMain = styled.main`
   padding: 28px;
   width: 100%;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   line-height: 1.6rem;
   strong {
     display: block;
     width: 70%;
     height: 28px;
     margin: 12px 0 24px;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     animation: ${skeletonAnimation} 2s infinite;
     overflow: hidden;
     position: relative;
@@ -57,7 +57,7 @@ const StyledMain = styled.main`
     width: 85%;
     height: 18px;
     margin-bottom: 10px;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     animation: ${skeletonAnimation} 2s infinite;
     &:nth-child(5) {
       width: 30%;
@@ -69,7 +69,7 @@ const StyledCategoryBar = styled.span`
   display: inline-block;
   width: 80px;
   height: 5px;
-  background: var(--darksnow);
+  background: ${({ theme }) => theme.colors.darksnow};
   border-radius: 10px;
   animation: ${skeletonAnimation} 2s infinite;
 `;
@@ -84,7 +84,7 @@ const StyledDescription = styled.article`
   padding: 18px;
   width: 100%;
   height: 100%px;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   line-height: 1.5rem;
   strong {
@@ -92,7 +92,7 @@ const StyledDescription = styled.article`
     width: 30%;
     height: 26px;
     margin: 12px 0 24px;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     animation: ${skeletonAnimation} 2s infinite;
   }
   p {
@@ -100,7 +100,7 @@ const StyledDescription = styled.article`
     width: 100%;
     height: 18px;
     margin-bottom: 10px;
-    background-color: var(--darksnow);
+    background-color: ${({ theme }) => theme.colors.darksnow};
     animation: ${skeletonAnimation} 2s infinite;
     &:nth-child(3n + 1) {
       width: 70%;

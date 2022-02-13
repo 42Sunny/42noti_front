@@ -55,7 +55,7 @@ const StyledEvents = styled.div`
   h2 {
     font-size: 0.8rem;
     letter-spacing: -0.3px;
-    color: var(--darkgray);
+    color: ${({ theme }) => theme.colors.darkgray};
     margin-bottom: 9px;
   }
 `;
@@ -64,7 +64,7 @@ export const StyledNodata = styled.div`
   text-align: center;
   font-size: 1.05rem;
   margin: 120px 0;
-  color: var(--gray);
+  color: ${({ theme }) => theme.colors.gray};
   div {
     font-size: 3rem;
   }

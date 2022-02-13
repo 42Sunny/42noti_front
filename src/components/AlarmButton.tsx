@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
+import { colors } from 'styles/theme';
 
 type Props = {
   alarm: boolean | null;
@@ -11,12 +12,12 @@ type Props = {
 const AlarmButton = ({ alarm, disabled, onClick }: Props) => {
   return alarm ? (
     <ButtonOff onClick={onClick} disabled={disabled}>
-      <Icon size={21} color="var(--blue)" icon="alarm" />
+      <Icon size={21} color={colors.blue} icon="alarm" />
       알림 받는 중
     </ButtonOff>
   ) : (
     <ButtonOn onClick={onClick} disabled={disabled}>
-      <Icon size={21} color="var(--white)" icon="alarmLine" />이 이벤트 알림받기
+      <Icon size={21} color={colors.white} icon="alarmLine" />이 이벤트 알림받기
     </ButtonOn>
   );
 };
@@ -38,20 +39,20 @@ const Button = styled.button`
     margin: 0 2px -5px 0;
   }
   &:disabled {
-    background-color: var(--snow);
-    color: var(--lightgray);
+    background-color: ${({ theme }) => theme.colors.snow};
+    color: ${({ theme }) => theme.colors.lightgray};
   }
   &:disabled svg {
-    fill: var(--lightgray);
+    fill: ${({ theme }) => theme.colors.lightgray};
   }
 `;
 
 const ButtonOn = styled(Button)`
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const ButtonOff = styled(Button)`
-  background-color: var(--snow);
-  color: var(--blue);
+  background-color: ${({ theme }) => theme.colors.snow};
+  color: ${({ theme }) => theme.colors.blue};
 `;

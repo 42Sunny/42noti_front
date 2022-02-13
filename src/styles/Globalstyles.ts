@@ -122,24 +122,6 @@ const resetCSS = css`
 `;
 
 const appCSS = css`
-  :root {
-    --white: rgb(255, 255, 255);
-    --black: rgb(46, 47, 51);
-    --lightgreen: rgb(92, 235, 182);
-    --green: rgb(74, 226, 170);
-    --lightred: rgb(255, 145, 165);
-    --red: rgb(255, 121, 145);
-    --orange: rgb(255, 165, 92);
-    --skyblue: rgb(88, 210, 231);
-    --mint: rgb(66, 218, 209);
-    --blue: rgb(63, 161, 253);
-    --purple: rgb(117, 131, 253);
-    --lightgray: rgb(187, 189, 202);
-    --gray: rgb(124, 126, 139);
-    --darkgray: rgb(95, 96, 109);
-    --snow: rgb(244, 246, 248);
-    --darksnow: rgb(232, 234, 238);
-  }
   html {
     height: -webkit-fill-available;
   }
@@ -157,7 +139,7 @@ const appCSS = css`
   a {
     text-decoration: none;
     outline: none;
-    color: var(--black);
+    color: ${({ theme }) => theme.colors.black};
   }
   #root {
     height: 100%;
@@ -166,8 +148,8 @@ const appCSS = css`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    color: var(--black);
-    background-color: var(--snow);
+    color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.snow};
     box-sizing: border-box;
     width: 100%;
     min-width: 320px;

@@ -1,16 +1,17 @@
 import { keyframes } from 'styled-components';
+import { colors } from 'styles/theme';
 
 export const skeletonAnimation = keyframes`
   0% {
-    background-color: var(--darksnow);
+    background-color: ${colors.darksnow}
   }
   30% {
-    background-color: var(--snow);
+    background-color:${colors.snow}
   }
   70% {
-    background-color: var(--darksnow);
+    background-color:${colors.darksnow};
   }
   100% {
-    background-color: var(--darksnow);
+    background-color: ${colors.darksnow};
   }
 `;

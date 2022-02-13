@@ -47,7 +47,7 @@ const StyledMain = styled.main`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: var(--white);
+  color: ${({ theme }) => theme.colors.white};
   font-size: 1rem;
   h1 {
     font-size: 1.8rem;
@@ -73,8 +73,8 @@ const Button = styled.button`
   max-width: 330px;
   height: 50px;
   border-radius: 6px;
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.white};
   font-size: 1.05rem;
   font-weight: 700;
   border: 0;

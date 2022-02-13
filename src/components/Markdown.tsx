@@ -34,7 +34,7 @@ const StyledMarkdown = styled.div`
   margin-bottom: 14px;
 
   a {
-    color: var(--blue);
+    color: ${({ theme }) => theme.colors.blue};
     word-break: break-all;
   }
   strong {

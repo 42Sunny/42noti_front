@@ -15,6 +15,7 @@ import {
 } from 'contexts/EventContext';
 import { filterUpcomingEvents } from 'utils/time';
 import { Event } from 'types/event';
+import { colors } from 'styles/theme';
 
 const MainPage = () => {
   const eventState = useEventsState();
@@ -46,7 +47,7 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>다가오는 이벤트</h1>
             <SyncButton onClick={() => fetchEventsForce(eventDispatch)}>
-              <Icon size={15} color="var(--lightgray)" icon="sync" />
+              <Icon size={15} color={colors.lightgray} icon="sync" />
             </SyncButton>
           </StyledContentTitle>
           <EventList events={upcomingEvents} />
@@ -66,7 +67,7 @@ export const StyledSection = styled.section`
   flex: 1 1 0;
   align-items: center;
   flex-direction: column;
-  background: var(--snow);
+  background: ${({ theme }) => theme.colors.snow};
   padding: 68px 18px 18px 18px;
   text-align: left;
 `;
@@ -79,7 +80,7 @@ const StyledContentTitle = styled.div`
     font-size: 1.3rem;
     font-weight: 800;
     letter-spacing: -0.3px;
-    color: var(--black);
+    color: ${({ theme }) => theme.colors.black};
   }
 `;
 

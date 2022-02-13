@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
+import { colors } from 'styles/theme';
 
 type Props = {
   title?: string;
@@ -12,7 +13,7 @@ const SubHeader = ({ title }: Props) => {
   return (
     <StyledHeader>
       <button onClick={() => navigate('/')}>
-        <Icon size={18} color="var(--black)" icon="arrowLeft" />
+        <Icon size={18} color={colors.black} icon="arrowLeft" />
       </button>
       <h1>{title}</h1>
     </StyledHeader>

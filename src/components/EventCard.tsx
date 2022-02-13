@@ -7,6 +7,7 @@ import { week } from 'constants/date';
 import { Event } from 'types/event';
 
 import { handleIsUpdate } from 'utils/time';
+import { colors } from 'styles/theme';
 
 const EventCard = ({ event }: { event: Event }) => {
   let eventBeginDate = dayjs(event.beginAt);
@@ -42,12 +43,12 @@ const EventCard = ({ event }: { event: Event }) => {
         )}
         <StyledEventInfoDiv>
           <div>
-            <Icon size={16} color="var(--lightgray)" icon="time" />
+            <Icon size={16} color={colors.lightgray} icon="time" />
             <span>{time}</span>
           </div>
           {event.location && (
             <div>
-              <Icon size={16} color="var(--lightgray)" icon="location" />
+              <Icon size={16} color={colors.lightgray} icon="location" />
               <span>{event.location}</span>
             </div>
           )}
@@ -62,7 +63,7 @@ export default React.memo(EventCard);
 const Card = styled.article`
   display: flex;
   align-items: flex-start;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   width: 100%;
   margin-bottom: 16px;
   border-radius: 10px;
@@ -79,7 +80,7 @@ const StyledCategoryBar = styled.span`
   height: 45px;
   left: -14px;
   top: 0;
-  background: ${(props) => props.color || 'var(--lightgray)'};
+  background: ${(props) => props.color || props.theme.colors.lightgray};
   border-radius: 10px;
   transform: rotate(-180deg);
 `;
@@ -100,7 +101,7 @@ const StyledDateDiv = styled.div`
   }
   h3 {
     font-size: 0.8rem;
-    color: var(--darkgray);
+    color: ${({ theme }) => theme.colors.darkgray};
     line-height: 1.1rem;
     letter-spacing: -0.3px;
   }
@@ -121,7 +122,7 @@ const StyledInfoDiv = styled.div`
   strong {
     font-size: 0.85rem;
     line-height: 18px;
-    color: var(--gray);
+    color: ${({ theme }) => theme.colors.gray};
     margin-bottom: 6px;
     span {
       display: inline-block;
@@ -142,7 +143,7 @@ const StyledEventInfoDiv = styled.div`
     span {
       font-size: 0.85rem;
       line-height: 18px;
-      color: var(--black);
+      color: ${({ theme }) => theme.colors.black};
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -161,7 +162,7 @@ const UpdatedIcon = styled.div`
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--blue);
+  background: ${({ theme }) => theme.colors.blue};
   position: absolute;
   right: -5px;
   top: 0;

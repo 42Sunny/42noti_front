@@ -19,6 +19,7 @@ import { timeFormat, endAtFormat, isPassed } from 'utils/time';
 
 import { getAlarmState, postAlarm, delAlarm } from 'api/api';
 import Icon from 'components/Icon';
+import { colors } from 'styles/theme';
 
 const EventDetail: React.FC = () => {
   const state = useEventsState();
@@ -127,7 +128,7 @@ const EventDetail: React.FC = () => {
                 >
                   <StyledSubscription>
                     <h3>아젠다 구독하러 가기</h3>
-                    <Icon size={12} color="var(--black)" icon="arrowRight" />
+                    <Icon size={12} color={colors.black} icon="arrowRight" />
                   </StyledSubscription>
                 </a>
               )}
@@ -144,21 +145,21 @@ const StyledWrap = styled.div`
   /* main 부분의 크기를 넘치는 속성을 줄이는 속성1, 모자른 속성을 채우는 속성1, 해당 속성을 유지하는 속성 0 */
   flex: 1 1 0;
   padding-top: 52px;
-  background: var(--snow);
+  background: ${({ theme }) => theme.colors.snow};
 `;
 
 const StyledCategoryBar = styled.span`
   display: inline-block;
   width: 80px;
   height: 5px;
-  background: ${(props) => props.color || 'var(--lightgray)'};
+  background: ${(props) => props.color || props.theme.colors.lightgray};
   border-radius: 10px;
 `;
 
 const StyledMain = styled.main`
   padding: 28px;
   width: 100%;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   line-height: 1.6rem;
   div {
     margin-bottom: 22px;
@@ -188,7 +189,7 @@ const StyledDescription = styled.article`
   padding: 18px;
   width: 100%;
   height: 100%px;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   line-height: 1.5rem;
   overflow: auto;
@@ -222,7 +223,7 @@ const Tag = styled.span`
   border-radius: 50px;
   margin-right: 8px;
   padding: 4px 12px;
-  background: var(--darksnow);
+  background: ${({ theme }) => theme.colors.darksnow};
 `;
 
 export default EventDetail;

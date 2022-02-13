@@ -51,7 +51,7 @@ const Card = styled.article`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  background: var(--white);
+  background: ${({ theme }) => theme.colors.white};
   margin-bottom: 14px;
   border-radius: 10px;
   padding: 18px;
@@ -77,7 +77,7 @@ const StyledInfo = styled.span`
     font-weight: 500;
     margin-right: 5px;
     letter-spacing: -0.3px;
-    color: var(--blue);
+    color: ${({ theme }) => theme.colors.blue};
   }
 `;
 
@@ -87,7 +87,7 @@ export const UpdatedIcon = styled.div`
   max-width: 10px;
   max-height: 10px;
   border-radius: 50%;
-  background: var(--blue);
+  background: ${({ theme }) => theme.colors.white};
   margin-right: 5px;
 `;
 

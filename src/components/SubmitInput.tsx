@@ -39,12 +39,12 @@ const StyledInput = styled.div`
     flex-basis: 65%;
     padding: 10px;
     border-radius: 10px 0 0 10px;
-    border: 1px solid var(--darksnow);
+    border: 1px solid ${({ theme }) => theme.colors.darksnow};
   }
   button {
     flex-basis: 35%;
-    border: 1px solid var(--darksnow);
-    background: var(--darksnow);
+    border: 1px solid ${({ theme }) => theme.colors.darksnow};
+    background: ${({ theme }) => theme.colors.darksnow};
     font-size: 0.9em;
     font-weight: 600;
     border-radius: 0 10px 10px 0;

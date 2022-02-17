@@ -31,6 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "invalidate": "aws cloudfront create-invalidation --profil=yunjung --distribution-id E3KT2Y6GIA2R59 --paths ",

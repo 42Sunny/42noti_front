@@ -90,11 +90,11 @@ const StyledDateDiv = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 22%;
-  max-width: 36px;
+  flex-basis: 20%;
+  max-width: 38px;
   margin-right: 16px;
   h1 {
-    font-size: 1.85rem;
+    font-size: 1.9rem;
     font-weight: 400;
     line-height: 1.8rem;
     letter-spacing: -1.5px;
@@ -104,6 +104,7 @@ const StyledDateDiv = styled.div`
     color: ${({ theme }) => theme.colors.darkgray};
     line-height: 1.1rem;
     letter-spacing: -0.3px;
+    overflow: visible;
   }
 `;
 
@@ -111,6 +112,7 @@ const StyledInfoDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  flex-basis: 80%;
   h1 {
     font-size: 1.2rem;
     line-height: 1.45rem;
@@ -164,6 +166,6 @@ const UpdatedIcon = styled.div`
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.blue};
   position: absolute;
-  right: -5px;
+  right: -3px;
   top: 0;
 `;

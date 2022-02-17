@@ -113,13 +113,11 @@ const EventDetail: React.FC = () => {
             <StyledDescription>
               <h2>상세 정보</h2>
               <Markdown>{event.description}</Markdown>
-              <TagWrap>
-                <Tag>#{event.category}</Tag>
-                {event.tags &&
-                  event.tags.map((tag: string, index: number) => {
-                    return <Tag key={event.id + index}>#{tag}</Tag>;
-                  })}
-              </TagWrap>
+              <Tag>#{event.category}</Tag>
+              {event.tags &&
+                event.tags.map((tag: string, index: number) => {
+                  return <Tag key={event.id + index}>#{tag}</Tag>;
+                })}
               {event.intraId && (
                 <a
                   href={`https://profile.intra.42.fr/events/${event.intraId}`}
@@ -176,6 +174,7 @@ const StyledMain = styled.main`
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: -0.3px;
+    word-break: break-all;
   }
 `;
 
@@ -201,6 +200,15 @@ const StyledDescription = styled.article`
   }
 `;
 
+const Tag = styled.span`
+  display: inline-block;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  margin: 8px 8px 8px 0;
+  padding: 4px 12px;
+  background: ${({ theme }) => theme.colors.darksnow};
+`;
+
 const StyledSubscription = styled.div`
   h3 {
     font-weight: 400;
@@ -211,19 +219,8 @@ const StyledSubscription = styled.div`
   gap: 0.5rem;
   padding: 20px 0 2px 0;
   border-top: 1px solid #e5e5e5;
+  margin-top: 14px;
 `;
 
-const TagWrap = styled.div`
-  padding: 20px 0;
-`;
-
-const Tag = styled.span`
-  display: inline-block;
-  font-size: 0.85rem;
-  border-radius: 50px;
-  margin-right: 8px;
-  padding: 4px 12px;
-  background: ${({ theme }) => theme.colors.darksnow};
-`;
 
 export default EventDetail;

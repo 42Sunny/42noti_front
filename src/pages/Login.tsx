@@ -23,7 +23,7 @@ const Login = () => {
   return (
     <StyledMain>
       <img src={logo} alt="logo" />
-      <h1>42 EVENT</h1>
+      <h1>42 NOTI</h1>
       <p>
         지금 42 SEOUL에서
         <br />

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <Link to="/">
-        <h1>42 EVENT</h1>
+        <h1>42 NOTI</h1>
       </Link>
       <Link to="/my/on">
         <span>내 이벤트</span>

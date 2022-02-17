@@ -31,8 +31,9 @@ const Markdown = ({ children }: Props) => {
 export default Markdown;
 
 const StyledMarkdown = styled.div`
-  margin-bottom: 14px;
-
+  p {
+    margin-bottom: 10px;
+  }
   a {
     color: ${({ theme }) => theme.colors.blue};
     word-break: break-all;

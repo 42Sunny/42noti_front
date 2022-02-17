@@ -7,6 +7,7 @@ type pastedEvents = Events;
 
 const initialState: pastedEvents = [];
 
+//TODO: status 값에 따른 처리 해야함.
 export const fetchPastedEvents = createAsyncThunk(
   'get/fetchPastedEvents',
   async (page: number, thunkApi) => {

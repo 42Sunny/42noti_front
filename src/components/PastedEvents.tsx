@@ -47,7 +47,7 @@ const PastedEvents = ({
       dispatch(addPage());
     }
   }, [dispatch, inView]);
-
+  //TODO: error처리 해야함.
   return (
     <>
       {pastedEvents !== [] && <EventList events={pastedEvents} />}

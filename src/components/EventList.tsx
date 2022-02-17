@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Event } from 'types/event';
+import { Event, Events } from 'types/event';
 import EventCard from 'components/EventCard';
 
 type Props = {
-  events: Event[] | null;
+  events: Events;
 };
 
 const EventList = ({ events }: Props) => {

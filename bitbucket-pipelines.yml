@@ -18,7 +18,7 @@ pipelines:
                 - node
               script:
                 - yarn install
-                - yarn run build
+                - yarn run build:dev
               artifacts:
                 - build/dev/**
           - step:
@@ -52,7 +52,7 @@ pipelines:
                 - node
               script:
                 - yarn install
-                - yarn run build
+                - yarn run build:prod
               artifacts:
                 - build/prod/**
           - step:

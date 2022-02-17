@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from 'features/counter/counterSlice';
 import pageReducer from 'features/page/pageSlice';
-
+import pastedEventsReducer from 'features/pastedEvents/pastedEventsSlice';
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     page: pageReducer,
+    pastedEvents: pastedEventsReducer,
   },
 });
 

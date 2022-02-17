@@ -14,15 +14,22 @@ import {
   fetchEventsForce,
 } from 'contexts/EventContext';
 import { filterUpcomingEvents } from 'utils/time';
-import { Event } from 'types/event';
+import { Events } from 'types/event';
 import { colors } from 'styles/theme';
+import { useAppSelector } from 'app/hooks';
+import { selectPage } from 'features/page/pageSlice';
+import { selectPastedEvents } from 'features/pastedEvents/pastedEventsSlice';
+import { DEFAULT_PAGE_LIMIT } from 'constants/api';
 
 const MainPage = () => {
   const eventState = useEventsState();
   const eventDispatch = useEventsDispatch();
   const { data: events, loading, error } = eventState.events;
-  const [upcomingEvents, setUpcomingEvents] = useState<Event[] | null>(null);
+  const [upcomingEvents, setUpcomingEvents] = useState<Events>(null);
+  const [buttonIsVisible, setButtonIsVisible] = useState(false);
 
+  const page = useAppSelector(selectPage);
+  const pastedEvents = useAppSelector(selectPastedEvents);
   useEffect(() => {
     if (events === null) return;
     const upcomingEvents = filterUpcomingEvents(events);
@@ -54,7 +61,13 @@ const MainPage = () => {
           <StyledContentTitle>
             <h1>지나간 이벤트</h1>
           </StyledContentTitle>
-          <PastedEvents />
+          <PastedEvents
+            isLastPage={pastedEvents.length !== page * DEFAULT_PAGE_LIMIT}
+            page={page}
+            pastedEvents={pastedEvents}
+            buttonIsVisible={buttonIsVisible}
+            setButtonIsVisible={setButtonIsVisible}
+          />
         </StyledSection>
       )}
       <Footer />

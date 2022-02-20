@@ -17,7 +17,7 @@ type EventsState = {
   events: {
     loading: boolean;
     error: any;
-    data: Event[] | null;
+    data: Event[] | [] | null;
   };
   event: {
     loading: boolean;

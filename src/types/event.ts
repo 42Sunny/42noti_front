@@ -13,3 +13,5 @@ export type Event = {
   updatedAt: string;
   intraId: number;
 };
+
+export type Events = Event[] | [] | null;

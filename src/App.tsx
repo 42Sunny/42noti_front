@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Provider from 'utils/Providers';
-import ScrollTop from 'utils/ScrollTop';
+import Providers from 'utils/Providers';
 import PrivateRoute from 'utils/PrivateRoute';
 
 import Login from 'pages/Login';
@@ -16,8 +15,7 @@ function App() {
   return (
     <div className="wrapper">
       <BrowserRouter>
-        <ScrollTop />
-        <Provider>
+        <Providers>
           <Routes>
             <Route
               path=""
@@ -48,7 +46,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="login" element={<Login />} />
           </Routes>
-        </Provider>
+        </Providers>
       </BrowserRouter>
     </div>
   );

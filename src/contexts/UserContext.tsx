@@ -18,7 +18,11 @@ type UserDispatch = Dispatch<Action>;
 
 const initialState = {
   userId: '-',
-  isLogin: document.cookie === '' ? false : true,
+  isLogin:
+    document.cookie.split('; ').find((row) => row.startsWith('w_auth')) ===
+    undefined
+      ? false
+      : true,
 };
 
 const reducer = (state: UserState, action: Action): UserState => {

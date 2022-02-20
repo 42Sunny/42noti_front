@@ -8,35 +8,26 @@ import Markdown from 'components/Markdown';
 import AlarmButton from 'components/AlarmButton';
 import DetailSkeleton from 'components/DetailSkeleton';
 
-import {
-  useEventsState,
-  useEventsDispatch,
-  fetchEvent,
-} from 'contexts/EventContext';
 import { Event } from 'types/event';
 import { catetoryColors } from 'constants/category';
 import { timeFormat, endAtFormat, isPassed } from 'utils/time';
 
-import { getAlarmState, postAlarm, delAlarm } from 'api/api';
+import { getAlarmState, postAlarm, delAlarm, getEvent } from 'api/api';
 import Icon from 'components/Icon';
 import { colors } from 'styles/theme';
+import { useCallback } from 'react';
 
 const EventDetail: React.FC = () => {
-  const state = useEventsState();
-  const dispatch = useEventsDispatch();
-
-  const { data: events } = state.events;
-  const { data: userEvents } = state.userEvents;
-  const { data: fetchedEvent, loading } = state.event;
-
   const params: any = useParams();
   const eventId: number = parseInt(params.eventId);
-  const listedEvent: Event | undefined =
-    events?.find((e) => e.id === eventId) ||
-    userEvents?.find((e) => e.id === eventId);
 
-  const [event, setEvent] = useState<Event | null | undefined>(listedEvent);
+  const [event, setEvent] = useState<Event | null | undefined>(null);
   const [alarm, setAlarm] = useState(null);
+
+  const fetchedEvent = useCallback(async () => {
+    const response = await getEvent(eventId);
+    setEvent(response.data);
+  }, [eventId]);
 
   const alarmState = async (eventId: number) => {
     try {
@@ -74,17 +65,17 @@ const EventDetail: React.FC = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!event) {
-      fetchEvent(dispatch, eventId);
-      setEvent(fetchedEvent);
+      fetchedEvent();
     }
     alarmState(eventId);
-  }, [dispatch, eventId, fetchedEvent, event]);
+  }, [eventId, fetchedEvent, event]);
 
   return (
     <>
       <Header />
-      {loading || !event ? (
+      {!event ? (
         <DetailSkeleton />
       ) : (
         <StyledWrap>

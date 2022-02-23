@@ -158,6 +158,7 @@ const appCSS = css`
   }
   button {
     cursor: pointer;
+    user-select: none;
   }
   button:disabled {
     cursor: not-allowed;

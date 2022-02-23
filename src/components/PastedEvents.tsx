@@ -6,6 +6,8 @@ import { useAppDispatch } from 'app/hooks';
 import { addPage } from 'features/page/pageSlice';
 import { fetchPastedEvents } from 'features/pastedEvents/pastedEventsSlice';
 import { Events } from 'types/event';
+import Icon from 'components/Icon';
+import { colors } from 'styles/theme';
 
 type PropsTypes = {
   page: number;
@@ -54,7 +56,10 @@ const PastedEvents = ({
         isLastPage ? (
           <LastPageDiv>마지막 글 입니다.</LastPageDiv>
         ) : (
-          <Button onClick={toggleButtonIsVisible}>더보기</Button>
+          <Button onClick={toggleButtonIsVisible}>
+            지나간 이벤트 더보기
+            <Icon size={20} color={colors.gray} icon="arrowDown" />
+          </Button>
         )
       ) : (
         <InfinityDev ref={ref} />
@@ -72,15 +77,21 @@ export default PastedEvents;
 
 const InfinityDev = styled.div``;
 const Button = styled.button`
-  all: unset;
-  width: 80px;
-  height: 40px;
-  text-align: center;
-  background-color: ${({ theme }) => theme.colors.blue};
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: bold;
-  border-radius: 20px;
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  padding: 13px;
+  margin: 2px 0 10px;
+  font-size: 0.9rem;
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.gray};
+  font-weight: 500;
+  border-radius: 28px;
+  border: 0;
   cursor: pointer;
+  svg {
+    vertical-align: -40%;
+  }
 `;
 
 const LastPageDiv = styled.div`

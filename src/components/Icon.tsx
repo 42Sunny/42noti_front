@@ -5,9 +5,11 @@ type iconName =
   | 'location'
   | 'arrowLeft'
   | 'arrowRight'
+  | 'arrowDown'
   | 'alarm'
   | 'alarmLine'
-  | 'sync';
+  | 'sync'
+  | 'github';
 
 type Props = {
   icon: iconName;

@@ -23,7 +23,7 @@ const EventList = ({ events }: Props) => {
         events &&
         events.map((event: Event) => {
           let yearMonth = null;
-          let eventDate = new Date(event.beginAt);
+          const eventDate = new Date(event.beginAt);
           if (months[eventDate.getMonth()] === 0) {
             yearMonth = `${eventDate.getFullYear()}년 ${
               eventDate.getMonth() + 1

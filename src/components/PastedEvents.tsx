@@ -28,8 +28,7 @@ const PastedEvents = ({
   const getEvents = useCallback(async () => {
     //제일 처음에 getEvents가 두번 불러지는 문제 (page가 0일때도 들어가짐)
     if (prevPage.current === page || page === 0) return;
-    const response = await dispatch(fetchPastedEvents(page));
-    console.log(response);
+    await dispatch(fetchPastedEvents(page));
     setButtonIsVisible(true);
     prevPage.current = page;
   }, [dispatch, page, setButtonIsVisible]);
@@ -50,7 +49,7 @@ const PastedEvents = ({
   //TODO: error처리 해야함.
   return (
     <>
-      {pastedEvents !== [] && <EventList events={pastedEvents} />}
+      {pastedEvents?.length !== 0 && <EventList events={pastedEvents} />}
       {buttonIsVisible === true ? (
         isLastPage ? (
           <LastPageDiv>마지막 글 입니다.</LastPageDiv>

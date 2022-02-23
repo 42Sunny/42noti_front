@@ -12,9 +12,8 @@ import {
   useEventsState,
   useEventsDispatch,
   fetchEventsForce,
+  fetchEvents,
 } from 'contexts/EventContext';
-import { filterUpcomingEvents } from 'utils/time';
-import { Events } from 'types/event';
 import { colors } from 'styles/theme';
 import { useAppSelector } from 'app/hooks';
 import { selectPage } from 'features/page/pageSlice';
@@ -25,16 +24,15 @@ const MainPage = () => {
   const eventState = useEventsState();
   const eventDispatch = useEventsDispatch();
   const { data: events, loading, error } = eventState.events;
-  const [upcomingEvents, setUpcomingEvents] = useState<Events>(null);
   const [buttonIsVisible, setButtonIsVisible] = useState(false);
 
   const page = useAppSelector(selectPage);
   const pastedEvents = useAppSelector(selectPastedEvents);
+
   useEffect(() => {
-    if (events === null) return;
-    const upcomingEvents = filterUpcomingEvents(events);
-    setUpcomingEvents(upcomingEvents);
-  }, [events]);
+    fetchEvents(eventDispatch);
+  }, [eventDispatch]);
+
   return (
     <>
       <Header />
@@ -57,7 +55,7 @@ const MainPage = () => {
               <Icon size={15} color={colors.lightgray} icon="sync" />
             </SyncButton>
           </StyledContentTitle>
-          <EventList events={upcomingEvents} />
+          <EventList events={events} />
           <StyledContentTitle>
             <h1>지나간 이벤트</h1>
           </StyledContentTitle>
@@ -108,15 +106,5 @@ const SyncButton = styled.button`
     transition: transform 0.4s;
   }
 `;
-
-// const StyledEvents = styled.div`
-//   width: 100%;
-//   h2 {
-//     font-size: 0.8rem;
-//     letter-spacing: -0.3px;
-//     color: var(--darkgray);
-//     margin-bottom: 9px;
-//   }
-// `;
 
 export default MainPage;

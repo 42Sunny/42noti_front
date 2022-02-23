@@ -14,7 +14,6 @@ pipelines:
       - parallel:
           - step:
               name: Install & Build
-              deployment: develop
               caches:
                 - node
               script:
@@ -22,58 +21,25 @@ pipelines:
                 - yarn run build
               artifacts:
                 - build/**
-          - step:
-              name: Deploy to S3 & Invalidate Cloudfront Cache
-              
-              clone:
-                enabled: false
-              script:
-                # sync your files to S3
-                - pipe: atlassian/aws-s3-deploy:1.1.0
-                  variables:
-                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    S3_BUCKET: noti.dev.42cadet.kr
-                    ACL: 'public-read'
-                    LOCAL_PATH: 'build'
-                # triggering a distribution invalidation to refresh the CDN caches
-                - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-                  variables:
-                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    DISTRIBUTION_ID: E3KT2Y6GIA2R59
-    master:
-      - parallel:
-          - step:
-              name: Install & Build
-              deployment: production
-              caches:
-                - node
-              script:
-                - yarn install
-                - yarn run build
-              artifacts:
-                - build/**
-          - step:
-              name: Deploy to S3 & Invalidate Cloudfront Cache
-              clone:
-                enabled: false
-              script:
-                # sync your files to S3
-                - pipe: atlassian/aws-s3-deploy:1.1.0
-                  variables:
-                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    S3_BUCKET: noti.42cadet.kr
-                    ACL: 'public-read'
-                    LOCAL_PATH: 'build'
-                # triggering a distribution invalidation to refresh the CDN caches
-                - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
-                  variables:
-                    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                    DISTRIBUTION_ID: E3KT2Y6GIA2R59
+
+      - step:
+          name: Deploy to S3 & Invalidate Cloudfront Cache
+          deployment: Production
+          clone:
+            enabled: false
+          script:
+            # sync your files to S3
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: $S3_BUCKET
+                LOCAL_PATH: 'build'
+            # triggering a distribution invalidation to refresh the CDN caches
+            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: E3KT2Y6GIA2R59

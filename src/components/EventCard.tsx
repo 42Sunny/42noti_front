@@ -10,7 +10,7 @@ import { handleIsUpdate } from 'utils/time';
 import { colors } from 'styles/theme';
 
 const EventCard = ({ event }: { event: Event }) => {
-  let eventBeginDate = dayjs(event.beginAt);
+  const eventBeginDate = dayjs(event.beginAt);
 
   const month = event.beginAt?.split('-')[2].split('T')[0];
   const day = week[eventBeginDate.get('day')];

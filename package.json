@@ -33,12 +33,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build --profile",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "invalidate": "aws cloudfront create-invalidation --profil=yunjung --distribution-id E3KT2Y6GIA2R59 --paths ",
-    "build:dev": "BUILD_PATH='./build/dev' react-scripts build",
-    "build:prod": "BUILD_PATH='./build/prod' react-scripts build"
+    "deploy": "aws s3 sync ./build s3://noti.42cadet.kr --profile=yunjung",
+    "invalidate": "aws cloudfront create-invalidation --profil=yunjung --distribution-id E3KT2Y6GIA2R59 --paths "
   },
   "eslintConfig": {
     "parser": "babel-eslint",

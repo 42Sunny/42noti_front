@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useReducer,
   Dispatch,
 } from 'react';
@@ -16,17 +15,17 @@ type Props = {
 type EventsState = {
   events: {
     loading: boolean;
-    error: any;
+    error: unknown;
     data: Event[] | [] | null;
   };
   event: {
     loading: boolean;
-    error: any;
+    error: unknown;
     data: Event | null;
   };
   userEvents: {
     loading: boolean;
-    error: any;
+    error: unknown;
     data: Event[] | null;
   };
 };
@@ -35,13 +34,13 @@ type EventsState = {
 type Action =
   | { type: 'LOADING_EVENTS' }
   | { type: 'GET_EVENTS'; data: Event[] }
-  | { type: 'FAILURE_EVENTS'; error: any }
+  | { type: 'FAILURE_EVENTS'; error: unknown }
   | { type: 'LOADING_EVENT' }
   | { type: 'GET_EVENT'; data: Event }
-  | { type: 'FAILURE_EVENT'; error: any }
+  | { type: 'FAILURE_EVENT'; error: unknown }
   | { type: 'LOADING_USER_EVENTS' }
   | { type: 'GET_USER_EVENTS'; data: Event[] }
-  | { type: 'FAILURE_USER_EVENTS'; error: any }
+  | { type: 'FAILURE_USER_EVENTS'; error: unknown }
   | { type: 'UPDATE_EVENTS'; data: Event[] };
 
 // 디스패치를 위한 타입 (Dispatch 를 리액트에서 불러올 수 있음), 액션들의 타입을 Dispatch 의 Generics로 설정
@@ -219,11 +218,6 @@ export const fetchUserEvents = async (dispatch: React.Dispatch<Action>) => {
 // provider 반환
 const EventProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    fetchEvents(dispatch);
-  }, []);
-
   return (
     <EventsStateContext.Provider value={state}>
       <EventsDispatchContext.Provider value={dispatch}>

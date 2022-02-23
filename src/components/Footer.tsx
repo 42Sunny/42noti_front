@@ -33,7 +33,7 @@ export default React.memo(Footer);
 
 const StyledFooter = styled.footer`
   height: 90px;
-  padding: 20px;
+  padding: 16px 0 18px;
   font-size: 0.85rem;
   line-height: 1.3rem;
   text-align: center;

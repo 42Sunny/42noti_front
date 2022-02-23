@@ -81,7 +81,7 @@ const Button = styled.button`
   width: 100%;
   max-width: 350px;
   padding: 13px;
-  margin: 2px 0 10px;
+  margin: 2px 0 6px;
   font-size: 0.9rem;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.gray};

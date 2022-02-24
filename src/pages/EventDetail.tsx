@@ -64,12 +64,15 @@ const EventDetail: React.FC = () => {
     }
   };
 
+  // const setMetaTags = ({ event }: Event) => {
+  // let meta = document.querySelector('meta[name="description"]');
+  // meta?.setAttribute('content', event.title);
+  // };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (!event) {
-      fetchedEvent();
-    }
+    if (!event) fetchedEvent();
     alarmState(eventId);
+    window.scrollTo(0, 0);
   }, [eventId, fetchedEvent, event]);
 
   return (
@@ -212,6 +215,5 @@ const StyledSubscription = styled.div`
   border-top: 1px solid #e5e5e5;
   margin-top: 14px;
 `;
-
 
 export default EventDetail;

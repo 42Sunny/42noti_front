@@ -92,6 +92,12 @@ const Button = styled.button`
   svg {
     vertical-align: -40%;
   }
+  &:hover {
+    color: ${({ theme }) => theme.colors.blue};
+  }
+  &:hover svg {
+    fill: ${({ theme }) => theme.colors.blue};
+  }
 `;
 
 const LastPageDiv = styled.div`

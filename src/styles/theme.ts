@@ -52,6 +52,7 @@ export const colors = {
   skyblue: ' rgb(88, 210, 231)',
   mint: 'rgb(66, 218, 209)',
   blue: 'rgb(63, 161, 253)',
+  lightblue: 'rgb(90, 175, 265)',
   purple: ' rgb(117, 131, 253)',
   lightgray: 'rgb(187, 189, 202)',
   gray: 'rgb(124, 126, 139)',

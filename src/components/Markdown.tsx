@@ -45,4 +45,7 @@ const StyledMarkdown = styled.div`
     list-style: inside;
     margin: 10px;
   }
+  li > p {
+    display: inline;
+  }
 `;

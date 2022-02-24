@@ -32,7 +32,7 @@ const Footer = () => {
 export default React.memo(Footer);
 
 const StyledFooter = styled.footer`
-  height: 90px;
+  height: 78px;
   padding: 16px 0 18px;
   font-size: 0.85rem;
   line-height: 1.3rem;

@@ -212,8 +212,14 @@ const StyledSubscription = styled.div`
   align-items: center;
   gap: 0.5rem;
   padding: 20px 0 2px 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid ${({ theme }) => theme.colors.darksnow};
   margin-top: 14px;
+  &:hover {
+    color: ${({ theme }) => theme.colors.blue};
+  }
+  &:hover svg {
+    fill: ${({ theme }) => theme.colors.blue};
+  }
 `;
 
 export default EventDetail;
